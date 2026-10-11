@@ -53,7 +53,8 @@ export default defineConfig(({ mode }) => {
               { src: 'icons/pwa-192.png', sizes: '192x192', type: 'image/png' },
               { src: 'icons/pwa-512.png', sizes: '512x512', type: 'image/png' },
               {
-                src: 'icons/pwa-512.png',
+                // maskable 单独一张：内容收在安全区内，避免被圆形/圆角裁到字标两端
+                src: 'icons/pwa-maskable-512.png',
                 sizes: '512x512',
                 type: 'image/png',
                 purpose: 'maskable',
@@ -91,6 +92,9 @@ export default defineConfig(({ mode }) => {
       // BigInt 字面量（IP / 进制换算引擎）要求 ES2020+，故目标不低于 es2020
       target: 'es2020',
       cssTarget: 'chrome80',
+      // 小图直接内联为 data URI：NewE 标识（约 12KB）随页面走，
+      // 使单文件产物保持自包含、PWA 预缓存不增加独立资源条目
+      assetsInlineLimit: 32 * 1024,
       // 单文件模式下无需分块
       chunkSizeWarningLimit: 1500,
     },

@@ -31,11 +31,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Liuyi/NE_TOOL.git"
+    "url": "git+https://github.com/liuyimr/NE_TOOL.git"
   },
-  "homepage": "https://github.com/Liuyi/NE_TOOL#readme",
+  "homepage": "https://github.com/liuyimr/NE_TOOL#readme",
   "bugs": {
-    "url": "https://github.com/Liuyi/NE_TOOL/issues"
+    "url": "https://github.com/liuyimr/NE_TOOL/issues"
   },
   "scripts": {
     "dev": "vite",

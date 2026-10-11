@@ -1,4 +1,7 @@
 import { useState, type ReactNode } from 'react';
+// NewE 标识：构建时内联为 data URI（见 vite.config.ts 的 assetsInlineLimit），
+// 保证单文件构建同样自包含，不额外产生外部资源请求
+import neweLogo from '@/assets/newe-logo.webp';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import { byDomain, getAll } from '@/registry';
@@ -51,7 +54,11 @@ export default function AboutPage(): JSX.Element {
   return (
     <div className="flex flex-col gap-4">
       <section className="ne-surface flex flex-col items-center gap-1 px-4 py-6 text-center">
-        <span className="text-4xl">🧰</span>
+        <img
+          src={neweLogo}
+          alt="新易科技工作室 NewE"
+          className="mb-1 h-11 w-auto rounded-md bg-white px-2 py-1.5 ring-1 ring-border"
+        />
         <h2 className="text-lg font-semibold text-fg">{APP_NAME}</h2>
         <p className="text-xs text-muted">
           {APP_NAME_EN} · 版本 v{APP_VERSION}

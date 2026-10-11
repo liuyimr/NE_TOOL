@@ -1,9 +1,15 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-![Version](https://img.shields.io/badge/version-1.0.0-informational)
-![PWA](https://img.shields.io/badge/PWA-offline--ready-success)
-![React](https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white)
+<p align="center">
+  <img src="assets/newe-logo.png" alt="新易科技工作室 NewE" width="340">
+</p>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <img src="https://img.shields.io/badge/version-1.0.0-informational" alt="version 1.0.0">
+  <img src="https://img.shields.io/badge/PWA-offline--ready-success" alt="PWA offline ready">
+  <img src="https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white" alt="React 18">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white" alt="TypeScript 5">
+  <img src="https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white" alt="Vite 5">
+</p>
 
 # 工程师工具箱 · Engineer Toolbox
 
@@ -87,7 +93,7 @@
 
 ### 拷一个 HTML 文件走
 
-`npm run build:single` 会产出一个 `index.html`（约 340 KB），JS 和 CSS 全在里面，没有外部依赖。拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
+`npm run build:single` 会产出一个 `index.html`（约 350 KB），JS、CSS 和标识图片全在里面，没有外部依赖。拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
 
 ### 装到手机主屏
 
@@ -151,7 +157,7 @@ src/
 | 离线 | vite-plugin-pwa | Workbox 全量预缓存 |
 | 单文件 | vite-plugin-singlefile | 拷一个 HTML 就能用 |
 
-没引 MUI，没引大数库，没引 i18n 库。IP 和进制换算用原生 BigInt，金额计算用整数「分」，避免浮点误差。运行时依赖 gzip 后大约 90 KB。
+没引 MUI，没引大数库，没引 i18n 库。IP 和进制换算用原生 BigInt，金额计算用整数「分」，避免浮点误差。运行时依赖 gzip 后大约 95 KB。
 
 ## 数据来源与免责
 
@@ -167,11 +173,13 @@ src/
 
 ## 反馈
 
-有算错的地方、想要的新工具、或者数据过时了，都可以在 [Issues](https://github.com/Liuyi/NE_TOOL/issues) 里提。反馈时带上输入值和你期望的结果，我改起来会快很多。
+有算错的地方、想要的新工具、或者数据过时了，都可以在 [Issues](https://github.com/liuyimr/NE_TOOL/issues) 里提。反馈时带上输入值和你期望的结果，我改起来会快很多。
 
 ## 许可
 
 [MIT](LICENSE)
+
+由 [新易科技工作室（NewE）](https://github.com/liuyimr) 开发维护。
 
 ---
 

@@ -17,7 +17,7 @@ export const AUTHOR = 'Liuyi · 新易科技工作室（NewE）';
 /** 联系邮箱 */
 export const CONTACT_EMAIL = 'yimr@sohu.com';
 /** 开源仓库地址 */
-export const REPO_URL = 'https://github.com/Liuyi/NE_TOOL';
+export const REPO_URL = 'https://github.com/liuyimr/NE_TOOL';
 /** 问题反馈地址 */
 export const ISSUES_URL = `${REPO_URL}/issues`;
 /** 开源许可 */

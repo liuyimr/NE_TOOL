@@ -1,11 +1,14 @@
+import { Suspense, lazy } from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 import AppShell from '@/components/layout/AppShell';
 import HomePage from '@/pages/HomePage';
 import ToolPage from '@/pages/ToolPage';
 import SearchPage from '@/pages/SearchPage';
 import FavoritesPage from '@/pages/FavoritesPage';
-import AboutPage from '@/pages/AboutPage';
 import NotFoundPage from '@/pages/NotFoundPage';
+
+/** 关于页按需加载：内置的 NewE 标识以 data URI 形式随该 chunk 走，不进主包 */
+const AboutPage = lazy(() => import('@/pages/AboutPage'));
 
 /**
  * 应用根组件：HashRouter 路由表
@@ -26,7 +29,16 @@ export default function App(): JSX.Element {
           <Route path="/tool/:id" element={<ToolPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/favorites" element={<FavoritesPage />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route
+            path="/about"
+            element={
+              <Suspense
+                fallback={<p className="py-8 text-center text-sm text-muted">正在加载…</p>}
+              >
+                <AboutPage />
+              </Suspense>
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
