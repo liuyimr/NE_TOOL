@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * 语义化 CSS 变量 —— 深浅主题的唯一切换点
+ * 默认 GitHub 暗色；.light / [data-theme='light'] 覆盖为浅色。
+ * 品牌主色统一走 --ne-accent，日后换 NewE 品牌色只需改这一个值。
+ */
+:root,
+.dark {
+  --ne-bg: #0d1117;
+  --ne-surface: #161b22;
+  --ne-surface-2: #21262d;
+  --ne-border: #30363d;
+  --ne-fg: #c9d1d9;
+  --ne-muted: #8b949e;
+  --ne-accent: #58a6ff;
+  --ne-accent-fg: #0d1117;
+  --ne-success: #3fb950;
+  --ne-warning: #d29922;
+  --ne-danger: #f85149;
+}
+
+.light,
+[data-theme='light'] {
+  --ne-bg: #ffffff;
+  --ne-surface: #f6f8fa;
+  --ne-surface-2: #eaeef2;
+  --ne-border: #d0d7de;
+  --ne-fg: #1f2328;
+  --ne-muted: #656d76;
+  --ne-accent: #0969da;
+  --ne-accent-fg: #ffffff;
+  --ne-success: #1a7f37;
+  --ne-warning: #9a6700;
+  --ne-danger: #cf222e;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-bg text-fg;
+    margin: 0;
+    font-family:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', 'Noto Sans SC', Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 100vh;
+    /* 移动端浏览器地址栏收放时用动态视口高度，避免底部被裁切 */
+    min-height: 100dvh;
+    /* 阻止整页横向橡皮筋，表格内单独滚动 */
+    overscroll-behavior-x: none;
+  }
+
+  /* 表单控件继承主题色，避免系统默认白底 */
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  /*
+   * 表单控件字号固定 16px：iOS Safari 在小于 16px 时会因聚焦自动放大整个页面。
+   * 放在 base 层，具体工具仍可用 text-* 类覆盖。
+   */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* 触控元素：去掉双击缩放等待与长按菜单，点击更跟手 */
+  button,
+  a,
+  [role='button'] {
+    touch-action: manipulation;
+  }
+
+  /* 数字输入去掉步进箭头（移动端更整洁） */
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  a {
+    color: var(--ne-accent);
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--ne-accent);
+    color: var(--ne-accent-fg);
+  }
+}
+
+@layer components {
+  /* 通用卡片表面 */
+  .ne-surface {
+    @apply bg-surface border border-border rounded;
+  }
+
+  /* 可点击/可聚焦元素的统一焦点样式（无障碍） */
+  .ne-focus {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg;
+  }
+
+  /* 宽内容（如速查表）横向滚动：移动端惯性滚动 + 阻止冒泡到整页 */
+  .ne-scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  /* 细滚动条（桌面端），移动端系统自带滚动条不受影响 */
+  .ne-scroll-x::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .ne-scroll-x::-webkit-scrollbar-thumb {
+    background: var(--ne-border);
+    border-radius: 4px;
+  }
+}

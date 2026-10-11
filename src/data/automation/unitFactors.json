@@ -1,0 +1,28 @@
+{
+  "id": "automation.unitFactors",
+  "title": "单位换算速查（压力/温度/长度/力/流量）",
+  "domain": "automation",
+  "columns": [
+    { "key": "category", "label": "类别", "align": "left" },
+    { "key": "expr", "label": "换算关系", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "p1", "label": "压力", "values": { "category": "压力", "expr": "1 bar = 100 kPa = 0.1 MPa = 14.5038 psi = 1.0197 kgf/cm²", "note": "≈ 100000 Pa" } },
+    { "id": "p2", "label": "压力", "values": { "category": "压力", "expr": "1 MPa = 10 bar = 145.038 psi = 10.197 kgf/cm²", "note": "工程常用" } },
+    { "id": "p3", "label": "压力", "values": { "category": "压力", "expr": "1 atm = 101.325 kPa = 760 mmHg", "note": "标准大气压" } },
+    { "id": "t1", "label": "温度", "values": { "category": "温度", "expr": "℉ = ℃ × 9/5 + 32；K = ℃ + 273.15", "note": "仿射变换，注意偏移" } },
+    { "id": "l1", "label": "长度", "values": { "category": "长度", "expr": "1 in = 25.4 mm；1 ft = 304.8 mm；1 mil = 0.0254 mm", "note": "英寸/英尺/密尔" } },
+    { "id": "l2", "label": "长度", "values": { "category": "长度", "expr": "1 m = 1000 mm = 100 cm = 39.3701 in", "note": "公制" } },
+    { "id": "f1", "label": "力", "values": { "category": "力", "expr": "1 kgf = 9.80665 N；1 lbf = 4.44822 N", "note": "重力加速度 9.80665" } },
+    { "id": "f2", "label": "力", "values": { "category": "力", "expr": "1 kN = 1000 N ≈ 101.97 kgf", "note": "工程常用" } },
+    { "id": "q1", "label": "流量", "values": { "category": "流量", "expr": "1 m³/h = 16.667 L/min = 0.2778 L/s", "note": "体积流量" } },
+    { "id": "q2", "label": "流量", "values": { "category": "流量", "expr": "1 m³/h ≈ 4.4029 US gpm；1 m³/h ≈ 0.5886 CFM", "note": "美制单位" } },
+    { "id": "pw1", "label": "功率", "values": { "category": "功率", "expr": "1 kW = 1.341 hp = 1.36 PS(米制)", "note": "马力换算" } },
+    { "id": "e1", "label": "能量", "values": { "category": "能量", "expr": "1 kWh = 3.6 MJ = 860 kcal；1 kW ≈ 3412 BTU/h", "note": "制冷常用 BTU" } },
+    { "id": "m1", "label": "质量", "values": { "category": "质量", "expr": "1 t = 1000 kg；1 kg = 2.2046 lb", "note": "公制/英制" } }
+  ],
+  "searchable": true,
+  "source": "GB 3100《国际单位制及其应用》及通用换算表",
+  "updatedAt": "2024-01-01"
+}

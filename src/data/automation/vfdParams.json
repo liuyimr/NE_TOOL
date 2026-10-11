@@ -1,0 +1,30 @@
+{
+  "id": "automation.vfdParams",
+  "title": "变频器常用参数速查",
+  "domain": "automation",
+  "columns": [
+    { "key": "group", "label": "参数组", "align": "left" },
+    { "key": "name", "label": "名称", "align": "left" },
+    { "key": "desc", "label": "说明/典型值", "align": "left" }
+  ],
+  "rows": [
+    { "id": "p0-01", "label": "P0.01", "values": { "group": "基本", "name": "控制方式", "desc": "0=V/F，1=矢量控制，2=转矩控制" } },
+    { "id": "p0-02", "label": "P0.02", "values": { "group": "基本", "name": "运行命令源", "desc": "0=面板，1=端子，2=通讯" } },
+    { "id": "p0-03", "label": "P0.03", "values": { "group": "基本", "name": "频率源", "desc": "0=面板，1=AI，2=通讯，3=多段速" } },
+    { "id": "p1-01", "label": "P1.01", "values": { "group": "电机参数", "name": "额定功率", "desc": "按电机铭牌 kW 设置" } },
+    { "id": "p1-02", "label": "P1.02", "values": { "group": "电机参数", "name": "额定电压", "desc": "380 V / 220 V" } },
+    { "id": "p1-03", "label": "P1.03", "values": { "group": "电机参数", "name": "额定电流", "desc": "按铭牌 A 设置——过载保护基础" } },
+    { "id": "p1-04", "label": "P1.04", "values": { "group": "电机参数", "name": "额定频率", "desc": "50 Hz（国内）" } },
+    { "id": "p1-05", "label": "P1.05", "values": { "group": "电机参数", "name": "额定转速", "desc": "如 1440 rpm（4 极）" } },
+    { "id": "p2-01", "label": "P2.01", "values": { "group": "加减速", "name": "加速时间", "desc": "0~3000 s，指 0→最高频率耗时" } },
+    { "id": "p2-02", "label": "P2.02", "values": { "group": "加减速", "name": "减速时间", "desc": "过短易过压跳闸，过长影响制动" } },
+    { "id": "p3-01", "label": "P3.01", "values": { "group": "载波", "name": "载波频率", "desc": "1~15 kHz；高载波噪声小但发热大" } },
+    { "id": "p4-01", "label": "P4.01", "values": { "group": "保护", "name": "电子热保护", "desc": "过载保护系数，按电机负载率" } },
+    { "id": "p5-01", "label": "P5.01", "values": { "group": "通讯", "name": "通讯地址", "desc": "Modbus 从站地址 1~247" } },
+    { "id": "p5-02", "label": "P5.02", "values": { "group": "通讯", "name": "波特率", "desc": "9600 / 19200 / 38400 bps" } },
+    { "id": "p5-03", "label": "P5.03", "values": { "group": "通讯", "name": "数据格式", "desc": "8-N-1 / 8-E-1 等" } }
+  ],
+  "searchable": true,
+  "source": "主流变频器（汇川/台达/西门子/ABB）通用参数体系",
+  "updatedAt": "2024-01-01"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "automation.modbusExceptions",
+  "title": "Modbus 异常码说明",
+  "domain": "automation",
+  "columns": [
+    { "key": "code", "label": "异常码", "align": "left", "mono": true },
+    { "key": "hex", "label": "HEX", "align": "left", "mono": true },
+    { "key": "name", "label": "名称", "align": "left" },
+    { "key": "cause", "label": "常见原因", "align": "left" }
+  ],
+  "rows": [
+    { "id": "ex01", "label": "01", "values": { "code": "01", "hex": "0x01", "name": "非法功能 (Illegal Function)", "cause": "从站不支持该功能码" } },
+    { "id": "ex02", "label": "02", "values": { "code": "02", "hex": "0x02", "name": "非法数据地址 (Illegal Data Address)", "cause": "寄存器地址不存在或越界" } },
+    { "id": "ex03", "label": "03", "values": { "code": "03", "hex": "0x03", "name": "非法数据值 (Illegal Data Value)", "cause": "数据值/数量超出允许范围" } },
+    { "id": "ex04", "label": "04", "values": { "code": "04", "hex": "0x04", "name": "从站设备故障 (Slave Device Failure)", "cause": "从站内部错误" } },
+    { "id": "ex05", "label": "05", "values": { "code": "05", "hex": "0x05", "name": "确认 (Acknowledge)", "cause": "请求已接受，处理中" } },
+    { "id": "ex06", "label": "06", "values": { "code": "06", "hex": "0x06", "name": "从站设备忙 (Slave Device Busy)", "cause": "从站正处理长任务" } },
+    { "id": "ex08", "label": "08", "values": { "code": "08", "hex": "0x08", "name": "存储奇偶校验错 (Memory Parity Error)", "cause": "存储校验失败" } },
+    { "id": "ex0a", "label": "10", "values": { "code": "10", "hex": "0x0A", "name": "网关路径不可用 (Gateway Path Unavailable)", "cause": "网关无法分配内部路径" } },
+    { "id": "ex0b", "label": "11", "values": { "code": "11", "hex": "0x0B", "name": "网关目标无响应 (Gateway Target Device Failed to Respond)", "cause": "目标从站未响应" } }
+  ],
+  "searchable": true,
+  "source": "MODBUS Application Protocol Specification V1.1b3",
+  "updatedAt": "2024-01-01"
+}

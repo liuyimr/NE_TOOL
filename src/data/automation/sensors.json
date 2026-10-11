@@ -1,0 +1,25 @@
+{
+  "id": "automation.sensors",
+  "title": "常用传感器输出信号",
+  "domain": "automation",
+  "columns": [
+    { "key": "sensor", "label": "传感器", "align": "left" },
+    { "key": "signal", "label": "输出信号", "align": "left" },
+    { "key": "range", "label": "典型量程", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "pt100", "label": "PT100", "values": { "sensor": "铂电阻 PT100", "signal": "电阻", "range": "100 Ω @ 0 ℃，−200~650 ℃", "note": "A 级 ≈ ±(0.15+0.002|t|) ℃" } },
+    { "id": "pt1000", "label": "PT1000", "values": { "sensor": "铂电阻 PT1000", "signal": "电阻", "range": "1000 Ω @ 0 ℃", "note": "引线误差更小，适合两线制长线" } },
+    { "id": "tc-k", "label": "K 型热电偶", "values": { "sensor": "K 型热电偶", "signal": "mV（热电势）", "range": "≈ 41 µV/℃（0~1000 ℃ 平均）", "note": "需冷端补偿" } },
+    { "id": "tc-s", "label": "S 型热电偶", "values": { "sensor": "S 型热电偶", "signal": "mV", "range": "≈ 6~10 µV/℃", "note": "高温，贵金属" } },
+    { "id": "ma", "label": "4-20mA", "values": { "sensor": "两线制变送器", "signal": "4-20 mA", "range": "4 对应量程下限，20 对应上限", "note": "抗干扰强，长距离传输" } },
+    { "id": "v", "label": "0-10V", "values": { "sensor": "电压型变送器", "signal": "0-10 V", "range": "0 对应下限，10 对应上限", "note": "短距离，注意共地" } },
+    { "id": "loadcell", "label": "称重传感器", "values": { "sensor": "应变式称重", "signal": "mV/V", "range": "常见 2 mV/V、3 mV/V", "note": "需称重变送器/仪表" } },
+    { "id": "flow", "label": "流量计", "values": { "sensor": "涡轮/电磁/脉冲", "signal": "脉冲 / 4-20mA", "range": "脉冲当量 L/P", "note": "脉冲型按当量累加" } },
+    { "id": "rtd-ntc", "label": "NTC", "values": { "sensor": "NTC 热敏电阻", "signal": "电阻（负温度系数）", "range": "10kΩ @ 25 ℃ 常见", "note": "非线性，需分度表" } }
+  ],
+  "searchable": true,
+  "source": "IEC 60751(PT100)、IEC 60584(热电偶) 及厂商手册",
+  "updatedAt": "2024-01-01"
+}

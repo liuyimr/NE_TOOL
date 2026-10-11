@@ -1,0 +1,24 @@
+{
+  "id": "network.rj45",
+  "title": "RJ45 引脚定义（1-8 脚）",
+  "domain": "network",
+  "columns": [
+    { "key": "pin", "label": "脚位", "align": "left" },
+    { "key": "eth100", "label": "10/100BASE-TX", "align": "left" },
+    { "key": "gige", "label": "1000BASE-T", "align": "left" },
+    { "key": "poe", "label": "PoE 供电", "align": "left" }
+  ],
+  "rows": [
+    { "id": "pin1", "label": "1", "values": { "pin": "1", "eth100": "TX+ 发送+", "gige": "BI_DA+", "poe": "—" }, "note": "T568B 白橙 / T568A 白绿" },
+    { "id": "pin2", "label": "2", "values": { "pin": "2", "eth100": "TX− 发送−", "gige": "BI_DA−", "poe": "—" }, "note": "T568B 橙 / T568A 绿" },
+    { "id": "pin3", "label": "3", "values": { "pin": "3", "eth100": "RX+ 接收+", "gige": "BI_DB+", "poe": "—" }, "note": "T568B 白绿 / T568A 白橙" },
+    { "id": "pin4", "label": "4", "values": { "pin": "4", "eth100": "未用", "gige": "BI_DC+", "poe": "PoE+ (Mode B / 空闲对)" }, "note": "T568B 蓝" },
+    { "id": "pin5", "label": "5", "values": { "pin": "5", "eth100": "未用", "gige": "BI_DC−", "poe": "PoE+ (Mode B / 空闲对)" }, "note": "T568B 白蓝" },
+    { "id": "pin6", "label": "6", "values": { "pin": "6", "eth100": "RX− 接收−", "gige": "BI_DB−", "poe": "—" }, "note": "T568B 绿 / T568A 橙" },
+    { "id": "pin7", "label": "7", "values": { "pin": "7", "eth100": "未用", "gige": "BI_DD+", "poe": "PoE− (Mode B / 空闲对)" }, "note": "T568B 白棕" },
+    { "id": "pin8", "label": "8", "values": { "pin": "8", "eth100": "未用", "gige": "BI_DD−", "poe": "PoE− (Mode B / 空闲对)" }, "note": "T568B 棕" }
+  ],
+  "searchable": true,
+  "source": "IEEE 802.3、IEEE 802.3af/at/bt(PoE)",
+  "updatedAt": "2024-01-01"
+}

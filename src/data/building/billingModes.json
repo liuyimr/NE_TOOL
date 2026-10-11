@@ -1,0 +1,20 @@
+{
+  "id": "building.billingModes",
+  "title": "中央空调计费模式对照",
+  "domain": "building",
+  "columns": [
+    { "key": "mode", "label": "计费模式", "align": "left" },
+    { "key": "principle", "label": "原理", "align": "left" },
+    { "key": "meter", "label": "计量装置", "align": "left" },
+    { "key": "scene", "label": "适用场景", "align": "left" }
+  ],
+  "rows": [
+    { "id": "time", "label": "时间型", "values": { "mode": "时间型", "principle": "按风机盘管有效运行时长 × 档位权重分摊", "meter": "温控器/联网型 FCU 计费模块（三档：高/中/低）", "scene": "写字楼、酒店、公寓 FCU 独立计量" } },
+    { "id": "energy", "label": "能量型", "values": { "mode": "能量型（冷/热量）", "principle": "Q = 流量 × 供回水温差 × 比热（积分）", "meter": "超声波冷热量表 + 温度传感器", "scene": "分户/分区能量计量" } },
+    { "id": "cold", "label": "冷量型", "values": { "mode": "冷量型", "principle": "累计冷量（kWh）× 单价", "meter": "冷量表", "scene": "大区域/楼层能量分摊" } },
+    { "id": "area", "label": "面积型", "values": { "mode": "面积型", "principle": "按建筑面积比例分摊总费用", "meter": "无（按面积）", "scene": "简易分摊，无需末端计量" } }
+  ],
+  "searchable": true,
+  "source": "CJ/T 358、JGJ 173、《民用建筑供暖通风与空气调节设计规范》",
+  "updatedAt": "2024-01-01"
+}

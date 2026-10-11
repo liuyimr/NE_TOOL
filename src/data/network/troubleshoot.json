@@ -1,0 +1,29 @@
+{
+  "id": "network.troubleshoot",
+  "title": "网络排障命令速查",
+  "domain": "network",
+  "columns": [
+    { "key": "cmd", "label": "命令", "align": "left", "mono": true },
+    { "key": "syntax", "label": "常用语法", "align": "left", "mono": true },
+    { "key": "use", "label": "用途", "align": "left" }
+  ],
+  "rows": [
+    { "id": "ping", "label": "ping", "values": { "cmd": "ping", "syntax": "ping 192.168.1.1 -n 4 / ping -c 4 host", "use": "测试连通性与往返时延（Windows -n，Linux -c）" } },
+    { "id": "ping-t", "label": "ping -t", "values": { "cmd": "ping -t", "syntax": "ping -t 8.8.8.8", "use": "Windows 持续 ping（Ctrl+C 停止）" } },
+    { "id": "ping-l", "label": "ping -l", "values": { "cmd": "ping -l", "syntax": "ping -l 1472 -f host", "use": "指定报文大小 + 不分片，测 MTU" } },
+    { "id": "tracert", "label": "tracert / traceroute", "values": { "cmd": "tracert", "syntax": "tracert host / traceroute host", "use": "逐跳路由追踪，定位中断节点" } },
+    { "id": "pathping", "label": "pathping", "values": { "cmd": "pathping", "syntax": "pathping host", "use": "Windows 路由+各跳丢包统计" } },
+    { "id": "nslookup", "label": "nslookup", "values": { "cmd": "nslookup", "syntax": "nslookup domain 8.8.8.8", "use": "DNS 解析测试，指定 DNS 服务器" } },
+    { "id": "ipconfig", "label": "ipconfig", "values": { "cmd": "ipconfig /all", "syntax": "ipconfig /all  |  ipconfig /flushdns", "use": "查看 IP/网关/MAC；刷新 DNS 缓存" } },
+    { "id": "ip", "label": "ip (Linux)", "values": { "cmd": "ip addr", "syntax": "ip addr  |  ip route", "use": "Linux 查看地址与路由" } },
+    { "id": "netstat", "label": "netstat", "values": { "cmd": "netstat -ano", "syntax": "netstat -ano | findstr :80", "use": "查看端口占用/连接与对应 PID" } },
+    { "id": "arp", "label": "arp", "values": { "cmd": "arp -a", "syntax": "arp -a", "use": "查看 ARP 表（IP↔MAC 映射）" } },
+    { "id": "route", "label": "route", "values": { "cmd": "route print", "syntax": "route print  |  route add ...", "use": "查看/添加路由表" } },
+    { "id": "telnet", "label": "telnet", "values": { "cmd": "telnet", "syntax": "telnet host 502", "use": "测试 TCP 端口连通（Windows 需启用功能）" } },
+    { "id": "nc", "label": "nc (netcat)", "values": { "cmd": "nc", "syntax": "nc -vz host 443", "use": "跨平台端口探测" } },
+    { "id": "curl", "label": "curl", "values": { "cmd": "curl", "syntax": "curl -I http://host", "use": "发起 HTTP 请求查看响应头" } }
+  ],
+  "searchable": true,
+  "source": "Windows / Linux 常用网络命令手册",
+  "updatedAt": "2024-01-01"
+}

@@ -1,0 +1,24 @@
+{
+  "id": "automation.modbus",
+  "title": "Modbus 功能码与异常码",
+  "domain": "automation",
+  "columns": [
+    { "key": "code", "label": "功能码", "align": "left", "mono": true },
+    { "key": "hex", "label": "HEX", "align": "left", "mono": true },
+    { "key": "name", "label": "名称", "align": "left" },
+    { "key": "addr", "label": "对象/地址", "align": "left" }
+  ],
+  "rows": [
+    { "id": "fc01", "label": "01", "values": { "code": "01", "hex": "0x01", "name": "读线圈 (Read Coils)", "addr": "线圈 00001-09999" } },
+    { "id": "fc02", "label": "02", "values": { "code": "02", "hex": "0x02", "name": "读离散输入 (Read Discrete Inputs)", "addr": "离散输入 10001-19999" } },
+    { "id": "fc03", "label": "03", "values": { "code": "03", "hex": "0x03", "name": "读保持寄存器 (Read Holding Registers)", "addr": "保持寄存器 40001-49999" } },
+    { "id": "fc04", "label": "04", "values": { "code": "04", "hex": "0x04", "name": "读输入寄存器 (Read Input Registers)", "addr": "输入寄存器 30001-39999" } },
+    { "id": "fc05", "label": "05", "values": { "code": "05", "hex": "0x05", "name": "写单个线圈 (Write Single Coil)", "addr": "值 0x0000=OFF / 0xFF00=ON" } },
+    { "id": "fc06", "label": "06", "values": { "code": "06", "hex": "0x06", "name": "写单个寄存器 (Write Single Register)", "addr": "保持寄存器" } },
+    { "id": "fc15", "label": "15", "values": { "code": "15", "hex": "0x0F", "name": "写多个线圈 (Write Multiple Coils)", "addr": "线圈" } },
+    { "id": "fc16", "label": "16", "values": { "code": "16", "hex": "0x10", "name": "写多个寄存器 (Write Multiple Registers)", "addr": "保持寄存器" } }
+  ],
+  "searchable": true,
+  "source": "MODBUS Application Protocol Specification V1.1b3",
+  "updatedAt": "2024-01-01"
+}

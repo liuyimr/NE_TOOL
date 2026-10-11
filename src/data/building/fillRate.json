@@ -1,0 +1,19 @@
+{
+  "id": "building.fillRate",
+  "title": "桥架 / 管路填充率限值",
+  "domain": "building",
+  "columns": [
+    { "key": "type", "label": "敷设方式", "align": "left" },
+    { "key": "limit", "label": "填充率限值", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "power-tray", "label": "电力桥架", "values": { "type": "电力电缆桥架", "limit": "≤ 40%", "note": "电力电缆截面（含外护层）之和占比" } },
+    { "id": "weak-tray", "label": "弱电桥架", "values": { "type": "弱电/控制电缆桥架", "limit": "≤ 50%", "note": "综合布线/弱电线缆" } },
+    { "id": "conduit", "label": "穿管", "values": { "type": "电线管 / 保护管", "limit": "≤ 40%", "note": "管径利用率，导线含绝缘层" } },
+    { "id": "slot", "label": "线槽", "values": { "type": "线槽", "limit": "电力 ≤ 40% / 弱电 ≤ 50%", "note": "同桥架口径" } }
+  ],
+  "searchable": true,
+  "source": "GB 50217、GB 50303、GB 50311",
+  "updatedAt": "2024-01-01"
+}

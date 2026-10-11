@@ -1,0 +1,21 @@
+{
+  "id": "automation.servo",
+  "title": "伺服选型速查",
+  "domain": "automation",
+  "columns": [
+    { "key": "item", "label": "项目", "align": "left" },
+    { "key": "value", "label": "要点/范围", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "power", "label": "功率档", "values": { "item": "功率档位", "value": "50W / 100W / 200W / 400W / 750W / 1kW / 2kW / 3.5kW / 5kW", "note": "按负载转矩×转速估功率" } },
+    { "id": "torque", "label": "额定转矩", "values": { "item": "转矩", "value": "额定 0.16~23.9 N·m", "note": "峰值转矩通常为额定 3 倍" } },
+    { "id": "speed", "label": "额定转速", "values": { "item": "转速", "value": "1000/1500/2000/3000 rpm", "note": "常用 3000 rpm" } },
+    { "id": "inertia", "label": "惯量匹配", "values": { "item": "惯量比", "value": "负载惯量/电机惯量 ≤ 5~10", "note": "过大影响响应与稳定" } },
+    { "id": "encoder", "label": "编码器", "values": { "item": "反馈精度", "value": "17bit/20bit/23bit 绝对值", "note": "越高定位越精" } },
+    { "id": "voltage", "label": "电压等级", "values": { "item": "供电", "value": "单相 220V / 三相 380V", "note": "大功率多三相" } }
+  ],
+  "searchable": true,
+  "source": "主流伺服厂商（松下/安川/汇川/台达）选型手册",
+  "updatedAt": "2024-01-01"
+}

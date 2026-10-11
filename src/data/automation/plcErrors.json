@@ -1,0 +1,30 @@
+{
+  "id": "automation.plcErrors",
+  "title": "常见故障代码 / 报警速查",
+  "domain": "automation",
+  "columns": [
+    { "key": "device", "label": "设备/品牌", "align": "left" },
+    { "key": "code", "label": "代码", "align": "left", "mono": true },
+    { "key": "meaning", "label": "含义", "align": "left" },
+    { "key": "check", "label": "排查方向", "align": "left" }
+  ],
+  "rows": [
+    { "id": "vfd-oc", "label": "OC", "values": { "device": "变频器通用", "code": "OC / E.OC", "meaning": "过电流", "check": "负载堵转、加速时间过短、输出短路、电机绝缘" } },
+    { "id": "vfd-ou", "label": "OU", "values": { "device": "变频器通用", "code": "OU / E.OU", "meaning": "过电压", "check": "减速时间过短、制动电阻异常、再生能量" } },
+    { "id": "vfd-lu", "label": "LU", "values": { "device": "变频器通用", "code": "LU / E.LU", "meaning": "欠电压", "check": "输入电压偏低、缺相、接触器/整流问题" } },
+    { "id": "vfd-oh", "label": "OH", "values": { "device": "变频器通用", "code": "OH / E.OH", "meaning": "过热", "check": "散热风扇、风道、环境温度、载波频率过高" } },
+    { "id": "vfd-ol", "label": "OL", "values": { "device": "变频器通用", "code": "OL / E.OL", "meaning": "过载", "check": "电机负载偏大、电子热保护设定、V/F 曲线" } },
+    { "id": "vfd-ef", "label": "EF", "values": { "device": "变频器通用", "code": "EF / E.EF", "meaning": "接地/对地短路", "check": "对地绝缘、电缆破损、电机受潮" } },
+    { "id": "s7-sf", "label": "SF", "values": { "device": "西门子 S7", "code": "SF (红)", "meaning": "系统故障", "check": "硬件配置、I/O 模块、诊断缓冲区" } },
+    { "id": "s7-bf", "label": "BF", "values": { "device": "西门子 S7", "code": "BF (红)", "meaning": "总线故障", "check": "Profibus/Profinet 接线、终端电阻、地址冲突" } },
+    { "id": "s7-dc5v", "label": "DC5V", "values": { "device": "西门子 S7", "code": "DC5V (红)", "meaning": "5V 总线电源故障", "check": "总线连接器、背板总线" } },
+    { "id": "ab-flt", "label": "FLT", "values": { "device": "罗克韦尔 AB", "code": "FLT", "meaning": "控制器故障", "check": "查看故障码与 Major/Minor 故障" } },
+    { "id": "modbus-3", "label": "Modbus", "values": { "device": "Modbus 通信", "code": "0x03", "meaning": "非法数据值", "check": "寄存器数量/地址范围是否合法" } },
+    { "id": "modbus-2", "label": "Modbus", "values": { "device": "Modbus 通信", "code": "0x02", "meaning": "非法数据地址", "check": "寄存器地址是否存在、偏移是否错误" } },
+    { "id": "modbus-4", "label": "Modbus", "values": { "device": "Modbus 通信", "code": "0x04", "meaning": "从站设备故障", "check": "从站内部错误、重启从站" } },
+    { "id": "modbus-11", "label": "Modbus", "values": { "device": "Modbus 通信", "code": "0x0B", "meaning": "网关目标无响应", "check": "目标从站掉电/断线、地址错误" } }
+  ],
+  "searchable": true,
+  "source": "变频器/PLC 厂商手册汇总（持续扩充，需内容 Owner 维护）",
+  "updatedAt": "2024-01-01"
+}

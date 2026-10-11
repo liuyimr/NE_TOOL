@@ -1,0 +1,23 @@
+{
+  "id": "network.wifiSignal",
+  "title": "WiFi 信号强度参考（RSSI）",
+  "domain": "network",
+  "columns": [
+    { "key": "level", "label": "等级", "align": "left" },
+    { "key": "dbm", "label": "RSSI (dBm)", "align": "left" },
+    { "key": "quality", "label": "信号质量", "align": "left" },
+    { "key": "use", "label": "典型体验", "align": "left" }
+  ],
+  "rows": [
+    { "id": "s1", "label": "极强", "values": { "level": "极强", "dbm": "≥ −30", "quality": "100%", "use": "紧邻 AP" } },
+    { "id": "s2", "label": "优", "values": { "level": "优", "dbm": "−30 ~ −50", "quality": "最佳", "use": "高清视频/低延迟游戏" } },
+    { "id": "s3", "label": "良", "values": { "level": "良", "dbm": "−50 ~ −67", "quality": "良好", "use": "网页/视频流畅" } },
+    { "id": "s4", "label": "临界", "values": { "level": "临界", "dbm": "−67 ~ −70", "quality": "一般", "use": "语音可用，视频偶卡" } },
+    { "id": "s5", "label": "弱", "values": { "level": "弱", "dbm": "−70 ~ −80", "quality": "较差", "use": "掉线/丢包增多" } },
+    { "id": "s6", "label": "极弱", "values": { "level": "极弱", "dbm": "−80 ~ −90", "quality": "差", "use": "基本无法使用" } },
+    { "id": "s7", "label": "掉线", "values": { "level": "掉线", "dbm": "< −90", "quality": "不可用", "use": "断开连接" } }
+  ],
+  "searchable": true,
+  "source": "行业通用 RSSI 参考（思科/Meraki 勘测经验值）",
+  "updatedAt": "2024-01-01"
+}

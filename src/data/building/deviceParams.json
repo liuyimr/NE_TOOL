@@ -1,0 +1,23 @@
+{
+  "id": "building.deviceParams",
+  "title": "设备参数速查（电梯/水泵/风机等）",
+  "domain": "building",
+  "columns": [
+    { "key": "device", "label": "设备", "align": "left" },
+    { "key": "param", "label": "常用参数范围", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "elevator-speed", "label": "乘客电梯", "values": { "device": "乘客电梯", "param": "额定速度 1.0~2.5 m/s", "note": "超高层可达 4~6 m/s" } },
+    { "id": "elevator-load", "label": "电梯载重", "values": { "device": "乘客电梯", "param": "载重 630/800/1000/1350 kg", "note": "对应 8/10/13/18 人" } },
+    { "id": "escalator", "label": "自动扶梯", "values": { "device": "自动扶梯", "param": "梯级宽 600/800/1000 mm，速度 0.5 m/s", "note": "提升高度 ≤ 6m 常用 30°/35°" } },
+    { "id": "pump-flow", "label": "生活水泵", "values": { "device": "离心水泵", "param": "流量 1~50 m³/h，扬程 10~120 m", "note": "按用水量与最不利点压力选型" } },
+    { "id": "fan", "label": "通风机", "values": { "device": "离心/轴流风机", "param": "风量 500~50000 m³/h，全压 100~1500 Pa", "note": "按换气次数或热负荷计算" } },
+    { "id": "fcu", "label": "风机盘管", "values": { "device": "FCU", "param": "风量 200~1400 m³/h，制冷量 1.8~7.2 kW", "note": "按房间冷负荷选型" } },
+    { "id": "chiller", "label": "冷水机组", "values": { "device": "离心/螺杆冷水机", "param": "制冷量 100~3000 RT", "note": "1 RT ≈ 3.517 kW" } },
+    { "id": "cooling-tower", "label": "冷却塔", "values": { "device": "冷却塔", "param": "冷却水量 = 制冷量 × 1.2~1.3", "note": "按冷凝热负荷选型" } }
+  ],
+  "searchable": true,
+  "source": "GB/T 2820、产品样本与《实用供热空调设计手册》",
+  "updatedAt": "2024-01-01"
+}

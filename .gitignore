@@ -1,0 +1,38 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+dist-single/
+dist-ssr/
+*.local
+
+# 日志
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# 编辑器 / 系统
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# 测试 / 缓存
+coverage/
+.vite/
+.tmp/
+.vtmp/
+.tmp-vitest/
+*.tsbuildinfo
+
+# 内部规划与验证文档（协作过程产物，不随公开仓库发布）
+docs/
+
+# 本地工具数据
+.workbuddy/
+.codebuddy/

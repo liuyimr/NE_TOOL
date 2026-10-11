@@ -1,0 +1,23 @@
+{
+  "id": "building.ddcTemplate",
+  "title": "BA / DDC 点位模板与容量规则",
+  "domain": "building",
+  "columns": [
+    { "key": "item", "label": "项目", "align": "left" },
+    { "key": "value", "label": "推荐值/规则", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "ddc-capacity", "label": "DDC 容量", "values": { "item": "单台 DDC 点数", "value": "32 / 48 / 64 点等", "note": "按点位类型组合（AI/AO/DI/DO）" } },
+    { "id": "margin", "label": "点数余量", "values": { "item": "预留余量", "value": "15%~20%", "note": "便于后期扩展与备点" } },
+    { "id": "ddc-count", "label": "DDC 数量", "values": { "item": "DDC 数量估算", "value": "ceil(总点数 ÷ 单点容量 ÷ 0.8)", "note": "按 80% 负载率反算" } },
+    { "id": "ai-rule", "label": "AI 规则", "values": { "item": "AI 点位", "value": "温度/湿度/压力/水浸", "note": "0-10V 或 4-20mA 或 NTC/PT1000" } },
+    { "id": "do-rule", "label": "DO 规则", "values": { "item": "DO 点位", "value": "风机/水泵启停", "note": "继电器输出，注意触点容量" } },
+    { "id": "ao-rule", "label": "AO 规则", "values": { "item": "AO 点位", "value": "调节阀/变频器频率给定", "note": "0-10V 或 4-20mA 输出" } },
+    { "id": "bus", "label": "通信总线", "values": { "item": "现场总线", "value": "BACnet MS/TP、Modbus RTU、KNX", "note": "MS/TP 单段 ≤ 约 1200m" } },
+    { "id": "power", "label": "供电", "values": { "item": "DDC 供电", "value": "AC24V 或 DC24V", "note": "注意变压器容量与压降" } }
+  ],
+  "searchable": true,
+  "source": "GB 50314、主流 DDC 厂商（西门子/江森/霍尼韦尔）工程手册",
+  "updatedAt": "2024-01-01"
+}

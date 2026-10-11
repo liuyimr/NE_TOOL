@@ -1,0 +1,70 @@
+{
+  "id": "network.cableColor",
+  "title": "网线线序（T568A / T568B）",
+  "domain": "network",
+  "columns": [
+    { "key": "p1", "label": "1 白", "align": "left" },
+    { "key": "p2", "label": "2", "align": "left" },
+    { "key": "p3", "label": "3", "align": "left" },
+    { "key": "p4", "label": "4", "align": "left" },
+    { "key": "p5", "label": "5", "align": "left" },
+    { "key": "p6", "label": "6", "align": "left" },
+    { "key": "p7", "label": "7", "align": "left" },
+    { "key": "p8", "label": "8", "align": "left" }
+  ],
+  "rows": [
+    {
+      "id": "t568b",
+      "label": "T568B",
+      "values": {
+        "p1": "白橙",
+        "p2": "橙",
+        "p3": "白绿",
+        "p4": "蓝",
+        "p5": "白蓝",
+        "p6": "绿",
+        "p7": "白棕",
+        "p8": "棕"
+      },
+      "note": "工程最常用标准；直通线两端同为 T568B。",
+      "cells": [
+        { "text": "白橙", "color": "#e8a76a" },
+        { "text": "橙", "color": "#e07b39" },
+        { "text": "白绿", "color": "#8fd18f" },
+        { "text": "蓝", "color": "#4a90d9" },
+        { "text": "白蓝", "color": "#a9c7ea" },
+        { "text": "绿", "color": "#3fae3f" },
+        { "text": "白棕", "color": "#c9a37a" },
+        { "text": "棕", "color": "#8a5a2b" }
+      ]
+    },
+    {
+      "id": "t568a",
+      "label": "T568A",
+      "values": {
+        "p1": "白绿",
+        "p2": "绿",
+        "p3": "白橙",
+        "p4": "蓝",
+        "p5": "白蓝",
+        "p6": "橙",
+        "p7": "白棕",
+        "p8": "棕"
+      },
+      "note": "1-2、3-6 与 T568B 对调；直通线两端同为 T568A。",
+      "cells": [
+        { "text": "白绿", "color": "#8fd18f" },
+        { "text": "绿", "color": "#3fae3f" },
+        { "text": "白橙", "color": "#e8a76a" },
+        { "text": "蓝", "color": "#4a90d9" },
+        { "text": "白蓝", "color": "#a9c7ea" },
+        { "text": "橙", "color": "#e07b39" },
+        { "text": "白棕", "color": "#c9a37a" },
+        { "text": "棕", "color": "#8a5a2b" }
+      ]
+    }
+  ],
+  "searchable": true,
+  "source": "TIA/EIA-568-B.2、GB/T 50311",
+  "updatedAt": "2024-01-01"
+}

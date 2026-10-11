@@ -1,0 +1,29 @@
+{
+  "id": "automation.cableAmpacity",
+  "title": "铜芯导线载流量参考",
+  "domain": "automation",
+  "columns": [
+    { "key": "section", "label": "截面 (mm²)", "align": "left", "mono": true },
+    { "key": "air", "label": "明敷/空气 (A)", "align": "left" },
+    { "key": "pipe", "label": "穿管 (A)", "align": "left" },
+    { "key": "breaker", "label": "参考空开 (A)", "align": "left" }
+  ],
+  "rows": [
+    { "id": "s1", "label": "1.0", "values": { "section": "1.0", "air": "11", "pipe": "9", "breaker": "6" } },
+    { "id": "s1.5", "label": "1.5", "values": { "section": "1.5", "air": "15", "pipe": "13", "breaker": "10" } },
+    { "id": "s2.5", "label": "2.5", "values": { "section": "2.5", "air": "21", "pipe": "18", "breaker": "16" } },
+    { "id": "s4", "label": "4", "values": { "section": "4", "air": "28", "pipe": "24", "breaker": "25" } },
+    { "id": "s6", "label": "6", "values": { "section": "6", "air": "36", "pipe": "31", "breaker": "32" } },
+    { "id": "s10", "label": "10", "values": { "section": "10", "air": "50", "pipe": "42", "breaker": "40" } },
+    { "id": "s16", "label": "16", "values": { "section": "16", "air": "68", "pipe": "56", "breaker": "63" } },
+    { "id": "s25", "label": "25", "values": { "section": "25", "air": "89", "pipe": "75", "breaker": "80" } },
+    { "id": "s35", "label": "35", "values": { "section": "35", "air": "110", "pipe": "92", "breaker": "100" } },
+    { "id": "s50", "label": "50", "values": { "section": "50", "air": "134", "pipe": "110", "breaker": "125" } },
+    { "id": "s70", "label": "70", "values": { "section": "70", "air": "171", "pipe": "140", "breaker": "160" } },
+    { "id": "s95", "label": "95", "values": { "section": "95", "air": "207", "pipe": "170", "breaker": "200" } },
+    { "id": "s120", "label": "120", "values": { "section": "120", "air": "239", "pipe": "195", "breaker": "225" } }
+  ],
+  "searchable": true,
+  "source": "GB/T 4706 / 电工手册（BV 铜芯塑料线，环境 30℃，单根直敷参考值）",
+  "updatedAt": "2024-01-01"
+}

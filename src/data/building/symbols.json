@@ -1,0 +1,23 @@
+{
+  "id": "building.symbols",
+  "title": "弱电系统图例 / 符号速查",
+  "domain": "building",
+  "columns": [
+    { "key": "symbol", "label": "图例/符号", "align": "left" },
+    { "key": "meaning", "label": "含义", "align": "left" },
+    { "key": "system", "label": "所属系统", "align": "left" }
+  ],
+  "rows": [
+    { "id": "cam", "label": "摄像机", "values": { "symbol": "▣ 方框带镜头", "meaning": "视频监控摄像机", "system": "CCTV" } },
+    { "id": "access", "label": "读卡器", "values": { "symbol": "▤", "meaning": "门禁读卡器", "system": "门禁 ACS" } },
+    { "id": "speaker", "label": "扬声器", "values": { "symbol": "◁", "meaning": "公共广播扬声器", "system": "广播 PA" } },
+    { "id": "detector", "label": "探测器", "values": { "symbol": "○ S", "meaning": "感烟探测器", "system": "消防 FAS" } },
+    { "id": "network", "label": "信息点", "values": { "symbol": "▽", "meaning": "数据/语音信息插座", "system": "综合布线" } },
+    { "id": "panel", "label": "机柜", "values": { "symbol": "▥", "meaning": "弱电机柜/机架", "system": "通用" } },
+    { "id": "thermostat", "label": "温控器", "values": { "symbol": "T", "meaning": "房间温控器", "system": "BA" } },
+    { "id": "sensor", "label": "传感器", "values": { "symbol": "⊙", "meaning": "温湿度/压力传感器", "system": "BA" } }
+  ],
+  "searchable": true,
+  "source": "GB/T 50786《建筑电气制图标准》及行业通用图例",
+  "updatedAt": "2024-01-01"
+}

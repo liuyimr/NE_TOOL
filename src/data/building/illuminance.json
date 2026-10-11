@@ -1,0 +1,25 @@
+{
+  "id": "building.illuminance",
+  "title": "照度标准值（GB 50034）",
+  "domain": "building",
+  "columns": [
+    { "key": "place", "label": "场所", "align": "left" },
+    { "key": "standard", "label": "照度标准值 (lx)", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "office", "label": "办公室", "values": { "place": "普通办公室 / 会议室", "standard": "300（0.75m 水平面）", "note": "设计值 300~500" } },
+    { "id": "office-high", "label": "办公室（精细）", "values": { "place": "设计/绘图室", "standard": "500", "note": "精细作业取高值" } },
+    { "id": "corridor", "label": "走道", "values": { "place": "走廊 / 楼梯间", "standard": "100", "note": "楼梯间不低于 50" } },
+    { "id": "server", "label": "机房", "values": { "place": "计算机/信息机房", "standard": "500", "note": "0.75m 水平面" } },
+    { "id": "classroom", "label": "教室", "values": { "place": "普通教室", "standard": "300", "note": "课桌面" } },
+    { "id": "elevator-lobby", "label": "电梯厅", "values": { "place": "电梯前厅", "standard": "75", "note": "一般 75~100" } },
+    { "id": "garage", "label": "车库", "values": { "place": "地下车库车道", "standard": "50", "note": "车位 30~50" } },
+    { "id": "lobby", "label": "大堂", "values": { "place": "门厅 / 大堂", "standard": "200", "note": "高档可 300" } },
+    { "id": "library", "label": "阅览室", "values": { "place": "图书馆阅览室", "standard": "300", "note": "书库 75" } },
+    { "id": "shop", "label": "营业厅", "values": { "place": "商店营业厅", "standard": "300", "note": "一般营业厅" } }
+  ],
+  "searchable": true,
+  "source": "GB 50034《建筑照明设计标准》",
+  "updatedAt": "2024-01-01"
+}

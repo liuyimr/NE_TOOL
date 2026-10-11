@@ -1,0 +1,24 @@
+{
+  "id": "network.cableSpec",
+  "title": "线缆规格与最大距离",
+  "domain": "network",
+  "columns": [
+    { "key": "type", "label": "类型", "align": "left" },
+    { "key": "standard", "label": "标准", "align": "left" },
+    { "key": "rate", "label": "典型速率", "align": "left" },
+    { "key": "distance", "label": "最大距离", "align": "left" }
+  ],
+  "rows": [
+    { "id": "cat5e", "label": "Cat5e", "values": { "type": "超五类双绞线", "standard": "TIA/EIA-568", "rate": "1 Gbps", "distance": "100 m" }, "note": "可短距跑 2.5G/5G" },
+    { "id": "cat6", "label": "Cat6", "values": { "type": "六类双绞线", "standard": "TIA/EIA-568", "rate": "10 Gbps", "distance": "55 m（10G）/ 100 m（1G）" } },
+    { "id": "cat6a", "label": "Cat6a", "values": { "type": "超六类双绞线", "standard": "TIA/EIA-568", "rate": "10 Gbps", "distance": "100 m" } },
+    { "id": "cat7", "label": "Cat7", "values": { "type": "七类（屏蔽）", "standard": "ISO/IEC 11801", "rate": "10 Gbps", "distance": "100 m" }, "note": "需专用 GG45/TERA 接头" },
+    { "id": "twisted", "label": "双绞线通用", "values": { "type": "铜缆双绞线", "standard": "TIA/EIA-568", "rate": "—", "distance": "通道 ≤100 m（永久链路 ≤90 m）" } },
+    { "id": "om3", "label": "OM3", "values": { "type": "多模光纤", "standard": "ISO/IEC 11801", "rate": "10 Gbps", "distance": "300 m（10G）" } },
+    { "id": "om4", "label": "OM4", "values": { "type": "多模光纤", "standard": "ISO/IEC 11801", "rate": "10 Gbps", "distance": "550 m（10G）/ 100 m（40/100G）" } },
+    { "id": "sm", "label": "单模", "values": { "type": "单模光纤 (OS1/OS2)", "standard": "ITU-T G.652", "rate": "10G/40G/100G", "distance": "10 km+（视光模块而定）" } }
+  ],
+  "searchable": true,
+  "source": "TIA/EIA-568、ISO/IEC 11801、ITU-T G.652",
+  "updatedAt": "2024-01-01"
+}

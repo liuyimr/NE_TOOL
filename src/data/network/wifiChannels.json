@@ -1,0 +1,43 @@
+{
+  "id": "network.wifiChannels",
+  "title": "无线信道频率（2.4G / 5G）",
+  "domain": "network",
+  "columns": [
+    { "key": "band", "label": "频段", "align": "left" },
+    { "key": "channel", "label": "信道", "align": "left" },
+    { "key": "freq", "label": "中心频率", "align": "left" },
+    { "key": "overlap", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "2g1", "label": "2.4G-1", "values": { "band": "2.4G", "channel": "1", "freq": "2412 MHz", "overlap": "不重叠组 1/6/11" } },
+    { "id": "2g2", "label": "2.4G-2", "values": { "band": "2.4G", "channel": "2", "freq": "2417 MHz", "overlap": "与 1/3 重叠" } },
+    { "id": "2g3", "label": "2.4G-3", "values": { "band": "2.4G", "channel": "3", "freq": "2422 MHz", "overlap": "与 1/6 部分重叠" } },
+    { "id": "2g4", "label": "2.4G-4", "values": { "band": "2.4G", "channel": "4", "freq": "2427 MHz", "overlap": "重叠区" } },
+    { "id": "2g5", "label": "2.4G-5", "values": { "band": "2.4G", "channel": "5", "freq": "2432 MHz", "overlap": "重叠区" } },
+    { "id": "2g6", "label": "2.4G-6", "values": { "band": "2.4G", "channel": "6", "freq": "2437 MHz", "overlap": "不重叠组 1/6/11" } },
+    { "id": "2g7", "label": "2.4G-7", "values": { "band": "2.4G", "channel": "7", "freq": "2442 MHz", "overlap": "重叠区" } },
+    { "id": "2g8", "label": "2.4G-8", "values": { "band": "2.4G", "channel": "8", "freq": "2447 MHz", "overlap": "重叠区" } },
+    { "id": "2g9", "label": "2.4G-9", "values": { "band": "2.4G", "channel": "9", "freq": "2452 MHz", "overlap": "重叠区" } },
+    { "id": "2g10", "label": "2.4G-10", "values": { "band": "2.4G", "channel": "10", "freq": "2457 MHz", "overlap": "重叠区" } },
+    { "id": "2g11", "label": "2.4G-11", "values": { "band": "2.4G", "channel": "11", "freq": "2462 MHz", "overlap": "不重叠组 1/6/11" } },
+    { "id": "2g12", "label": "2.4G-12", "values": { "band": "2.4G", "channel": "12", "freq": "2467 MHz", "overlap": "中国可用" } },
+    { "id": "2g13", "label": "2.4G-13", "values": { "band": "2.4G", "channel": "13", "freq": "2472 MHz", "overlap": "中国可用" } },
+    { "id": "5g36", "label": "5G-36", "values": { "band": "5G", "channel": "36", "freq": "5180 MHz", "overlap": "UNII-1" } },
+    { "id": "5g40", "label": "5G-40", "values": { "band": "5G", "channel": "40", "freq": "5200 MHz", "overlap": "UNII-1" } },
+    { "id": "5g44", "label": "5G-44", "values": { "band": "5G", "channel": "44", "freq": "5220 MHz", "overlap": "UNII-1" } },
+    { "id": "5g48", "label": "5G-48", "values": { "band": "5G", "channel": "48", "freq": "5240 MHz", "overlap": "UNII-1" } },
+    { "id": "5g52", "label": "5G-52", "values": { "band": "5G", "channel": "52", "freq": "5260 MHz", "overlap": "UNII-2A（DFS）" } },
+    { "id": "5g56", "label": "5G-56", "values": { "band": "5G", "channel": "56", "freq": "5280 MHz", "overlap": "UNII-2A（DFS）" } },
+    { "id": "5g60", "label": "5G-60", "values": { "band": "5G", "channel": "60", "freq": "5300 MHz", "overlap": "UNII-2A（DFS）" } },
+    { "id": "5g64", "label": "5G-64", "values": { "band": "5G", "channel": "64", "freq": "5320 MHz", "overlap": "UNII-2A（DFS）" } },
+    { "id": "5g100", "label": "5G-100", "values": { "band": "5G", "channel": "100", "freq": "5500 MHz", "overlap": "UNII-2C（DFS）" } },
+    { "id": "5g149", "label": "5G-149", "values": { "band": "5G", "channel": "149", "freq": "5745 MHz", "overlap": "UNII-3（非 DFS，国内常用）" } },
+    { "id": "5g153", "label": "5G-153", "values": { "band": "5G", "channel": "153", "freq": "5765 MHz", "overlap": "UNII-3" } },
+    { "id": "5g157", "label": "5G-157", "values": { "band": "5G", "channel": "157", "freq": "5785 MHz", "overlap": "UNII-3" } },
+    { "id": "5g161", "label": "5G-161", "values": { "band": "5G", "channel": "161", "freq": "5805 MHz", "overlap": "UNII-3" } },
+    { "id": "5g165", "label": "5G-165", "values": { "band": "5G", "channel": "165", "freq": "5825 MHz", "overlap": "UNII-3" } }
+  ],
+  "searchable": true,
+  "source": "IEEE 802.11、工信部 2.4G/5G 频率使用规划",
+  "updatedAt": "2024-01-01"
+}

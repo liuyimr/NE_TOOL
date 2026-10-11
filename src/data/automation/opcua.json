@@ -1,0 +1,23 @@
+{
+  "id": "automation.opcua",
+  "title": "OPC-UA 速查",
+  "domain": "automation",
+  "columns": [
+    { "key": "item", "label": "项目", "align": "left" },
+    { "key": "value", "label": "内容", "align": "left" },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "port", "label": "默认端口", "values": { "item": "端口", "value": "4840/tcp", "note": "opc.tcp 传输" } },
+    { "id": "url", "label": "端点 URL", "values": { "item": "Endpoint", "value": "opc.tcp://host:4840", "note": "可带 /path" } },
+    { "id": "addrspace", "label": "地址空间", "values": { "item": "Address Space", "value": "Objects / Types / Views", "note": "节点组织方式" } },
+    { "id": "nodeid", "label": "NodeId", "values": { "item": "节点标识", "value": "ns=<命名空间>;s=<字符串> 或 i=<整数>", "note": "如 ns=2;s=Device.Tag" } },
+    { "id": "services", "label": "核心服务", "values": { "item": "Services", "value": "Read/Write/Browse/Subscribe/Call", "note": "订阅支持数据变化上报" } },
+    { "id": "security", "label": "安全", "values": { "item": "Security", "value": "None / Sign / Sign&Encrypt", "note": "证书 + 策略（Basic256Sha256 等）" } },
+    { "id": "pubsub", "label": "PubSub", "values": { "item": "发布订阅", "value": "UDP / MQTT 传输", "note": "适合多播与边缘" } },
+    { "id": "classic", "label": "经典 vs UA", "values": { "item": "对比", "value": "UA 跨平台、内建安全与信息模型", "note": "取代 OPC DA/AE" } }
+  ],
+  "searchable": true,
+  "source": "IEC 62541（OPC UA）标准概要",
+  "updatedAt": "2024-01-01"
+}

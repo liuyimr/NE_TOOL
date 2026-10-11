@@ -1,0 +1,26 @@
+{
+  "id": "building.pointTypes",
+  "title": "弱电点位类型与统计口径",
+  "domain": "building",
+  "columns": [
+    { "key": "system", "label": "系统", "align": "left" },
+    { "key": "code", "label": "点位代号", "align": "left" },
+    { "key": "desc", "label": "点位说明", "align": "left" },
+    { "key": "unit", "label": "统计单位", "align": "left" }
+  ],
+  "rows": [
+    { "id": "ba-ai", "label": "BA-AI", "values": { "system": "楼宇自控 BA", "code": "AI", "desc": "模拟量输入（温度/湿度/压力/水位）", "unit": "点" } },
+    { "id": "ba-ao", "label": "BA-AO", "values": { "system": "楼宇自控 BA", "code": "AO", "desc": "模拟量输出（阀位/变频调节）", "unit": "点" } },
+    { "id": "ba-di", "label": "BA-DI", "values": { "system": "楼宇自控 BA", "code": "DI", "desc": "数字量输入（状态/告警/启停反馈）", "unit": "点" } },
+    { "id": "ba-do", "label": "BA-DO", "values": { "system": "楼宇自控 BA", "code": "DO", "desc": "数字量输出（启停控制）", "unit": "点" } },
+    { "id": "cctv", "label": "CCTV", "values": { "system": "视频监控", "code": "CAM", "desc": "摄像机点位（含 POE 供电）", "unit": "路" } },
+    { "id": "access", "label": "ACS", "values": { "system": "门禁", "code": "ACS", "desc": "门禁读卡器/电锁/出门按钮点位", "unit": "门" } },
+    { "id": "fire", "label": "FAS", "values": { "system": "消防报警", "code": "FAS", "desc": "探测器/手报/声光/模块点位", "unit": "点" } },
+    { "id": "pa", "label": "PA", "values": { "system": "公共广播", "code": "PA", "desc": "扬声器/音量控制器点位", "unit": "只" } },
+    { "id": "network", "label": "LAN", "values": { "system": "综合布线/网络", "code": "TO", "desc": "信息点（数据/语音插座）", "unit": "点" } },
+    { "id": "parking", "label": "PGS", "values": { "system": "停车场", "code": "PGS", "desc": "车位检测/道闸/引导点位", "unit": "位" } }
+  ],
+  "searchable": true,
+  "source": "GB 50314《智能建筑设计标准》及行业常见口径",
+  "updatedAt": "2024-01-01"
+}
