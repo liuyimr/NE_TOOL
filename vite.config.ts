@@ -41,7 +41,7 @@ export default defineConfig(({ mode }) => {
           manifest: {
             name: '工程师工具箱',
             short_name: '工程工具箱',
-            description: '网络 / 建筑智能化 / 工业自动化工程师常用计算与速查，离线可用',
+            description: '网络 / 建筑智能化 / 工业自动化 / 水电工程师常用计算与速查，离线可用',
             lang: 'zh-CN',
             start_url: './',
             scope: './',

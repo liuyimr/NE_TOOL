@@ -88,3 +88,66 @@ export function maxLengthForDrop(input: CableDropInput, targetPercent = 5): numb
   const allowedV = (input.voltage * targetPercent) / 100;
   return (allowedV * input.section) / (factor * rho * input.current);
 }
+
+// ============================================================================
+// 以下为「按功率输入」的简化系数法增强（追加，不影响上面的按电流精确算法）。
+// 公式（PRD 水电 #5）：ΔU% = P·L/(C·S)
+//   P(kW)、L(m)、S(mm²)；三相铜 C=76.5 / 铝 46.3，单相铜 12.8 / 铝 7.75。
+// 说明：C 与材质、相制相关，是工程速算法；精确算法（cableVoltageDrop）仍保留。
+// ============================================================================
+
+/** 简化系数法常数 C（按相制 × 材质） */
+export const COEFFICIENT_C: Record<CircuitPhase, Record<ConductorMaterial, number>> = {
+  three: { copper: 76.5, aluminum: 46.3 },
+  single: { copper: 12.8, aluminum: 7.75 },
+};
+
+/** 允许电压降限值（%）：照明一般取 2.5%，动力一般取 5% */
+export const ALLOWABLE_DROP: { lighting: number; power: number } = {
+  lighting: 2.5,
+  power: 5,
+};
+
+export interface SimpleDropInput {
+  /** 有功功率 P（kW） */
+  powerKw: number;
+  /** 单程线缆长度 L（m） */
+  length: number;
+  /** 导体截面 S（mm²） */
+  section: number;
+  /** 材质（默认铜） */
+  material?: ConductorMaterial;
+  /** 相制（默认三相） */
+  phase?: CircuitPhase;
+  /** 是否照明回路（限值 2.5%，否则 5%） */
+  lighting?: boolean;
+}
+
+export interface SimpleDropResult {
+  /** 电压降百分比（%） */
+  percent: number;
+  /** 选用的系数 C */
+  coefficient: number;
+  /** 判据限值（%） */
+  limit: number;
+  /** 是否合规 */
+  compliant: boolean;
+}
+
+/**
+ * 简化系数法电压降 ΔU% = P·L/(C·S)
+ * @param input 输入参数
+ */
+export function simpleVoltageDrop(input: SimpleDropInput): SimpleDropResult {
+  const material = input.material ?? 'copper';
+  const phase = input.phase ?? 'three';
+  const coefficient = COEFFICIENT_C[phase][material];
+  const limit = input.lighting ? ALLOWABLE_DROP.lighting : ALLOWABLE_DROP.power;
+
+  const section = input.section > 0 ? input.section : 0;
+  if (section <= 0) {
+    return { percent: 0, coefficient, limit, compliant: false };
+  }
+  const percent = (input.powerKw * input.length) / (coefficient * section);
+  return { percent, coefficient, limit, compliant: percent <= limit };
+}

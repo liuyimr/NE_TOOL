@@ -11,6 +11,7 @@ const DOMAIN_TABS: { key: Domain | 'all'; label: string }[] = [
   { key: 'network', label: '网络' },
   { key: 'building', label: '智能化' },
   { key: 'automation', label: '工控' },
+  { key: 'water', label: '水电' },
 ];
 
 /**

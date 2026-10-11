@@ -24,4 +24,4 @@ export const ISSUES_URL = `${REPO_URL}/issues`;
 export const LICENSE_NAME = 'MIT';
 
 /** 一句话简介（关于页与 manifest 复用） */
-export const APP_TAGLINE = '网络、建筑智能化、工业自动化工程师的离线工具箱';
+export const APP_TAGLINE = '网络、建筑智能化、工业自动化与水电工程师的离线工具箱';

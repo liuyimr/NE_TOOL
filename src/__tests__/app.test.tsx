@@ -6,15 +6,15 @@ import { getAll } from '@/registry';
 
 /**
  * 集成/冒烟测试（jsdom）：
- * - 全部 43 个工具均有 Component（无占位）
+ * - 全部 58 个工具均有 Component（无占位）
  * - 首页可渲染，标题与工具卡片链接存在
  */
 afterEach(() => cleanup());
 
 describe('应用渲染与注册完整性', () => {
-  it('43 个工具均具备 Component', () => {
+  it('58 个工具均具备 Component', () => {
     const tools = getAll();
-    expect(tools.length).toBe(43);
+    expect(tools.length).toBe(58);
     const missing = tools.filter((t) => !t.Component).map((t) => t.id);
     expect(missing).toEqual([]);
   });
@@ -27,7 +27,7 @@ describe('应用渲染与注册完整性', () => {
     expect(screen.getByText(/搜索工具、端口、功能码/)).toBeTruthy();
     // 至少渲染出若干工具卡片链接
     const links = container.querySelectorAll('a[href^="#/tool/"]');
-    expect(links.length).toBe(43);
+    expect(links.length).toBe(58);
   });
 
   it('含 P0 关键工具文案', () => {

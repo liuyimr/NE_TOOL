@@ -115,6 +115,7 @@ function getIcon(toolId: string): string {
     network: '🌐',
     building: '🏢',
     automation: '⚙️',
+    water: '🔌',
   };
   const domain = toolId.split('.')[0] ?? 'network';
   return map[domain] ?? '🔧';

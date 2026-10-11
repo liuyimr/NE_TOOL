@@ -1,0 +1,29 @@
+{
+  "id": "water.groundingLimits",
+  "title": "接地电阻限值与土壤电阻率速查",
+  "domain": "water",
+  "columns": [
+    { "key": "category", "label": "类别", "align": "left" },
+    { "key": "item", "label": "项目", "align": "left" },
+    { "key": "value", "label": "限值 / 参考值", "align": "left", "mono": true },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "pe-4", "label": "保护接地", "values": { "category": "接地限值", "item": "低压电气设备保护接地（单独设置）", "value": "≤4 Ω", "note": "TN/TT 系统保护接地" } },
+    { "id": "common-4", "label": "共用接地", "values": { "category": "接地限值", "item": "防雷与电气等共用接地装置", "value": "≤4 Ω", "note": "取各系统要求中的最小值" } },
+    { "id": "lightning-10", "label": "独立接闪", "values": { "category": "接地限值", "item": "独立接闪杆 / 架空接闪线专用接地装置", "value": "≤10 Ω", "note": "与电气接地分开设置时" } },
+    { "id": "static-100", "label": "防静电", "values": { "category": "接地限值", "item": "防静电接地", "value": "≤100 Ω", "note": "工艺/储罐防静电" } },
+    { "id": "idc-4", "label": "机房接地", "values": { "category": "接地限值", "item": "信息机房等电位/接地", "value": "≤4 Ω", "note": "数据中心接地系统" } },
+    { "id": "neutral-4", "label": "工作接地", "values": { "category": "接地限值", "item": "变压器中性点工作接地", "value": "≤4 Ω", "note": "容量较大时按规程" } },
+    { "id": "soil-marsh", "label": "沼泽/淤泥", "values": { "category": "土壤电阻率 ρ", "item": "沼泽土、淤泥、淤泥质黏土", "value": "5 ~ 30 Ω·m", "note": "含水量高，电阻率低" } },
+    { "id": "soil-clay", "label": "黏土", "values": { "category": "土壤电阻率 ρ", "item": "黏土", "value": "8 ~ 70 Ω·m", "note": "常见，接地条件较好" } },
+    { "id": "soil-loam", "label": "砂质黏土", "values": { "category": "土壤电阻率 ρ", "item": "砂质黏土、壤土", "value": "30 ~ 100 Ω·m", "note": "中性" } },
+    { "id": "soil-loess", "label": "黄土", "values": { "category": "土壤电阻率 ρ", "item": "黄土", "value": "100 ~ 200 Ω·m", "note": "干燥时电阻率上升" } },
+    { "id": "soil-sand", "label": "砂土", "values": { "category": "土壤电阻率 ρ", "item": "砂土", "value": "250 ~ 1000 Ω·m", "note": "接地电阻偏高" } },
+    { "id": "soil-gravel", "label": "砾石", "values": { "category": "土壤电阻率 ρ", "item": "砾石、碎石", "value": "500 ~ 2000 Ω·m", "note": "需换土或加接地模块" } },
+    { "id": "soil-rock", "label": "岩石", "values": { "category": "土壤电阻率 ρ", "item": "岩石", "value": "1000 ~ 5000 Ω·m", "note": "很难达标，需专项措施" } }
+  ],
+  "searchable": true,
+  "source": "GB 50057《建筑物防雷设计规范》、GB 50054《低压配电设计规范》、GB 50174《数据中心设计规范》；土壤电阻率参考值为通用近似范围（随含水量与季节变化）",
+  "updatedAt": "2024-06-01"
+}

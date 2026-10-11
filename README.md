@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <img src="https://img.shields.io/badge/version-1.0.0-informational" alt="version 1.0.0">
+  <img src="https://img.shields.io/badge/version-1.1.0-informational" alt="version 1.1.0">
   <img src="https://img.shields.io/badge/PWA-offline--ready-success" alt="PWA offline ready">
   <img src="https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white" alt="React 18">
   <img src="https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white" alt="TypeScript 5">
@@ -14,13 +14,13 @@
 ## 只想快点用起来？
 
 - 直接打开 **<https://liuyimr.github.io/NE_TOOL/>** 就能用，不用装任何东西。
-- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 370 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
+- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 410 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
 
 想改代码、自己构建，继续看下面的开发说明。
 
 # 工程师工具箱 · Engineer Toolbox
 
-给网络工程师、建筑智能化（弱电）工程师和工业自动化工程师用的工具箱。43 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
+给网络工程师、建筑智能化（弱电）工程师、工业自动化工程师和机电安装/运维工程师用的工具箱。58 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
 
 机房、弱电间、地下室、工地经常没信号，所以它做成纯前端加 PWA：第一次打开之后断网也能用，手机上"添加到主屏"就跟装了个 App 一样。不注册、不登录、不上传数据，所有计算都在你自己的浏览器里跑完。
 
@@ -28,11 +28,11 @@
 
 ## 你可能在找
 
-子网计算器 / CIDR 网段划分 · T568A T568B 线序 · RJ45 引脚定义 · 常用端口号（502、102、44818、4840）· 2.4G 5G 无线信道 · 监控摄像头存储容量 · 硬盘配置 · 中央空调时间型计费 · FCU 分摊 · 4-20mA 转工程量 · 0-10V 换算 · PT100 温度换算 · 热电偶 mV · Modbus 功能码 · Modbus 异常码 · 三相电机电流 · 电机扭矩 · 电缆电压降 · 导线载流量 · 分压电阻 · 限流电阻 · IEEE754 浮点转换 · BCD 转换 · 照度计算 · 灯具数量 · 桥架填充率 · UPS 容量 · 综合布线线缆长度
+子网计算器 / CIDR 网段划分 · T568A T568B 线序 · RJ45 引脚定义 · 常用端口号（502、102、44818、4840）· 2.4G 5G 无线信道 · 监控摄像头存储容量 · 硬盘配置 · 中央空调时间型计费 · FCU 分摊 · 4-20mA 转工程量 · 0-10V 换算 · PT100 温度换算 · 热电偶 mV · Modbus 功能码 · Modbus 异常码 · 三相电机电流 · 电机扭矩 · 电缆电压降 · 导线载流量 · 分压电阻 · 限流电阻 · IEEE754 浮点转换 · BCD 转换 · 照度计算 · 灯具数量 · 桥架填充率 · UPS 容量 · 综合布线线缆长度 · 计算负荷（需要系数法）· 单相三相功率电流 · 断路器与导线配合 · 穿线管管径 · 应急照明电池 · 给水秒流量 · 给水管径 · 水泵扬程与轴功率 · 排水坡度 · 热水加热功率 · 接地电阻 · 防雷保护范围
 
 ## 有哪些工具
 
-一共 43 个，按三个领域分开。
+一共 58 个，按四个领域分开。
 
 ### A. 网络工程（13 个）
 
@@ -92,6 +92,26 @@
 | C16 | OPC-UA 速查 | 地址空间、节点与默认端口 |
 | C17 | 常见故障代码 / 报警速查 | 常见 PLC 与变频器报警码 |
 
+### D. 水电（强电与给排水，15 个）
+
+| 编号 | 工具 | 说明 |
+|---|---|---|
+| D1 | 计算负荷（需要系数法） | 按设备清单与需要系数算 Pc / Qc / Sc / Ic，定配电箱与进线容量 |
+| D2 | 单相 / 三相 功率电流换算 | P = √3·U·I·cosφ（单相去掉 √3），功率与电流双向换算 |
+| D3 | 电压降计算（复用 C10） | 按电流精确式 + 按功率简化系数法，含照明 2.5% / 动力 5% 判定 |
+| D4 | 断路器选型与导线配合 | 校验 I_b ≤ I_n ≤ I_z 且 I₂ ≤ 1.45·I_z，推荐 B/C/D 脱扣曲线 |
+| D5 | 穿线管管径选择 | 填充率 ≤40%/60% 且内径 ≥1.5×线束外径，给出推荐管径 |
+| D6 | 应急照明时长与电池容量 | C = P·t/(U·η·DoD)，校核消防 30 / 90 min |
+| D7 | 给水设计秒流量（当量法） | q_g = 0.2·α·√N_g，定给水干管管径 |
+| D8 | 管径选择（按流量与流速） | d = √(4Q/(π·v)) 反算管径并就近选 DN，回算实际流速 |
+| D9 | 给水所需压力 / 扬程计算 | H = H_几何 + Σh_f + Σh_j + H_自由，定水泵扬程 |
+| D10 | 水泵选型与轴功率计算 | P = Q·H/(367·η)，给出轴功率与配套电机功率建议 |
+| D11 | 排水管径与坡度校核 | 对照 DN50~DN200 标准 / 最小坡度，判定是否可排 |
+| D12 | 热水耗热量与加热功率 | P = 1.163·V·ΔT/(t·1000·η)，定热水加热设备 |
+| D13 | 接地电阻与接地体数量估算 | R₁ = ρ/(2πL)·ln(4L/d)，R = R₁/(n·η)，算所需接地体根数 |
+| D14 | 土壤电阻率与接地电阻限值速查 | 保护接地 / 接闪 / 防静电限值与各类土壤 ρ 参考 |
+| D15 | 防雷保护范围（滚球法） | 按类别取滚球半径，算接闪杆保护半径与引下线根数 |
+
 ## 怎么用
 
 ### 零安装：在线打开，或下载单文件
@@ -99,7 +119,7 @@
 两种方式任选其一：
 
 - **在线打开**：<https://liuyimr.github.io/NE_TOOL/>，第一次打开后浏览器会缓存全部资源，之后没网也能用，「添加到主屏」可以当 App 用。
-- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 370 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
+- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 410 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
 
 > `docs/index.html` 是构建产物（由命令生成），请不要手改。
 
@@ -151,8 +171,8 @@ npm run preview        # 预览标准构建产物
 ```
 src/
 ├── types/       数据契约，唯一真源：tool / quickref / calculator / store
-├── registry/    工具注册表，配置驱动的核心：index / network / building / automation
-├── data/        速查数据，与代码分离：network / building / automation 下的 JSON
+├── registry/    工具注册表，配置驱动的核心：index / network / building / automation / water
+├── data/        速查数据，与代码分离：network / building / automation / water 下的 JSON
 ├── lib/
 │   ├── calc/    纯计算函数，不依赖 React，可单独测试
 │   ├── engine/  单位换算引擎，按类别和因子注册
@@ -171,7 +191,7 @@ src/
 | 用途 | 选型 | 为什么 |
 |---|---|---|
 | 构建 | Vite 5 | 启动快，配置少，PWA 和单文件都有现成插件 |
-| 框架 | React 18 + TypeScript | 43 个工具的配置驱动需要类型兜底 |
+| 框架 | React 18 + TypeScript | 58 个工具的配置驱动需要类型兜底 |
 | 样式 | Tailwind CSS 3 | 颜色走 CSS 变量，切换主题只改一处 |
 | 路由 | React Router 6（HashRouter） | 离线深链和单文件本地打开都不会 404 |
 | 状态 | Zustand + persist | 收藏、最近使用、主题存 localStorage |
@@ -207,7 +227,7 @@ src/
 
 ## English
 
-An offline-first toolbox for network engineers, building-automation (ELV) engineers and industrial-automation engineers. 43 calculators and quick-reference tables: subnet/CIDR calculator, T568A/T568B wiring, RJ45 pinout, common port numbers, WiFi channel planning, CCTV storage sizing, FCU time-based billing, 4-20mA scaling, PT100 conversion, Modbus function codes, three-phase motor and cable voltage-drop calculations, IEEE754, and more.
+An offline-first toolbox for network engineers, building-automation (ELV) engineers, industrial-automation engineers and electrical/plumbing (MEP) engineers. 58 calculators and quick-reference tables: subnet/CIDR calculator, T568A/T568B wiring, RJ45 pinout, common port numbers, WiFi channel planning, CCTV storage sizing, FCU time-based billing, 4-20mA scaling, PT100 conversion, Modbus function codes, three-phase motor and cable voltage-drop calculations, load estimation, breaker coordination, conduit sizing, water-demand flow, pump head and shaft power, drainage slope, water-heating power, grounding resistance and lightning protection, and more.
 
 Vanilla front-end only. No backend, no login, no telemetry. Installable as a PWA and works fully offline after the first visit. A single-file HTML build is included for USB stick distribution.
 

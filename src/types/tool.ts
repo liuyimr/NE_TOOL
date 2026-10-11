@@ -1,9 +1,9 @@
 import type { ComponentType } from 'react';
 
 /**
- * 工具领域：网络 / 建筑智能化 / 工业自动化
+ * 工具领域：网络 / 建筑智能化（弱电） / 工业自动化 / 水电（强电与给排水）
  */
-export type Domain = 'network' | 'building' | 'automation';
+export type Domain = 'network' | 'building' | 'automation' | 'water';
 
 /** 工具形态：计算器 / 速查 / 换算器 */
 export type ToolKind = 'calculator' | 'quickref' | 'converter';

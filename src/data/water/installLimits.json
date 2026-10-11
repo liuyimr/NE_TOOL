@@ -1,0 +1,28 @@
+{
+  "id": "water.installLimits",
+  "title": "电气安装尺寸与规范限值速查",
+  "domain": "water",
+  "columns": [
+    { "key": "item", "label": "项目", "align": "left" },
+    { "key": "value", "label": "限值 / 尺寸", "align": "left", "mono": true },
+    { "key": "condition", "label": "适用条件", "align": "left" },
+    { "key": "source", "label": "依据", "align": "left" }
+  ],
+  "rows": [
+    { "id": "socket-height", "label": "普通插座安装高度", "values": { "item": "电源插座", "value": "0.3 m（一般）", "condition": "一般场所，距地高度", "source": "GB 50303 / 住宅装饰装修常规" } },
+    { "id": "socket-kitchen", "label": "厨房插座高度", "values": { "item": "厨房台面插座", "value": "1.0~1.3 m", "condition": "台面以上、防溅", "source": "GB 50303 / JGJ 242" } },
+    { "id": "socket-ac", "label": "空调插座高度", "values": { "item": "挂壁空调插座", "value": "1.8~2.0 m", "condition": "空调预留，独立回路", "source": "JGJ 242 住宅建筑电气设计规范" } },
+    { "id": "switch-height", "label": "开关安装高度", "values": { "item": "翘板开关", "value": "1.3 m", "condition": "距地、距门框 0.15~0.2 m", "source": "GB 50303" } },
+    { "id": "socket-wet", "label": "潮湿场所插座", "values": { "item": "厨房/卫生间插座", "value": "≥1.3 m 且加防溅盒", "condition": "潮湿场所，宜设独立回路 + 漏电保护", "source": "GB 50054 / GB 50303" } },
+    { "id": "rcd-bath", "label": "卫生间回路漏保", "values": { "item": "剩余电流保护", "value": "额定动作电流 ≤30 mA", "condition": "浴室、卫生间、厨房等潮湿场所插座回路", "source": "GB 50054 低压配电设计规范" } },
+    { "id": "rcd-general", "label": "一般回路漏保", "values": { "item": "剩余电流保护", "value": "≤30 mA（直接接触防护）", "condition": "末端插座回路；分级保护上级可取 100/300 mA", "source": "GB 50054" } },
+    { "id": "light-circuit", "label": "照明回路", "values": { "item": "照明支路", "value": "≤16 A，导线 ≥1.5 mm²", "condition": "一般照明支路", "source": "GB 50054" } },
+    { "id": "socket-circuit", "label": "插座回路", "values": { "item": "插座支路", "value": "≤16 A，导线 ≥2.5 mm²", "condition": "一般插座支路", "source": "GB 50054" } },
+    { "id": "ac-circuit", "label": "空调回路", "values": { "item": "空调支路", "value": "每台独立回路，导线按容量选", "condition": "分体空调、柜机", "source": "JGJ 242" } },
+    { "id": "box-height", "label": "配电箱安装高度", "values": { "item": "户内配电箱", "value": "底边距地 1.6~1.8 m（操作中心约1.5m）", "condition": "便于操作与观察", "source": "GB 50303 / 常规做法" } },
+    { "id": "conduit-fill", "label": "管内穿线填充率", "values": { "item": "管内穿线", "value": "≤40%（≥3根） / ≤60%（2根）", "condition": "按导线外径与管内径核算", "source": "GB 50303 / 电气装置安装工程施工规范" } }
+  ],
+  "searchable": true,
+  "source": "GB 50303《建筑电气工程施工质量验收规范》、GB 50054《低压配电设计规范》、JGJ 242《住宅建筑电气设计规范》",
+  "updatedAt": "2024-06-01"
+}

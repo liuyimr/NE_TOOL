@@ -1,0 +1,23 @@
+{
+  "id": "water.drainSlope",
+  "title": "排水管径-坡度-充满度速查",
+  "domain": "water",
+  "columns": [
+    { "key": "dn", "label": "公称直径 DN", "align": "left", "mono": true },
+    { "key": "standardSlope", "label": "标准坡度", "align": "left", "mono": true },
+    { "key": "minSlope", "label": "最小坡度", "align": "left", "mono": true },
+    { "key": "maxFill", "label": "最大计算充满度", "align": "left", "mono": true },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "dn50", "label": "DN50", "values": { "dn": "DN50", "standardSlope": "0.035", "minSlope": "0.025", "maxFill": "0.5", "note": "单户/支管，接 1~2 个卫生器具" } },
+    { "id": "dn75", "label": "DN75", "values": { "dn": "DN75", "standardSlope": "0.025", "minSlope": "0.015", "maxFill": "0.5", "note": "户内排水横支管" } },
+    { "id": "dn100", "label": "DN100", "values": { "dn": "DN100", "standardSlope": "0.020", "minSlope": "0.012", "maxFill": "0.5", "note": "住宅排水立管/横干管常用" } },
+    { "id": "dn125", "label": "DN125", "values": { "dn": "DN125", "standardSlope": "0.015", "minSlope": "0.010", "maxFill": "0.5", "note": "较大流量横干管" } },
+    { "id": "dn150", "label": "DN150", "values": { "dn": "DN150", "standardSlope": "0.010", "minSlope": "0.007", "maxFill": "0.55", "note": "公共建筑排水横干管" } },
+    { "id": "dn200", "label": "DN200", "values": { "dn": "DN200", "standardSlope": "0.007", "minSlope": "0.005", "maxFill": "0.55", "note": "大流量排水干管/出户管" } }
+  ],
+  "searchable": true,
+  "source": "GB 50015《建筑给水排水设计标准》：生活污水管道标准坡度/最小坡度（横支管、横干管）与最大计算充满度",
+  "updatedAt": "2024-06-01"
+}

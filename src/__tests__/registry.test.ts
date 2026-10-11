@@ -3,29 +3,31 @@ import { buildSearchDocs, byDomain, byPriority, getAll, getById } from '@/regist
 import { buildIndex, resetSearchIndex, search } from '@/lib/search';
 
 describe('工具注册表', () => {
-  it('共 43 个工具', () => {
-    expect(getAll().length).toBe(43);
+  it('共 58 个工具', () => {
+    expect(getAll().length).toBe(58);
   });
 
-  it('各领域数量：网络13 / 智能化13 / 工控17', () => {
+  it('各领域数量：网络13 / 智能化13 / 工控17 / 水电15', () => {
     expect(byDomain('network').length).toBe(13);
     expect(byDomain('building').length).toBe(13);
     expect(byDomain('automation').length).toBe(17);
+    expect(byDomain('water').length).toBe(15);
   });
 
-  it('P0 共 16 个', () => {
-    expect(byPriority('P0').length).toBe(16);
+  it('P0 共 27 个', () => {
+    expect(byPriority('P0').length).toBe(27);
   });
 
   it('getById 命中', () => {
     expect(getById('network.subnet')?.code).toBe('A1');
     expect(getById('automation.modbus')?.code).toBe('C15');
+    expect(getById('water.loadCalc')?.code).toBe('D1');
     expect(getById('nope')).toBeUndefined();
   });
 
   it('buildSearchDocs 含工具与速查行', () => {
     const docs = buildSearchDocs();
-    expect(docs.length).toBeGreaterThan(43);
+    expect(docs.length).toBeGreaterThan(58);
     expect(docs.some((d) => d.type === 'tool')).toBe(true);
     expect(docs.some((d) => d.type === 'quickref-item')).toBe(true);
   });

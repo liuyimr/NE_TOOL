@@ -1,0 +1,31 @@
+{
+  "id": "water.cableTypes",
+  "title": "电线电缆型号含义速查",
+  "domain": "water",
+  "columns": [
+    { "key": "model", "label": "型号", "align": "left", "mono": true },
+    { "key": "name", "label": "名称", "align": "left" },
+    { "key": "structure", "label": "结构要点", "align": "left" },
+    { "key": "usage", "label": "用途", "align": "left" },
+    { "key": "voltage", "label": "电压等级", "align": "left" }
+  ],
+  "rows": [
+    { "id": "BV", "label": "BV", "values": { "model": "BV", "name": "铜芯聚氯乙烯绝缘电线", "structure": "单根铜导体 + PVC 绝缘", "usage": "照明、插座固定敷设（穿管/桥架）", "voltage": "450/750 V" } },
+    { "id": "BVR", "label": "BVR", "values": { "model": "BVR", "name": "铜芯聚氯乙烯绝缘软电线", "structure": "多股细铜丝绞合 + PVC 绝缘", "usage": "需柔性敷设、配电箱内跳线", "voltage": "450/750 V" } },
+    { "id": "BVV", "label": "BVV", "values": { "model": "BVV", "name": "铜芯聚氯乙烯绝缘护套电线", "structure": "导体 + 绝缘 + PVC 外护套", "usage": "明敷/暗敷，机械防护要求较高处", "voltage": "450/750 V" } },
+    { "id": "BLV", "label": "BLV", "values": { "model": "BLV", "name": "铝芯聚氯乙烯绝缘电线", "structure": "单根铝导体 + PVC 绝缘", "usage": "低压架空、进户线（成本低，较重）", "voltage": "450/750 V" } },
+    { "id": "RV", "label": "RV", "values": { "model": "RV", "name": "铜芯聚氯乙烯绝缘软电线", "structure": "多股细铜丝 + PVC 绝缘", "usage": "电子设备内部接线、控制回路", "voltage": "450/750 V" } },
+    { "id": "RVV", "label": "RVV", "values": { "model": "RVV", "name": "铜芯聚氯乙烯绝缘护套软电缆", "structure": "多芯软线 + PVC 护套", "usage": "移动敷设、小功率设备电源线、安防", "voltage": "300/500 V" } },
+    { "id": "RVS", "label": "RVS", "values": { "model": "RVS", "name": "铜芯聚氯乙烯绝缘双绞软线", "structure": "两芯对绞 + PVC 绝缘", "usage": "消防联动信号线、灯具控制线", "voltage": "300/300 V" } },
+    { "id": "YJV", "label": "YJV", "values": { "model": "YJV", "name": "交联聚乙烯绝缘聚氯乙烯护套电力电缆", "structure": "铜导体 + XLPE 绝缘 + PVC 护套", "usage": "1kV 及以下配电干线，载流量大、耐温高", "voltage": "0.6/1 kV（及以上）" } },
+    { "id": "YJV22", "label": "YJV22", "values": { "model": "YJV22", "name": "交联聚乙烯绝缘钢带铠装电力电缆", "structure": "YJV + 钢带铠装护层（22=钢带铠装）", "usage": "直埋或需承受机械外力的场合", "voltage": "0.6/1 kV（及以上）" } },
+    { "id": "VV", "label": "VV", "values": { "model": "VV", "name": "聚氯乙烯绝缘聚氯乙烯护套电力电缆", "structure": "铜导体 + PVC 绝缘 + PVC 护套", "usage": "1kV 及以下配电（较 YJV 载流量低、耐温低）", "voltage": "0.6/1 kV" } },
+    { "id": "VV22", "label": "VV22", "values": { "model": "VV22", "name": "聚氯乙烯绝缘钢带铠装电力电缆", "structure": "VV + 钢带铠装护层", "usage": "直埋、地沟敷设需机械保护处", "voltage": "0.6/1 kV" } },
+    { "id": "KVV", "label": "KVV", "values": { "model": "KVV", "name": "聚氯乙烯绝缘控制电缆", "structure": "多芯铜导体 + PVC 绝缘 + PVC 护套", "usage": "控制、信号、保护回路固定敷设", "voltage": "450/750 V" } },
+    { "id": "ZR-YJV", "label": "ZR-YJV", "values": { "model": "ZR-YJV", "name": "阻燃交联聚乙烯电力电缆", "structure": "YJV + 阻燃（ZR 前缀）", "usage": "对阻燃有要求的场所（高层、公共建筑）", "voltage": "0.6/1 kV" } },
+    { "id": "NH-YJV", "label": "NH-YJV", "values": { "model": "NH-YJV", "name": "耐火交联聚乙烯电力电缆", "structure": "YJV + 耐火层（NH 前缀）", "usage": "消防负荷供电、应急照明干线", "voltage": "0.6/1 kV" } }
+  ],
+  "searchable": true,
+  "source": "GB/T 5023《额定电压450/750V及以下聚氯乙烯绝缘电缆》、GB/T 12706《额定电压1kV到35kV挤包绝缘电力电缆及附件》；型号字母含义：B-布电线、V-聚氯乙烯、YJ-交联聚乙烯、R-软、22-钢带铠装、ZR-阻燃、NH-耐火",
+  "updatedAt": "2024-06-01"
+}

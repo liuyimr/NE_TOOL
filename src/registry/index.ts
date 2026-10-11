@@ -3,17 +3,23 @@ import type { Domain, Priority, SearchDoc, ToolDef } from '@/types/tool';
 import { networkTools } from './network';
 import { buildingTools } from './building';
 import { automationTools } from './automation';
+import { waterTools } from './water';
 
 /**
  * 工具注册表（配置驱动核心）
  * ------------------------------------------------------------------
- * 汇总三大领域注册项，提供检索与搜索索引构建能力。
+ * 汇总四大领域注册项，提供检索与搜索索引构建能力。
  * 「加一个工具 = 加一份配置」：在 registry/<domain>.ts 追加一条 ToolDef 即可，
  * 无需修改路由（/tool/:id 动态匹配）与首页（九宫格由注册表渲染）。
  */
 
 /** 全部工具（按 order 稳定排序） */
-export const ALL_TOOLS: ToolDef[] = [...networkTools, ...buildingTools, ...automationTools];
+export const ALL_TOOLS: ToolDef[] = [
+  ...networkTools,
+  ...buildingTools,
+  ...automationTools,
+  ...waterTools,
+];
 
 /** 全部工具列表（返回副本，避免外部改动污染注册表） */
 export function getAll(): ToolDef[] {

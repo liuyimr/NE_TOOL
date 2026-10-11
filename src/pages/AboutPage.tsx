@@ -43,6 +43,7 @@ export default function AboutPage(): JSX.Element {
     network: byDomain('network').length,
     building: byDomain('building').length,
     automation: byDomain('automation').length,
+    water: byDomain('water').length,
   };
 
   function handleClear(): void {
@@ -89,7 +90,7 @@ export default function AboutPage(): JSX.Element {
           </Row>
           <Row label="包含工具">
             共 {total} 个：网络 {counts.network}、建筑智能化 {counts.building}、工业自动化{' '}
-            {counts.automation}
+            {counts.automation}、水电 {counts.water}
           </Row>
         </dl>
       </Card>

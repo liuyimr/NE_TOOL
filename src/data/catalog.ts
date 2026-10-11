@@ -27,6 +27,12 @@ import cableAmpacity from './automation/cableAmpacity.json';
 import unitFactors from './automation/unitFactors.json';
 import servo from './automation/servo.json';
 import opcua from './automation/opcua.json';
+// —— 水电 domain
+import cableTypes from './water/cableTypes.json';
+import installLimits from './water/installLimits.json';
+import pipeSpecs from './water/pipeSpecs.json';
+import drainSlope from './water/drainSlope.json';
+import groundingLimits from './water/groundingLimits.json';
 
 /**
  * 速查数据目录
@@ -60,6 +66,11 @@ const rawTables: QuickRefTable[] = [
   unitFactors,
   servo,
   opcua,
+  cableTypes,
+  installLimits,
+  pipeSpecs,
+  drainSlope,
+  groundingLimits,
 ] as unknown as QuickRefTable[];
 
 /** 全部速查表（按 id 建立索引以避免重复） */

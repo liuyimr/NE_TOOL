@@ -1,9 +1,9 @@
 {
   "name": "ne-engineer-toolbox",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
-  "description": "网络工程师、建筑智能化（弱电）与工业自动化工程师的离线工具箱：43 个常用计算与速查，纯前端、免登录、手机电脑都能用、断网也能用。",
+  "description": "网络工程师、建筑智能化（弱电）、工业自动化与水电（强电/给排水）工程师的离线工具箱：58 个常用计算与速查，纯前端、免登录、手机电脑都能用、断网也能用。",
   "keywords": [
     "engineer-toolbox",
     "network-engineer",
