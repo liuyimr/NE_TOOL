@@ -11,6 +11,13 @@
   <img src="https://img.shields.io/badge/Vite-5-646cff?logo=vite&logoColor=white" alt="Vite 5">
 </p>
 
+## 只想快点用起来？
+
+- 直接打开 **<https://liuyimr.github.io/NE_TOOL/>** 就能用，不用装任何东西。
+- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 350 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
+
+想改代码、自己构建，继续看下面的开发说明。
+
 # 工程师工具箱 · Engineer Toolbox
 
 给网络工程师、建筑智能化（弱电）工程师和工业自动化工程师用的工具箱。43 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
@@ -87,13 +94,25 @@
 
 ## 怎么用
 
-### 在浏览器里直接用
+### 零安装：在线打开，或下载单文件
 
-打开部署好的地址就行。第一次打开后浏览器会缓存全部资源，之后没网也能用，「添加到主屏」可以当 App 用。
+两种方式任选其一：
 
-### 拷一个 HTML 文件走
+- **在线打开**：<https://liuyimr.github.io/NE_TOOL/>，第一次打开后浏览器会缓存全部资源，之后没网也能用，「添加到主屏」可以当 App 用。
+- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 350 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
 
-`npm run build:single` 会产出一个 `index.html`（约 350 KB），JS、CSS 和标识图片全在里面，没有外部依赖。拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
+> `docs/index.html` 是构建产物（由命令生成），请不要手改。
+
+### 自己构建并部署（PWA）
+
+要部署到自己的静态托管（内网 Nginx、GitHub Pages、Cloudflare Pages 都行）：
+
+```bash
+npm install
+npm run build          # 标准构建 → dist/（含 Service Worker 与 manifest，首访后 100% 离线）
+```
+
+把 `dist/` 丢到任意静态托管即可。需要「拷一个文件走」的离线版时，用 `npm run build:standalone` 生成 `docs/index.html`。
 
 ### 装到手机主屏
 
@@ -110,10 +129,13 @@ npm run dev            # 开发服务器，带热更新
 npm run test           # 跑单元测试
 npm run build          # 标准构建 → dist/（PWA，含 Service Worker 与 manifest）
 npm run build:single   # 单文件构建 → dist-single/index.html
+npm run build:standalone  # 生成单文件版到 docs/index.html（GitHub Pages 用）
 npm run preview        # 预览标准构建产物
 ```
 
 两套构建输出到不同目录，互不影响。PWA 产物丢到任意静态托管（内网 Nginx、GitHub Pages、Cloudflare Pages 都行）。
+
+`docs/index.html` 是构建产物，由 `npm run build:standalone` 生成，不要手改。
 
 ## 加一个新工具
 

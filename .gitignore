@@ -31,7 +31,7 @@ coverage/
 *.tsbuildinfo
 
 # 内部规划与验证文档（协作过程产物，不随公开仓库发布）
-docs/
+.planning/
 
 # 本地工具数据
 .workbuddy/

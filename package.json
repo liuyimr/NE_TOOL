@@ -41,6 +41,7 @@
     "dev": "vite",
     "build": "tsc --noEmit -p tsconfig.json && vite build",
     "build:single": "tsc --noEmit -p tsconfig.json && vite build --mode single",
+    "build:standalone": "npm run build:single && node scripts/copy-standalone.mjs",
     "preview": "vite preview",
     "test": "node scripts/run-tests.mjs",
     "test:watch": "node scripts/run-tests.mjs --watch"
