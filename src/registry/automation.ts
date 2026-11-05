@@ -2,7 +2,8 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 工业自动化控制领域（C 组）工具注册项：C1~C17
+ * 工业自动化控制领域（P 组）工具注册项：P1~P15
+ * 说明：原 C10 电缆压降 / C11 导线载流量 已迁入「电气与配电」。
  */
 const AnalogScaling = lazy(() => import('@/features/automation/AnalogScaling'));
 const TemperatureConverter = lazy(() => import('@/features/automation/TemperatureConverter'));
@@ -13,8 +14,6 @@ const PidRef = lazy(() => import('@/features/automation/PidRef'));
 const MotorCalculator = lazy(() => import('@/features/automation/MotorCalculator'));
 const VfdRef = lazy(() => import('@/features/automation/VfdRef'));
 const ServoRef = lazy(() => import('@/features/automation/ServoRef'));
-const CableDropCalculator = lazy(() => import('@/features/automation/CableDropCalculator'));
-const AmpacityRef = lazy(() => import('@/features/automation/AmpacityRef'));
 const ResistorCalculator = lazy(() => import('@/features/automation/ResistorCalculator'));
 const SensorsRef = lazy(() => import('@/features/automation/SensorsRef'));
 const TimerConverter = lazy(() => import('@/features/automation/TimerConverter'));
@@ -25,7 +24,7 @@ const FaultsRef = lazy(() => import('@/features/automation/FaultsRef'));
 export const automationTools: ToolDef[] = [
   {
     id: 'automation.analog',
-    code: 'C1',
+    code: 'P1',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -41,7 +40,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.temperature',
-    code: 'C2',
+    code: 'P2',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -57,7 +56,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.datatype',
-    code: 'C3',
+    code: 'P3',
     domain: 'automation',
     kind: 'converter',
     priority: 'P1',
@@ -72,7 +71,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.ieee754',
-    code: 'C4',
+    code: 'P4',
     domain: 'automation',
     kind: 'converter',
     priority: 'P1',
@@ -88,7 +87,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.unit',
-    code: 'C5',
+    code: 'P5',
     domain: 'automation',
     kind: 'converter',
     priority: 'P0',
@@ -105,7 +104,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.pid',
-    code: 'C6',
+    code: 'P6',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P1',
@@ -120,7 +119,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.motor',
-    code: 'C7',
+    code: 'P7',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -136,7 +135,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.vfd',
-    code: 'C8',
+    code: 'P8',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P1',
@@ -151,13 +150,13 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.servo',
-    code: 'C9',
+    code: 'P9',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P2',
-    title: '伺服选型速查',
-    subtitle: '功率档、惯量匹配与编码器精度',
-    keywords: ['伺服', 'servo', '选型', '惯量', '编码器', '功率'],
+    title: '伺服功率档参考',
+    subtitle: '功率档、惯量匹配与编码器精度（参考表，非选型计算）',
+    keywords: ['伺服', 'servo', '功率档', '惯量', '编码器', '参考'],
     tags: ['工控', '伺服'],
     icon: '⚡',
     order: 9,
@@ -165,39 +164,8 @@ export const automationTools: ToolDef[] = [
     Component: ServoRef,
   },
   {
-    id: 'automation.cableDrop',
-    code: 'C10',
-    domain: 'automation',
-    kind: 'calculator',
-    priority: 'P1',
-    title: '电缆选型与电压降计算',
-    subtitle: '按电流/长度/截面算电压降与合规判定',
-    keywords: ['电压降', '电缆', '选型', '压降', '截面', 'cable drop', '配电'],
-    tags: ['工控', '配电'],
-    icon: '📉',
-    order: 10,
-    calcId: 'cableDrop',
-    defaultInput: { current: 32, length: 100, section: 6, material: 'copper', phase: 'three' },
-    Component: CableDropCalculator,
-  },
-  {
-    id: 'automation.ampacity',
-    code: 'C11',
-    domain: 'automation',
-    kind: 'quickref',
-    priority: 'P1',
-    title: '导线载流量速查',
-    subtitle: '铜芯不同截面载流量（按敷设方式）',
-    keywords: ['载流量', '导线', '截面', 'ampacity', '配线', '铜芯'],
-    tags: ['工控', '配电'],
-    icon: '🔗',
-    order: 11,
-    quickRefId: 'automation.cableAmpacity',
-    Component: AmpacityRef,
-  },
-  {
     id: 'automation.resistor',
-    code: 'C12',
+    code: 'P10',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -206,14 +174,14 @@ export const automationTools: ToolDef[] = [
     keywords: ['电阻', '分压', '限流', 'led', 'resistor', '功耗'],
     tags: ['工控', '电路'],
     icon: '🔺',
-    order: 12,
+    order: 10,
     calcId: 'resistor',
     defaultInput: { vin: 12, vf: 2, ifA: 0.02 },
     Component: ResistorCalculator,
   },
   {
     id: 'automation.sensors',
-    code: 'C13',
+    code: 'P11',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P1',
@@ -222,13 +190,13 @@ export const automationTools: ToolDef[] = [
     keywords: ['传感器', '信号', 'pt100', '热电偶', '4-20ma', '称重', 'sensor'],
     tags: ['工控', '仪表'],
     icon: '📟',
-    order: 13,
+    order: 11,
     quickRefId: 'automation.sensors',
     Component: SensorsRef,
   },
   {
     id: 'automation.timer',
-    code: 'C14',
+    code: 'P12',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -237,14 +205,14 @@ export const automationTools: ToolDef[] = [
     keywords: ['定时器', '计时器', '时基', 'timer', 's5time', '换算', '计数'],
     tags: ['工控', 'PLC'],
     icon: '⏲️',
-    order: 14,
+    order: 12,
     calcId: 'timer',
     defaultInput: { baseMs: 1000, value: 60 },
     Component: TimerConverter,
   },
   {
     id: 'automation.modbus',
-    code: 'C15',
+    code: 'P13',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P0',
@@ -253,14 +221,14 @@ export const automationTools: ToolDef[] = [
     keywords: ['modbus', '功能码', '寄存器', '异常码', 'rtu', 'tcp', '502', '01', '03'],
     tags: ['工控', '通信'],
     icon: '🔀',
-    order: 15,
+    order: 13,
     quickRefId: 'automation.modbus',
     quickRefIds: ['automation.modbus', 'automation.modbusExceptions'],
     Component: ModbusRef,
   },
   {
     id: 'automation.opcua',
-    code: 'C16',
+    code: 'P14',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P2',
@@ -269,22 +237,22 @@ export const automationTools: ToolDef[] = [
     keywords: ['opc', 'opc-ua', 'opcua', '4840', '上位机', 'nodeid'],
     tags: ['工控', '通信'],
     icon: '🔗',
-    order: 16,
+    order: 14,
     quickRefId: 'automation.opcua',
     Component: OpcuaRef,
   },
   {
     id: 'automation.faults',
-    code: 'C17',
+    code: 'P15',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P2',
-    title: '常见故障代码 / 报警速查',
-    subtitle: 'PLC / 变频器报警码含义（持续扩充）',
+    title: '常见报警码（部分）',
+    subtitle: '少量通用 PLC/变频器报警码，覆盖有限、以厂家手册为准',
     keywords: ['故障码', '报警', 'error', 'fault', '变频器', 'plc', 'oc', 'ou'],
     tags: ['工控', '排故'],
     icon: '🚨',
-    order: 17,
+    order: 15,
     quickRefId: 'automation.plcErrors',
     Component: FaultsRef,
   },

@@ -51,7 +51,7 @@ function run(v: Record<string, string>): CalcResult[] {
   return results;
 }
 
-/** D15 防雷保护范围（滚球法） */
+/** 防雷保护范围（滚球法） */
 export default function Lightning({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

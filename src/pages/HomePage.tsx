@@ -8,10 +8,11 @@ import type { Domain } from '@/types/tool';
 
 const DOMAIN_TABS: { key: Domain | 'all'; label: string }[] = [
   { key: 'all', label: '全部' },
-  { key: 'network', label: '网络' },
-  { key: 'building', label: '智能化' },
+  { key: 'network', label: '网络/IoT' },
+  { key: 'building', label: 'BA/弱电' },
+  { key: 'hvac', label: '暖通/水暖' },
   { key: 'automation', label: '工控' },
-  { key: 'water', label: '水电' },
+  { key: 'elec', label: '电工' },
 ];
 
 /**
@@ -22,7 +23,10 @@ export default function HomePage(): JSX.Element {
   const setLastDomain = useAppStore((s) => s.setLastDomain);
   const recents = useAppStore((s) => s.recents);
 
-  const tools = lastDomain === 'all' ? getAll() : byDomain(lastDomain);
+  // 兼容旧版本本地存储里可能残留的已废弃领域值（如 'water'）：无效时回退到「全部」
+  const effectiveDomain: Domain | 'all' =
+    lastDomain === 'all' || DOMAIN_TABS.some((tab) => tab.key === lastDomain) ? lastDomain : 'all';
+  const tools = effectiveDomain === 'all' ? getAll() : byDomain(effectiveDomain);
   const recent = recentTools(recents, 8);
 
   return (
@@ -42,7 +46,7 @@ export default function HomePage(): JSX.Element {
       <section className="flex flex-col gap-3">
         <div className="flex gap-2 overflow-x-auto pb-1">
           {DOMAIN_TABS.map((tab) => {
-            const active = lastDomain === tab.key;
+            const active = effectiveDomain === tab.key;
             return (
               <button
                 key={tab.key}

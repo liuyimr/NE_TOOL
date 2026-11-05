@@ -45,7 +45,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D7 给水设计秒流量（当量法） */
+/** 给水设计秒流量（当量法） */
 export default function DemandFlow({ tool }: { tool: ToolDef }): JSX.Element {
   return (
     <CalculatorView

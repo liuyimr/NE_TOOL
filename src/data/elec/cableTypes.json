@@ -1,7 +1,7 @@
 {
   "id": "water.cableTypes",
   "title": "电线电缆型号含义速查",
-  "domain": "water",
+  "domain": "elec",
   "columns": [
     { "key": "model", "label": "型号", "align": "left", "mono": true },
     { "key": "name", "label": "名称", "align": "left" },

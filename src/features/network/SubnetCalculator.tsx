@@ -1,6 +1,7 @@
 import CalculatorView from '@/features/shared/CalculatorView';
 import { res, str } from '@/features/shared/calcHelpers';
 import { subnetCalc } from '@/lib/calc/subnet';
+import IpConverter from '@/features/network/IpConverter';
 import type { CalcResult, FieldDef } from '@/types/calculator';
 import type { ToolDef } from '@/types/tool';
 
@@ -49,7 +50,18 @@ function run(v: Record<string, string>): CalcResult[] {
   return results;
 }
 
-/** A1 IP 子网计算器 */
+/** A1 IP 子网计算器（下方内嵌原 A2「IP 地址转换与校验」，已合并入口） */
 export default function SubnetCalculator({ tool }: { tool: ToolDef }): JSX.Element {
-  return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
+  return (
+    <div className="flex flex-col gap-4">
+      <CalculatorView toolId={tool.id} fields={fields} run={run} />
+      <section className="flex flex-col gap-2">
+        <h2 className="px-1 text-sm font-semibold text-fg">IP 地址转换与校验</h2>
+        <p className="px-1 text-xs text-muted">
+          同一地址的十进制 / 二进制 / 十六进制与类别判定（原「IP 地址转换」已并入本页）。
+        </p>
+        <IpConverter tool={tool} />
+      </section>
+    </div>
+  );
 }

@@ -42,8 +42,9 @@ export default function AboutPage(): JSX.Element {
   const counts = {
     network: byDomain('network').length,
     building: byDomain('building').length,
+    hvac: byDomain('hvac').length,
     automation: byDomain('automation').length,
-    water: byDomain('water').length,
+    elec: byDomain('elec').length,
   };
 
   function handleClear(): void {
@@ -89,8 +90,8 @@ export default function AboutPage(): JSX.Element {
             </a>
           </Row>
           <Row label="包含工具">
-            共 {total} 个：网络 {counts.network}、建筑智能化 {counts.building}、工业自动化{' '}
-            {counts.automation}、水电 {counts.water}
+            共 {total} 个：网络/IoT {counts.network}、BA/弱电 {counts.building}、暖通/水暖{' '}
+            {counts.hvac}、工控 {counts.automation}、电工 {counts.elec}
           </Row>
         </dl>
       </Card>

@@ -27,12 +27,13 @@ import cableAmpacity from './automation/cableAmpacity.json';
 import unitFactors from './automation/unitFactors.json';
 import servo from './automation/servo.json';
 import opcua from './automation/opcua.json';
-// —— 水电 domain
-import cableTypes from './water/cableTypes.json';
-import installLimits from './water/installLimits.json';
-import pipeSpecs from './water/pipeSpecs.json';
-import drainSlope from './water/drainSlope.json';
-import groundingLimits from './water/groundingLimits.json';
+// —— 暖通空调与给排水 domain
+import pipeSpecs from './hvac/pipeSpecs.json';
+import drainSlope from './hvac/drainSlope.json';
+// —— 电气与配电 domain
+import cableTypes from './elec/cableTypes.json';
+import installLimits from './elec/installLimits.json';
+import groundingLimits from './elec/groundingLimits.json';
 
 /**
  * 速查数据目录

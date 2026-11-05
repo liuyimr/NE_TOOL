@@ -40,7 +40,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D4 断路器选型与导线配合 */
+/** 断路器选型与导线配合 */
 export default function Breaker({ tool }: { tool: ToolDef }): JSX.Element {
   return (
     <CalculatorView

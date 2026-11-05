@@ -50,7 +50,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D2 单相 / 三相 功率电流换算 */
+/** 单相 / 三相 功率电流换算 */
 export default function PowerCurrent({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

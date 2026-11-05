@@ -1,6 +1,7 @@
 import CalculatorView from '@/features/shared/CalculatorView';
 import { num, res } from '@/features/shared/calcHelpers';
 import { illuminanceCalc } from '@/lib/calc/illuminance';
+import FixtureCount from '@/features/building/FixtureCount';
 import type { CalcResult, FieldDef } from '@/types/calculator';
 import type { ToolDef } from '@/types/tool';
 
@@ -31,14 +32,23 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** B10 照度计算（流明法 / 利用系数法） */
+/** 照度计算（流明法 / 利用系数法，下方内嵌原「灯具数量估算」） */
 export default function IlluminanceCalc({ tool }: { tool: ToolDef }): JSX.Element {
   return (
-    <CalculatorView
-      toolId={tool.id}
-      fields={fields}
-      run={run}
-      quickRefIds={['building.illuminance']}
-    />
+    <div className="flex flex-col gap-4">
+      <CalculatorView
+        toolId={tool.id}
+        fields={fields}
+        run={run}
+        quickRefIds={['building.illuminance']}
+      />
+      <section className="flex flex-col gap-2">
+        <h2 className="px-1 text-sm font-semibold text-fg">灯具数量快速估算</h2>
+        <p className="px-1 text-xs text-muted">
+          只输入面积与照度标准，快速估算灯具数量与功率密度（原「灯具数量估算」已并入本页）。
+        </p>
+        <FixtureCount tool={tool} />
+      </section>
+    </div>
   );
 }

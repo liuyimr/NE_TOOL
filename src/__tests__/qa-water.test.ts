@@ -532,29 +532,28 @@ describe('C10 向后兼容（旧版 fixtures/cableDrop.old 对照）', () => {
 });
 
 // ===========================================================================
-// 结构一致性：D 组 15 个工具接入注册表
+// 结构一致性：原「水电」15 项已按 5 类目重构拆入 elec / hvac（合并 2 项）
 // ===========================================================================
-describe('注册表结构（水电类目）', () => {
-  it('水领域恰好 15 个工具，编号 D1~D15', () => {
-    const w = byDomain('water');
-    expect(w).toHaveLength(15);
-    const codes = [...w].sort((a, b) => a.order - b.order).map((t) => t.code);
-    expect(codes).toEqual(['D1', 'D2', 'D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11', 'D12', 'D13', 'D14', 'D15']);
+describe('注册表结构（水电类目已并入 elec / hvac）', () => {
+  it('原水电工具按归属拆入 elec（10）与 hvac（10）', () => {
+    expect(byDomain('elec')).toHaveLength(10);
+    expect(byDomain('hvac')).toHaveLength(10);
   });
 
-  it('全量 58 个工具（43 + 15）', () => {
-    expect(ALL_TOOLS).toHaveLength(58);
+  it('全量 53 个工具（58 − 合并 5）', () => {
+    expect(ALL_TOOLS).toHaveLength(53);
   });
 
-  it('D3 电压降复用 C10：calcId=cableDrop', () => {
+  it('D3 电压降并入 C10（电气 E3）：旧 id 别名解析且 calcId=cableDrop', () => {
     const t = getById('water.voltageDrop');
+    expect(t?.id).toBe('elec.cableDrop');
     expect(t?.calcId).toBe('cableDrop');
     expect(t?.Component).toBeTruthy();
   });
 
-  it('D14 接地限值速查为 quickref 且绑定 water.groundingLimits', () => {
+  it('D14 接地限值并入 D13（电气 E8）：旧 id 别名指向 elec.grounding 且仍绑定 water.groundingLimits', () => {
     const t = getById('water.groundingRef');
-    expect(t?.kind).toBe('quickref');
+    expect(t?.id).toBe('elec.grounding');
     expect(t?.quickRefId).toBe('water.groundingLimits');
   });
 

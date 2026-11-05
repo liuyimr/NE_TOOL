@@ -45,7 +45,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D5 穿线管管径选择 */
+/** 穿线管管径选择 */
 export default function Conduit({ tool }: { tool: ToolDef }): JSX.Element {
   return (
     <CalculatorView

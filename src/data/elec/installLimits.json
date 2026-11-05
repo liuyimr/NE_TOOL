@@ -1,7 +1,7 @@
 {
   "id": "water.installLimits",
   "title": "电气安装尺寸与规范限值速查",
-  "domain": "water",
+  "domain": "elec",
   "columns": [
     { "key": "item", "label": "项目", "align": "left" },
     { "key": "value", "label": "限值 / 尺寸", "align": "left", "mono": true },

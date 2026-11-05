@@ -29,7 +29,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D12 热水耗热量与加热功率 */
+/** 热水耗热量与加热功率 */
 export default function WaterHeater({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

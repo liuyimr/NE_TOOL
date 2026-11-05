@@ -49,7 +49,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D11 排水管径与坡度校核 */
+/** 排水管径与坡度校核 */
 export default function DrainSlope({ tool }: { tool: ToolDef }): JSX.Element {
   return (
     <CalculatorView

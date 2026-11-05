@@ -37,7 +37,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D9 给水所需压力 / 扬程计算 */
+/** 给水所需压力 / 扬程计算 */
 export default function PumpHead({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

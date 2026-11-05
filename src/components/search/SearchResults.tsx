@@ -114,8 +114,9 @@ function getIcon(toolId: string): string {
   const map: Record<string, string> = {
     network: '🌐',
     building: '🏢',
+    hvac: '🌡️',
     automation: '⚙️',
-    water: '🔌',
+    elec: '🔌',
   };
   const domain = toolId.split('.')[0] ?? 'network';
   return map[domain] ?? '🔧';

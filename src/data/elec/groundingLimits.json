@@ -1,7 +1,7 @@
 {
   "id": "water.groundingLimits",
   "title": "接地电阻限值与土壤电阻率速查",
-  "domain": "water",
+  "domain": "elec",
   "columns": [
     { "key": "category", "label": "类别", "align": "left" },
     { "key": "item", "label": "项目", "align": "left" },

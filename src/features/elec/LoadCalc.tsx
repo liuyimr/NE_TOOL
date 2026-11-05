@@ -45,7 +45,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D1 计算负荷（需要系数法） */
+/** 计算负荷（需要系数法） */
 export default function LoadCalc({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

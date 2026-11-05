@@ -42,7 +42,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D6 应急照明时长与电池容量 */
+/** 应急照明时长与电池容量 */
 export default function EmergencyLight({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

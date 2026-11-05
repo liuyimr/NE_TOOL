@@ -1,7 +1,7 @@
 {
   "id": "water.drainSlope",
   "title": "排水管径-坡度-充满度速查",
-  "domain": "water",
+  "domain": "hvac",
   "columns": [
     { "key": "dn", "label": "公称直径 DN", "align": "left", "mono": true },
     { "key": "standardSlope", "label": "标准坡度", "align": "left", "mono": true },

@@ -34,7 +34,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D10 水泵选型与轴功率计算 */
+/** 水泵选型与轴功率计算 */
 export default function PumpPower({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }

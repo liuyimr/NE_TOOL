@@ -1,6 +1,7 @@
 import CalculatorView from '@/features/shared/CalculatorView';
 import { num, res } from '@/features/shared/calcHelpers';
 import { groundingResistance, GROUNDING_TARGETS } from '@/lib/calc/waterGrounding';
+import QuickRefTable from '@/components/QuickRefTable';
 import type { CalcResult, FieldDef } from '@/types/calculator';
 import type { ToolDef } from '@/types/tool';
 
@@ -51,7 +52,16 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D13 接地电阻与接地体数量估算 */
+/**
+ * 接地电阻与接地体数量估算
+ * 并入原「土壤电阻率与接地电阻限值速查」（原 D14）：页脚直接展示限值速查表，
+ * 计算与速查同屏，省去一次跳转。
+ */
 export default function Grounding({ tool }: { tool: ToolDef }): JSX.Element {
-  return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
+  return (
+    <div className="flex flex-col gap-4">
+      <CalculatorView toolId={tool.id} fields={fields} run={run} />
+      <QuickRefTable tableId="water.groundingLimits" />
+    </div>
+  );
 }

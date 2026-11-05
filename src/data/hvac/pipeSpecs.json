@@ -1,7 +1,7 @@
 {
   "id": "water.pipeSpecs",
   "title": "给水管材规格对照速查",
-  "domain": "water",
+  "domain": "hvac",
   "columns": [
     { "key": "material", "label": "管材", "align": "left" },
     { "key": "dn", "label": "公称直径 DN", "align": "left", "mono": true },

@@ -40,7 +40,7 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** D8 管径选择（按流量与流速） */
+/** 管径选择（按流量与流速） */
 export default function PipeSize({ tool }: { tool: ToolDef }): JSX.Element {
   return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
 }
