@@ -26,7 +26,7 @@ const ServoGear = lazy(() => import('@/features/automation/ServoGear'));
 export const automationTools: ToolDef[] = [
   {
     id: 'automation.plcSizing',
-    code: 'P16',
+    code: 'P1',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -42,7 +42,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.servoGear',
-    code: 'P17',
+    code: 'P2',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -58,7 +58,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.analog',
-    code: 'P1',
+    code: 'P3',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -74,7 +74,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.temperature',
-    code: 'P2',
+    code: 'P4',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -90,7 +90,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.datatype',
-    code: 'P3',
+    code: 'P5',
     domain: 'automation',
     kind: 'converter',
     priority: 'P1',
@@ -105,7 +105,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.ieee754',
-    code: 'P4',
+    code: 'P6',
     domain: 'automation',
     kind: 'converter',
     priority: 'P1',
@@ -121,7 +121,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.unit',
-    code: 'P5',
+    code: 'P7',
     domain: 'automation',
     kind: 'converter',
     priority: 'P0',
@@ -138,7 +138,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.pid',
-    code: 'P6',
+    code: 'P8',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P1',
@@ -153,7 +153,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.motor',
-    code: 'P7',
+    code: 'P9',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -169,7 +169,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.vfd',
-    code: 'P8',
+    code: 'P10',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P1',
@@ -184,7 +184,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.servo',
-    code: 'P9',
+    code: 'P11',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P2',
@@ -199,7 +199,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.resistor',
-    code: 'P10',
+    code: 'P12',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -215,7 +215,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.sensors',
-    code: 'P11',
+    code: 'P13',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P1',
@@ -230,7 +230,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.timer',
-    code: 'P12',
+    code: 'P14',
     domain: 'automation',
     kind: 'calculator',
     priority: 'P0',
@@ -246,7 +246,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.modbus',
-    code: 'P13',
+    code: 'P15',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P0',
@@ -262,7 +262,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.opcua',
-    code: 'P14',
+    code: 'P16',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P2',
@@ -277,7 +277,7 @@ export const automationTools: ToolDef[] = [
   },
   {
     id: 'automation.faults',
-    code: 'P15',
+    code: 'P17',
     domain: 'automation',
     kind: 'quickref',
     priority: 'P2',

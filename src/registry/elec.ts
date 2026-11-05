@@ -22,7 +22,7 @@ const InstallLimits = lazy(() => import('@/features/elec/InstallLimits'));
 export const elecTools: ToolDef[] = [
   {
     id: 'elec.cableTypes',
-    code: 'E11',
+    code: 'E1',
     domain: 'elec',
     kind: 'quickref',
     priority: 'P0',
@@ -37,7 +37,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.installLimits',
-    code: 'E12',
+    code: 'E2',
     domain: 'elec',
     kind: 'quickref',
     priority: 'P0',
@@ -52,7 +52,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.load',
-    code: 'E1',
+    code: 'E3',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P0',
@@ -68,7 +68,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.powerCurrent',
-    code: 'E2',
+    code: 'E4',
     domain: 'elec',
     kind: 'converter',
     priority: 'P0',
@@ -84,7 +84,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.cableDrop',
-    code: 'E3',
+    code: 'E5',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P1',
@@ -100,7 +100,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.breaker',
-    code: 'E4',
+    code: 'E6',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P0',
@@ -117,7 +117,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.conduit',
-    code: 'E5',
+    code: 'E7',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P0',
@@ -134,7 +134,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.ampacity',
-    code: 'E6',
+    code: 'E8',
     domain: 'elec',
     kind: 'quickref',
     priority: 'P1',
@@ -149,7 +149,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.illuminance',
-    code: 'E7',
+    code: 'E9',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P1',
@@ -165,7 +165,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.grounding',
-    code: 'E8',
+    code: 'E10',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P1',
@@ -182,7 +182,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.lightning',
-    code: 'E9',
+    code: 'E11',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P1',
@@ -198,7 +198,7 @@ export const elecTools: ToolDef[] = [
   },
   {
     id: 'elec.emergencyLight',
-    code: 'E10',
+    code: 'E12',
     domain: 'elec',
     kind: 'calculator',
     priority: 'P2',

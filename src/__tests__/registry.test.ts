@@ -21,12 +21,12 @@ describe('工具注册表', () => {
 
   it('getById 命中（新 id 与旧 id 别名一致）', () => {
     expect(getById('network.subnet')?.code).toBe('N1');
-    expect(getById('automation.modbus')?.code).toBe('P13');
-    expect(getById('elec.load')?.code).toBe('E1');
-    expect(getById('elec.cableTypes')?.code).toBe('E11');
-    expect(getById('hvac.loadEstimate')?.code).toBe('H11');
-    expect(getById('building.ddcSizing')?.code).toBe('BA8');
-    expect(getById('automation.servoGear')?.code).toBe('P17');
+    expect(getById('automation.modbus')?.code).toBe('P15');
+    expect(getById('elec.load')?.code).toBe('E3');
+    expect(getById('elec.cableTypes')?.code).toBe('E1');
+    expect(getById('hvac.loadEstimate')?.code).toBe('H1');
+    expect(getById('building.ddcSizing')?.code).toBe('BA1');
+    expect(getById('automation.servoGear')?.code).toBe('P2');
     // 旧 id 别名：水电类目 water.* 已迁移，仍可命中同一工具
     expect(getById('water.loadCalc')?.id).toBe('elec.load');
     expect(getById('water.demandFlow')?.id).toBe('hvac.demandFlow');

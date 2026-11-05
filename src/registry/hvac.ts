@@ -24,7 +24,7 @@ const FcuSelect = lazy(() => import('@/features/hvac/FcuSelect'));
 export const hvacTools: ToolDef[] = [
   {
     id: 'hvac.loadEstimate',
-    code: 'H11',
+    code: 'H1',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P0',
@@ -40,7 +40,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.airVolume',
-    code: 'H12',
+    code: 'H2',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P0',
@@ -56,7 +56,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.ductSize',
-    code: 'H13',
+    code: 'H3',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P0',
@@ -72,7 +72,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.waterFlow',
-    code: 'H14',
+    code: 'H4',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P0',
@@ -88,7 +88,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.fcuSelect',
-    code: 'H15',
+    code: 'H5',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P0',
@@ -104,7 +104,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.billing',
-    code: 'H1',
+    code: 'H6',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P0',
@@ -121,7 +121,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.cooling',
-    code: 'H2',
+    code: 'H7',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P1',
@@ -136,7 +136,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.precisionAc',
-    code: 'H3',
+    code: 'H8',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
@@ -151,7 +151,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.deviceParams',
-    code: 'H4',
+    code: 'H9',
     domain: 'hvac',
     kind: 'quickref',
     priority: 'P2',
@@ -166,7 +166,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.demandFlow',
-    code: 'H5',
+    code: 'H10',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
@@ -183,7 +183,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.pipeSize',
-    code: 'H6',
+    code: 'H11',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
@@ -199,7 +199,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.pumpHead',
-    code: 'H7',
+    code: 'H12',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
@@ -215,7 +215,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.pumpPower',
-    code: 'H8',
+    code: 'H13',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
@@ -231,7 +231,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.drainSlope',
-    code: 'H9',
+    code: 'H14',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
@@ -248,7 +248,7 @@ export const hvacTools: ToolDef[] = [
   },
   {
     id: 'hvac.waterHeater',
-    code: 'H10',
+    code: 'H15',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',

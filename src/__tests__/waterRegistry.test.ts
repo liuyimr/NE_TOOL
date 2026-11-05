@@ -16,11 +16,11 @@ describe('原「水电」类目拆分后注册完整性', () => {
   });
 
   it('关键工具可回取（新 id 编号 E/H 系列）', () => {
-    expect(getById('elec.load')?.code).toBe('E1');
-    expect(getById('elec.grounding')?.code).toBe('E8');
-    expect(getById('elec.lightning')?.code).toBe('E9');
-    expect(getById('hvac.demandFlow')?.code).toBe('H5');
-    expect(getById('hvac.waterHeater')?.code).toBe('H10');
+    expect(getById('elec.load')?.code).toBe('E3');
+    expect(getById('elec.grounding')?.code).toBe('E10');
+    expect(getById('elec.lightning')?.code).toBe('E11');
+    expect(getById('hvac.demandFlow')?.code).toBe('H10');
+    expect(getById('hvac.waterHeater')?.code).toBe('H15');
   });
 
   it('旧 id 别名解析到对应新工具', () => {

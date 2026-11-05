@@ -18,7 +18,7 @@ const DdcSizing = lazy(() => import('@/features/building/DdcSizing'));
 export const buildingTools: ToolDef[] = [
   {
     id: 'building.ddcSizing',
-    code: 'BA8',
+    code: 'BA1',
     domain: 'building',
     kind: 'calculator',
     priority: 'P0',
@@ -34,7 +34,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.cableLength',
-    code: 'BA1',
+    code: 'BA2',
     domain: 'building',
     kind: 'calculator',
     priority: 'P1',
@@ -49,7 +49,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.trayFill',
-    code: 'BA2',
+    code: 'BA3',
     domain: 'building',
     kind: 'calculator',
     priority: 'P1',
@@ -65,7 +65,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.pointCount',
-    code: 'BA3',
+    code: 'BA4',
     domain: 'building',
     kind: 'calculator',
     priority: 'P1',
@@ -81,7 +81,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.storage',
-    code: 'BA4',
+    code: 'BA5',
     domain: 'building',
     kind: 'calculator',
     priority: 'P0',
@@ -97,7 +97,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.ups',
-    code: 'BA5',
+    code: 'BA6',
     domain: 'building',
     kind: 'calculator',
     priority: 'P1',
@@ -112,7 +112,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.ddc',
-    code: 'BA6',
+    code: 'BA7',
     domain: 'building',
     kind: 'quickref',
     priority: 'P1',
@@ -127,7 +127,7 @@ export const buildingTools: ToolDef[] = [
   },
   {
     id: 'building.symbols',
-    code: 'BA7',
+    code: 'BA8',
     domain: 'building',
     kind: 'quickref',
     priority: 'P2',
