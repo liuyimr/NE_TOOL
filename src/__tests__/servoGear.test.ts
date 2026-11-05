@@ -39,4 +39,26 @@ describe('P17 伺服电子齿轮比与脉冲当量', () => {
     expect(servoGear({ encoderRes: 131072, pitch: 10, gearRatio: 10, pulseEquiv: 0 }).valid).toBe(false);
     expect(servoGear({ encoderRes: 0, pitch: 10, gearRatio: 10, pulseEquiv: 0.001 }).valid).toBe(false);
   });
+
+  it('极端：Δ=1e300 → 不出现 Infinity，fractionAvailable=false', () => {
+    const r = servoGear({ encoderRes: 131072, pitch: 10, gearRatio: 10, pulseEquiv: 1e300 });
+    expect(r.valid).toBe(true);
+    expect(Number.isFinite(r.ratio)).toBe(true);
+    expect(r.fractionAvailable).toBe(false);
+    expect(Number.isFinite(r.numerator)).toBe(true);
+    expect(Number.isFinite(r.denominator)).toBe(true);
+    expect(r.numerator).toBe(0);
+    expect(r.denominator).toBe(0);
+    expect(r.note).toContain('整数比');
+  });
+
+  it('常规极端值 Δ=1e6 / 1e-9 仍为有限且可计算（不回退）', () => {
+    const big = servoGear({ encoderRes: 131072, pitch: 10, gearRatio: 10, pulseEquiv: 1e6 });
+    expect(Number.isFinite(big.numerator)).toBe(true);
+    expect(Number.isFinite(big.denominator)).toBe(true);
+    expect(big.fractionAvailable).toBe(true);
+    const tiny = servoGear({ encoderRes: 131072, pitch: 10, gearRatio: 1, pulseEquiv: 1e-9 });
+    expect(Number.isFinite(tiny.ratio)).toBe(true);
+    expect(Number.isFinite(tiny.numerator)).toBe(true);
+  });
 });

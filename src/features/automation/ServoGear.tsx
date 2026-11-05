@@ -21,9 +21,15 @@ function run(v: Record<string, string>): CalcResult[] {
   if (!r.valid) {
     return [res('error', '错误', r.error ?? '输入非法', '', { copyable: false })];
   }
-  return [
+  const out: CalcResult[] = [
     res('ratio', '电子齿轮比', r.ratio, '', { highlight: true }),
-    res('fraction', '最简整数比', `${r.numerator} / ${r.denominator}`, '', { highlight: true }),
+    res(
+      'fraction',
+      '最简整数比',
+      r.fractionAvailable ? `${r.numerator} / ${r.denominator}` : '无法给出整数比（量级过大/过小）',
+      '',
+      { highlight: true, copyable: r.fractionAvailable },
+    ),
     res('pulsesPerRev', '每转指令脉冲数', r.pulsesPerRev, 'pulses/rev'),
     res('pulseEquiv', '脉冲当量（定位精度）', r.pulseEquiv, 'mm/pulse', { copyable: false }),
     res(
@@ -39,6 +45,8 @@ function run(v: Record<string, string>): CalcResult[] {
       copyable: false,
     }),
   ];
+  if (r.note) out.push(res('note', '提示', r.note, '', { copyable: false }));
+  return out;
 }
 
 /** P17 伺服电子齿轮比与脉冲当量 */

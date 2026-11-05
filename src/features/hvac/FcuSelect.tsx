@@ -31,6 +31,13 @@ function run(v: Record<string, string>): CalcResult[] {
     res('perUnitKw', '单台承担负荷', r.perUnitKw, 'kW'),
     res('unitWaterFlowM3h', '单台水流量', r.unitWaterFlowM3h, 'm³/h'),
     res('totalWaterFlowM3h', '总水流量', r.totalWaterFlowM3h, 'm³/h'),
+    res(
+      'capacity',
+      '容量校核',
+      r.capacityShortfall ? '容量不足 ⚠️：单台超最大档' : '满足 ✅',
+      '',
+      { highlight: r.capacityShortfall, copyable: false },
+    ),
     res('note', '说明', `${r.note}（档位：${FCU_CAPACITIES.join(' / ')} kW）`, '', {
       copyable: false,
     }),

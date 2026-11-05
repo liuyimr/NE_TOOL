@@ -32,6 +32,21 @@ describe('H15 FCU / AHU 选型速查', () => {
     expect(Number.isFinite(r.totalWaterFlowM3h)).toBe(true);
   });
 
+  it('容量不足：25 kW 指定 1 台 → 单台 25 kW 超最大档，必须显式提示', () => {
+    const r = hvacFcuSelect({ loadKw: 25, units: 1 });
+    expect(r.count).toBe(1);
+    expect(r.perUnitKw).toBeCloseTo(25, 6);
+    expect(r.modelKw).toBe(10.2);
+    expect(r.capacityShortfall).toBe(true);
+    expect(r.note).toContain('超过最大档');
+  });
+
+  it('自动拆台路径不误报容量不足', () => {
+    expect(hvacFcuSelect({ loadKw: 25 }).capacityShortfall).toBe(false);
+    expect(hvacFcuSelect({ loadKw: 8 }).capacityShortfall).toBe(false);
+    expect(hvacFcuSelect({ loadKw: 8, units: 2 }).capacityShortfall).toBe(false);
+  });
+
   it('档位常量升序且大于 0', () => {
     for (let i = 1; i < FCU_CAPACITIES.length; i++) {
       expect(FCU_CAPACITIES[i]).toBeGreaterThan(FCU_CAPACITIES[i - 1]);

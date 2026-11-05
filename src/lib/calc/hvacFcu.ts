@@ -28,6 +28,8 @@ export interface FcuSelectResult {
   unitWaterFlowM3h: number;
   /** 总水流量（m³/h） */
   totalWaterFlowM3h: number;
+  /** 单台所需负荷是否超过最大档（强制台数过少时），需提示增加台数/改用更大机型 */
+  capacityShortfall: boolean;
   /** 说明 */
   note: string;
 }
@@ -50,6 +52,7 @@ export function hvacFcuSelect(input: FcuSelectInput): FcuSelectResult {
       perUnitKw: 0,
       unitWaterFlowM3h: 0,
       totalWaterFlowM3h: 0,
+      capacityShortfall: false,
       note,
     };
   }
@@ -57,8 +60,15 @@ export function hvacFcuSelect(input: FcuSelectInput): FcuSelectResult {
   const count =
     input.units && input.units > 0 ? Math.floor(input.units) : load <= maxCap ? 1 : Math.ceil(load / maxCap);
   const perUnitKw = load / count;
-  const model = FCU_CAPACITIES.find((c) => c >= perUnitKw) ?? maxCap;
+  const matched = FCU_CAPACITIES.find((c) => c >= perUnitKw);
+  // 强制台数过少：单台所需负荷超过最大档，无合适机型可选，必须显式提示，不能静默回落最大档
+  const capacityShortfall = perUnitKw > maxCap + 1e-9;
+  const model = matched ?? maxCap;
   const unitWaterFlowM3h = (0.86 * model) / deltaT;
+
+  const finalNote = capacityShortfall
+    ? `单台所需 ${perUnitKw.toFixed(2)} kW 超过最大档 ${maxCap} kW，建议增加台数或改用更大机型`
+    : note;
 
   return {
     valid: true,
@@ -67,6 +77,7 @@ export function hvacFcuSelect(input: FcuSelectInput): FcuSelectResult {
     perUnitKw,
     unitWaterFlowM3h,
     totalWaterFlowM3h: unitWaterFlowM3h * count,
-    note,
+    capacityShortfall,
+    note: finalNote,
   };
 }
