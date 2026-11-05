@@ -47,7 +47,7 @@ export default function Breaker({ tool }: { tool: ToolDef }): JSX.Element {
       toolId={tool.id}
       fields={fields}
       run={run}
-      quickRefIds={['water.cableTypes']}
+      quickRefIds={['elec.cableTypes']}
     />
   );
 }

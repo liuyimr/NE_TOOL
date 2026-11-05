@@ -14,13 +14,13 @@
 ## 只想快点用起来？
 
 - 直接打开 **<https://liuyimr.github.io/NE_TOOL/>** 就能用，不用装任何东西。
-- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 410 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
+- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 435 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
 
 想改代码、自己构建，继续看下面的开发说明。
 
 # 工程师工具箱 · Engineer Toolbox
 
-给网络与物联网、楼宇自控（BA/弱电）、暖通空调与给排水、工业自动化、电气与配电工程师用的工具箱。53 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
+给网络与物联网、楼宇自控（BA/弱电）、暖通空调与给排水、工业自动化、电气与配电工程师用的工具箱。63 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
 
 机房、弱电间、地下室、工地经常没信号，所以它做成纯前端加 PWA：第一次打开之后断网也能用，手机上"添加到主屏"就跟装了个 App 一样。不注册、不登录、不上传数据，所有计算都在你自己的浏览器里跑完。
 
@@ -28,11 +28,11 @@
 
 ## 你可能在找
 
-子网计算器 / CIDR 网段划分 · IP 地址转换 · T568A T568B 线序 · RJ45 引脚定义 · 常用端口号（502、102、44818、4840）· 2.4G 5G 无线信道 · 监控摄像头存储容量 · 硬盘配置 · 中央空调时间型计费 · FCU 分摊 · 冷量计费 · 精密空调 · 4-20mA 转工程量 · 0-10V 换算 · PT100 温度换算 · 热电偶 mV · Modbus 功能码 · Modbus 异常码 · 三相电机电流 · 电机扭矩 · 电缆电压降 · 导线载流量 · 分压电阻 · 限流电阻 · IEEE754 浮点转换 · BCD 转换 · 照度计算 · 灯具数量 · 桥架填充率 · UPS 容量 · 综合布线线缆长度 · 计算负荷（需要系数法）· 单相三相功率电流 · 断路器与导线配合 · 穿线管管径 · 应急照明电池 · 给水秒流量 · 给水管径 · 水泵扬程与轴功率 · 排水坡度 · 热水加热功率 · 接地电阻 · 防雷保护范围
+子网计算器 / CIDR 网段划分 · IP 地址转换 · T568A T568B 线序 · RJ45 引脚定义 · 常用端口号（502、102、44818、4840）· 2.4G 5G 无线信道 · 监控摄像头存储容量 · 硬盘配置 · DDC 选型 · 中央空调时间型计费 · FCU 分摊 · 冷量计费 · 精密空调 · 冷热负荷估算 · 送风量 · 新风量 · 风管尺寸 · 冷冻水流量 · FCU/AHU 选型 · 4-20mA 转工程量 · 0-10V 换算 · PT100 温度换算 · 热电偶 mV · Modbus 功能码 · Modbus 异常码 · PLC 选型 · 伺服齿轮比 · 三相电机电流 · 电机扭矩 · 电缆电压降 · 导线载流量 · 分压电阻 · 限流电阻 · IEEE754 浮点转换 · BCD 转换 · 照度计算 · 灯具数量 · 桥架填充率 · UPS 容量 · 综合布线线缆长度 · 计算负荷（需要系数法）· 单相三相功率电流 · 断路器与导线配合 · 穿线管管径 · 应急照明电池 · 电线电缆型号 · 电气安装限值 · 给水秒流量 · 给水管径 · 水泵扬程与轴功率 · 排水坡度 · 热水加热功率 · 接地电阻 · 防雷保护范围
 
 ## 有哪些工具
 
-一共 53 个，按五个类目分开。编号 **N / BA / H / P / E** 分别对应这五个类目。
+一共 63 个，按五个类目分开。编号 **N / BA / H / P / E** 分别对应这五个类目。为便于现场上手，每个类目里的 **P0 工具排在最前面**。
 
 ### A. 网络与物联网（N1~N11，11 个）
 
@@ -50,10 +50,11 @@
 | N10 | WiFi 信号强度换算 | dBm 与 mW 互转，附强度等级参考 |
 | N11 | 网络故障排查命令速查 | ping、tracert、nslookup、ipconfig、netstat 常用写法 |
 
-### B. 楼宇自控与弱电（BA1~BA7，7 个）
+### B. 楼宇自控与弱电（BA1~BA8，8 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
+| BA8 | DDC 选型与 I/O 模块配置 | 点数 → 模块数 → DDC 台数，自动留余量并按 8AI/4AO/12DI/8DO 配模块 |
 | BA1 | 综合布线线缆长度估算 | 按点位、水平与垂直距离、余量系数算线缆用量和箱数 |
 | BA2 | 桥架 / 管路填充率计算 | 线缆截面积与桥架、管径比对，判断是否超容 |
 | BA3 | 弱电点位统计与工程量估算 | 分系统统计点位并估算辅材 |
@@ -62,10 +63,15 @@
 | BA6 | BA 点位表模板 / DDC 点位统计 | AI、AO、DI、DO 点数规则与 DDC 数量估算 |
 | BA7 | 弱电系统图例 / 符号速查 | 常见弱电符号与图例对照 |
 
-### C. 暖通空调与给排水（H1~H10，10 个）
+### C. 暖通空调与给排水（H1~H15，15 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
+| H11 | 空调冷/热负荷估算 | 面积 × 冷热指标（按建筑类型给默认值），方案阶段快速估冷量 |
+| H12 | 送风量 / 新风量计算 | L ≈ 2970·Q/Δt；新风按人数或换气次数两条口径 |
+| H13 | 风管尺寸选择 | 风量 + 风速 → 圆形直径或矩形标准尺寸，回算实际风速 |
+| H14 | 冷冻水 / 热水流量计算 | G = 0.86·Q/Δt，并据流速给推荐管径 |
+| H15 | FCU / AHU 选型速查 | 按冷量档位粗选型号与台数（以厂家样本为准） |
 | H1 | 中央空调时间型计费计算 | 按 FCU 档位运行时长与权重算用量和费用 |
 | H2 | 冷量计费计算 | 由流量、供回水温差和时长累计冷量与费用 |
 | H3 | 精密空调制冷量估算 | 按 IT 负载与房间面积估算制冷量 |
@@ -77,10 +83,12 @@
 | H9 | 排水管径与坡度校核 | 对照 DN50~DN200 标准 / 最小坡度，判定是否可排 |
 | H10 | 热水耗热量与加热功率 | P = 1.163·V·ΔT/(t·1000·η)，定热水加热设备 |
 
-### D. 工业自动化（P1~P15，15 个）
+### D. 工业自动化（P1~P17，17 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
+| P16 | PLC 选型与 I/O 点数估算 | 点数 → 模块 → CPU 档位与 24V 电源容量 |
+| P17 | 伺服电子齿轮比与脉冲当量 | ratio = E·Δ·i/P，给齿轮比、最简整数比与定位精度 |
 | P1 | 模拟量换算（4-20mA / 0-10V ↔ 工程量） | 原始值线性定标，正反算与斜率截距 |
 | P2 | PT100 / 热电偶温度换算 | 电阻值或 mV 与温度互算，含负温 |
 | P3 | 数据类型 / 进制换算（INT/DINT/REAL/WORD/BCD） | 位宽、有无符号与 BCD 互转 |
@@ -97,10 +105,12 @@
 | P14 | OPC-UA 速查 | 地址空间、节点与默认端口 |
 | P15 | 常见报警码（部分） | 少量通用 PLC / 变频器报警码，覆盖有限、以厂家手册为准 |
 
-### E. 电气与配电（E1~E10，10 个）
+### E. 电气与配电（E1~E12，12 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
+| E11 | 电线电缆型号含义速查 | BV/BVR/RVV/YJV/VV/VV22… 结构、用途、电压等级 |
+| E12 | 电气安装尺寸与规范限值速查 | 插座/开关高度、潮湿场所要求、回路与漏保配置 |
 | E1 | 计算负荷（需要系数法） | 按设备清单与需要系数算 Pc / Qc / Sc / Ic，定配电箱与进线容量 |
 | E2 | 单相 / 三相 功率电流换算 | P = √3·U·I·cosφ（单相去掉 √3），功率与电流双向换算 |
 | E3 | 电缆选型与电压降计算 | 按电流精确式 + 按功率简化系数法，含照明 2.5% / 动力 5% 判定 |
@@ -119,7 +129,7 @@
 两种方式任选其一：
 
 - **在线打开**：<https://liuyimr.github.io/NE_TOOL/>，第一次打开后浏览器会缓存全部资源，之后没网也能用，「添加到主屏」可以当 App 用。
-- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 410 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
+- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 435 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
 
 > `docs/index.html` 是构建产物（由命令生成），请不要手改。
 
@@ -191,7 +201,7 @@ src/
 | 用途 | 选型 | 为什么 |
 |---|---|---|
 | 构建 | Vite 5 | 启动快，配置少，PWA 和单文件都有现成插件 |
-| 框架 | React 18 + TypeScript | 53 个工具的配置驱动需要类型兜底 |
+| 框架 | React 18 + TypeScript | 63 个工具的配置驱动需要类型兜底 |
 | 样式 | Tailwind CSS 3 | 颜色走 CSS 变量，切换主题只改一处 |
 | 路由 | React Router 6（HashRouter） | 离线深链和单文件本地打开都不会 404 |
 | 状态 | Zustand + persist | 收藏、最近使用、主题存 localStorage |
@@ -227,7 +237,7 @@ src/
 
 ## English
 
-An offline-first toolbox for network/IoT, building-automation (BA/ELV), HVAC and plumbing, industrial-automation and electrical engineers. 53 calculators and quick-reference tables: subnet/CIDR calculator, IP conversion, T568A/T568B wiring, RJ45 pinout, common port numbers, WiFi channel planning, CCTV storage sizing, FCU time-based billing, cooling billing, 4-20mA scaling, PT100 conversion, Modbus function codes, three-phase motor and cable voltage-drop calculations, load estimation, breaker coordination, conduit sizing, illuminance, water-demand flow, pump head and shaft power, drainage slope, water-heating power, grounding resistance and lightning protection, and more.
+An offline-first toolbox for network/IoT, building-automation (BA/ELV), HVAC and plumbing, industrial-automation and electrical engineers. 63 calculators and quick-reference tables: subnet/CIDR calculator, IP conversion, T568A/T568B wiring, RJ45 pinout, common port numbers, WiFi channel planning, CCTV storage sizing, DDC sizing, FCU time-based billing, cooling billing, HVAC load estimation, supply/fresh air volume, duct sizing, chilled-water flow, FCU selection, 4-20mA scaling, PT100 conversion, Modbus function codes, PLC sizing, servo gear ratio, three-phase motor and cable voltage-drop calculations, load estimation, breaker coordination, conduit sizing, illuminance, cable types, installation limits, water-demand flow, pump head and shaft power, drainage slope, water-heating power, grounding resistance and lightning protection, and more.
 
 Vanilla front-end only. No backend, no login, no telemetry. Installable as a PWA and works fully offline after the first visit. A single-file HTML build is included for USB stick distribution.
 

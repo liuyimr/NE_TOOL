@@ -3,26 +3,30 @@ import { buildSearchDocs, byDomain, byPriority, getAll, getById } from '@/regist
 import { buildIndex, resetSearchIndex, search } from '@/lib/search';
 
 describe('工具注册表', () => {
-  it('共 53 个工具', () => {
-    expect(getAll().length).toBe(53);
+  it('共 63 个工具', () => {
+    expect(getAll().length).toBe(63);
   });
 
-  it('各领域数量：网络/IoT 11 / BA 7 / 暖通 10 / 工控 15 / 电工 10', () => {
+  it('各领域数量：网络/IoT 11 / BA 8 / 暖通 15 / 工控 17 / 电工 12', () => {
     expect(byDomain('network').length).toBe(11);
-    expect(byDomain('building').length).toBe(7);
-    expect(byDomain('hvac').length).toBe(10);
-    expect(byDomain('automation').length).toBe(15);
-    expect(byDomain('elec').length).toBe(10);
+    expect(byDomain('building').length).toBe(8);
+    expect(byDomain('hvac').length).toBe(15);
+    expect(byDomain('automation').length).toBe(17);
+    expect(byDomain('elec').length).toBe(12);
   });
 
-  it('P0 共 20 个', () => {
-    expect(byPriority('P0').length).toBe(20);
+  it('P0 共 30 个', () => {
+    expect(byPriority('P0').length).toBe(30);
   });
 
   it('getById 命中（新 id 与旧 id 别名一致）', () => {
     expect(getById('network.subnet')?.code).toBe('N1');
     expect(getById('automation.modbus')?.code).toBe('P13');
     expect(getById('elec.load')?.code).toBe('E1');
+    expect(getById('elec.cableTypes')?.code).toBe('E11');
+    expect(getById('hvac.loadEstimate')?.code).toBe('H11');
+    expect(getById('building.ddcSizing')?.code).toBe('BA8');
+    expect(getById('automation.servoGear')?.code).toBe('P17');
     // 旧 id 别名：水电类目 water.* 已迁移，仍可命中同一工具
     expect(getById('water.loadCalc')?.id).toBe('elec.load');
     expect(getById('water.demandFlow')?.id).toBe('hvac.demandFlow');
@@ -31,7 +35,7 @@ describe('工具注册表', () => {
 
   it('buildSearchDocs 含工具与速查行', () => {
     const docs = buildSearchDocs();
-    expect(docs.length).toBeGreaterThan(53);
+    expect(docs.length).toBeGreaterThan(63);
     expect(docs.some((d) => d.type === 'tool')).toBe(true);
     expect(docs.some((d) => d.type === 'quickref-item')).toBe(true);
   });

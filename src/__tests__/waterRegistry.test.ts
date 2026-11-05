@@ -6,9 +6,9 @@ import { getQuickRef } from '@/data/catalog';
  * 水电类目已按 5 类目重构拆入 elec / hvac：本文件校验拆分后注册与数据的完整性。
  */
 describe('原「水电」类目拆分后注册完整性', () => {
-  it('拆入后 elec 10 个、hvac 10 个', () => {
-    expect(byDomain('elec').length).toBe(10);
-    expect(byDomain('hvac').length).toBe(10);
+  it('拆入后（含新增）elec 12 个、hvac 15 个', () => {
+    expect(byDomain('elec').length).toBe(12);
+    expect(byDomain('hvac').length).toBe(15);
   });
 
   it('强电工具全部具备 Component（无占位）', () => {
@@ -43,13 +43,13 @@ describe('原「水电」类目拆分后注册完整性', () => {
     }
   });
 
-  it('原水电 5 张速查表领域改为 hvac / elec 且 searchable', () => {
+  it('原水电 5 张速查表已按新前缀改名且 searchable', () => {
     const expectDomain: Record<string, string> = {
-      'water.cableTypes': 'elec',
-      'water.installLimits': 'elec',
-      'water.groundingLimits': 'elec',
-      'water.pipeSpecs': 'hvac',
-      'water.drainSlope': 'hvac',
+      'elec.cableTypes': 'elec',
+      'elec.installLimits': 'elec',
+      'elec.groundingLimits': 'elec',
+      'hvac.pipeSpecs': 'hvac',
+      'hvac.drainSlope': 'hvac',
     };
     for (const [id, domain] of Object.entries(expectDomain)) {
       const table = getQuickRef(id);

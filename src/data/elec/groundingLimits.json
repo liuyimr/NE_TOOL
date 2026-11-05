@@ -1,5 +1,5 @@
 {
-  "id": "water.groundingLimits",
+  "id": "elec.groundingLimits",
   "title": "接地电阻限值与土壤电阻率速查",
   "domain": "elec",
   "columns": [

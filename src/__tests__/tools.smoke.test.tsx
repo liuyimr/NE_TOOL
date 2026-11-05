@@ -7,20 +7,20 @@ import { getAll } from '@/registry';
 
 /**
  * 全量工具界面冒烟测试（jsdom）：
- * 逐一挂载全部 53 个工具的懒加载组件，验证：
+ * 逐一挂载全部 63 个工具的懒加载组件，验证：
  *  - 组件模块可被成功加载（无模块级异常）
  *  - 首次渲染不抛错，且 Suspense 落定后确有 DOM 输出（非空界面）
- * 这是"53 个工具界面全部可用、无占位/无 TODO"的直接证据。
+ * 这是"63 个工具界面全部可用、无占位/无 TODO"的直接证据。
  */
 afterEach(() => cleanup());
 
 const ALL_TOOLS = getAll();
 
 describe('全部工具界面冒烟渲染', () => {
-  it('注册表恰有 53 个工具且 id 唯一', () => {
-    expect(ALL_TOOLS.length).toBe(53);
+  it('注册表恰有 63 个工具且 id 唯一', () => {
+    expect(ALL_TOOLS.length).toBe(63);
     const ids = ALL_TOOLS.map((t) => t.id);
-    expect(new Set(ids).size).toBe(53);
+    expect(new Set(ids).size).toBe(63);
   });
 
   for (const tool of ALL_TOOLS) {

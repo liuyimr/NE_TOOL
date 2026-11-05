@@ -535,13 +535,13 @@ describe('C10 向后兼容（旧版 fixtures/cableDrop.old 对照）', () => {
 // 结构一致性：原「水电」15 项已按 5 类目重构拆入 elec / hvac（合并 2 项）
 // ===========================================================================
 describe('注册表结构（水电类目已并入 elec / hvac）', () => {
-  it('原水电工具按归属拆入 elec（10）与 hvac（10）', () => {
-    expect(byDomain('elec')).toHaveLength(10);
-    expect(byDomain('hvac')).toHaveLength(10);
+  it('原水电工具按归属拆入并扩充后：elec 12、hvac 15', () => {
+    expect(byDomain('elec')).toHaveLength(12);
+    expect(byDomain('hvac')).toHaveLength(15);
   });
 
-  it('全量 53 个工具（58 − 合并 5）', () => {
-    expect(ALL_TOOLS).toHaveLength(53);
+  it('全量 63 个工具（53 + 新增 10）', () => {
+    expect(ALL_TOOLS).toHaveLength(63);
   });
 
   it('D3 电压降并入 C10（电气 E3）：旧 id 别名解析且 calcId=cableDrop', () => {
@@ -551,10 +551,10 @@ describe('注册表结构（水电类目已并入 elec / hvac）', () => {
     expect(t?.Component).toBeTruthy();
   });
 
-  it('D14 接地限值并入 D13（电气 E8）：旧 id 别名指向 elec.grounding 且仍绑定 water.groundingLimits', () => {
+  it('D14 接地限值并入 D13（电气 E8）：旧 id 别名指向 elec.grounding 且仍绑定 elec.groundingLimits', () => {
     const t = getById('water.groundingRef');
     expect(t?.id).toBe('elec.grounding');
-    expect(t?.quickRefId).toBe('water.groundingLimits');
+    expect(t?.quickRefId).toBe('elec.groundingLimits');
   });
 
   it('工具 id 全局唯一', () => {

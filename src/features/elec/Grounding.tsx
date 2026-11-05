@@ -61,7 +61,7 @@ export default function Grounding({ tool }: { tool: ToolDef }): JSX.Element {
   return (
     <div className="flex flex-col gap-4">
       <CalculatorView toolId={tool.id} fields={fields} run={run} />
-      <QuickRefTable tableId="water.groundingLimits" />
+      <QuickRefTable tableId="elec.groundingLimits" />
     </div>
   );
 }

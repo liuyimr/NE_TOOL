@@ -13,8 +13,25 @@ const StorageCalculator = lazy(() => import('@/features/building/StorageCalculat
 const UpsCalculator = lazy(() => import('@/features/building/UpsCalculator'));
 const DdcTemplate = lazy(() => import('@/features/building/DdcTemplate'));
 const Symbols = lazy(() => import('@/features/building/Symbols'));
+const DdcSizing = lazy(() => import('@/features/building/DdcSizing'));
 
 export const buildingTools: ToolDef[] = [
+  {
+    id: 'building.ddcSizing',
+    code: 'BA8',
+    domain: 'building',
+    kind: 'calculator',
+    priority: 'P0',
+    title: 'DDC 选型与 I/O 模块配置',
+    subtitle: '点数 → 模块数 → DDC 台数，自动留足余量',
+    keywords: ['ddc', '选型', 'io', '点位', '模块', 'ba', '控制器', 'sizing'],
+    tags: ['弱电', 'BA'],
+    icon: '🧩',
+    order: 0,
+    calcId: 'ddcSizing',
+    defaultInput: { ai: 40, ao: 10, di: 120, do: 60, marginPct: 20, maxPointsPerDdc: 200 },
+    Component: DdcSizing,
+  },
   {
     id: 'building.cableLength',
     code: 'BA1',

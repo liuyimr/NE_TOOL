@@ -16,8 +16,40 @@ const Lightning = lazy(() => import('@/features/elec/Lightning'));
 const CableDropCalculator = lazy(() => import('@/features/automation/CableDropCalculator'));
 const AmpacityRef = lazy(() => import('@/features/automation/AmpacityRef'));
 const IlluminanceCalc = lazy(() => import('@/features/building/IlluminanceCalc'));
+const CableTypes = lazy(() => import('@/features/elec/CableTypes'));
+const InstallLimits = lazy(() => import('@/features/elec/InstallLimits'));
 
 export const elecTools: ToolDef[] = [
+  {
+    id: 'elec.cableTypes',
+    code: 'E11',
+    domain: 'elec',
+    kind: 'quickref',
+    priority: 'P0',
+    title: '电线电缆型号含义速查',
+    subtitle: 'BV/BVR/RVV/YJV/VV/VV22… 结构、用途、电压等级',
+    keywords: ['电缆', '型号', 'bv', 'yjv', 'rvv', 'vv', '电线', 'cable type'],
+    tags: ['电工', '配电'],
+    icon: '🧾',
+    order: 0,
+    quickRefId: 'elec.cableTypes',
+    Component: CableTypes,
+  },
+  {
+    id: 'elec.installLimits',
+    code: 'E12',
+    domain: 'elec',
+    kind: 'quickref',
+    priority: 'P0',
+    title: '电气安装尺寸与规范限值速查',
+    subtitle: '插座/开关高度、潮湿场所要求、回路与漏保配置',
+    keywords: ['安装尺寸', '插座高度', '开关高度', '规范限值', '漏保', 'installation'],
+    tags: ['电工', '安装'],
+    icon: '📐',
+    order: 0,
+    quickRefId: 'elec.installLimits',
+    Component: InstallLimits,
+  },
   {
     id: 'elec.load',
     code: 'E1',
@@ -79,7 +111,7 @@ export const elecTools: ToolDef[] = [
     icon: '🔲',
     order: 4,
     calcId: 'waterBreaker',
-    quickRefId: 'water.cableTypes',
+    quickRefId: 'elec.cableTypes',
     defaultInput: { ib: 24, iz: 32, loadType: 'general' },
     Component: Breaker,
   },
@@ -96,7 +128,7 @@ export const elecTools: ToolDef[] = [
     icon: '🧵',
     order: 5,
     calcId: 'waterConduit',
-    quickRefIds: ['water.installLimits'],
+    quickRefIds: ['elec.installLimits'],
     defaultInput: { section: 2.5, count: 3 },
     Component: Conduit,
   },
@@ -144,7 +176,7 @@ export const elecTools: ToolDef[] = [
     icon: '⏚',
     order: 8,
     calcId: 'waterGrounding',
-    quickRefId: 'water.groundingLimits',
+    quickRefId: 'elec.groundingLimits',
     defaultInput: { rho: 100, length: 2.5, diameter: 0.05, targetR: 4, rods: 0, eta: 0.75 },
     Component: Grounding,
   },

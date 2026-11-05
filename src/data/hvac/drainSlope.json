@@ -1,5 +1,5 @@
 {
-  "id": "water.drainSlope",
+  "id": "hvac.drainSlope",
   "title": "排水管径-坡度-充满度速查",
   "domain": "hvac",
   "columns": [

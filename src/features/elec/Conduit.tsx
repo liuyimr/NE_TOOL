@@ -52,7 +52,7 @@ export default function Conduit({ tool }: { tool: ToolDef }): JSX.Element {
       toolId={tool.id}
       fields={fields}
       run={run}
-      quickRefIds={['water.installLimits']}
+      quickRefIds={['elec.installLimits']}
     />
   );
 }

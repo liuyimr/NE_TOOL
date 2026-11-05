@@ -56,7 +56,7 @@ export default function DrainSlope({ tool }: { tool: ToolDef }): JSX.Element {
       toolId={tool.id}
       fields={fields}
       run={run}
-      quickRefIds={['water.drainSlope']}
+      quickRefIds={['hvac.drainSlope']}
     />
   );
 }

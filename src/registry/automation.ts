@@ -20,8 +20,42 @@ const TimerConverter = lazy(() => import('@/features/automation/TimerConverter')
 const ModbusRef = lazy(() => import('@/features/automation/ModbusRef'));
 const OpcuaRef = lazy(() => import('@/features/automation/OpcuaRef'));
 const FaultsRef = lazy(() => import('@/features/automation/FaultsRef'));
+const PlcSizing = lazy(() => import('@/features/automation/PlcSizing'));
+const ServoGear = lazy(() => import('@/features/automation/ServoGear'));
 
 export const automationTools: ToolDef[] = [
+  {
+    id: 'automation.plcSizing',
+    code: 'P16',
+    domain: 'automation',
+    kind: 'calculator',
+    priority: 'P0',
+    title: 'PLC 选型与 I/O 点数估算',
+    subtitle: '点数 → 模块 → CPU 档位与 24V 电源容量',
+    keywords: ['plc', '选型', 'io', '点数', '模块', 'cpu', 'sizing'],
+    tags: ['工控', 'PLC'],
+    icon: '🧠',
+    order: 0,
+    calcId: 'plcSizing',
+    defaultInput: { di: 40, do: 24, ai: 16, ao: 4, marginPct: 25, highSpeed: '0' },
+    Component: PlcSizing,
+  },
+  {
+    id: 'automation.servoGear',
+    code: 'P17',
+    domain: 'automation',
+    kind: 'calculator',
+    priority: 'P0',
+    title: '伺服电子齿轮比与脉冲当量',
+    subtitle: 'ratio = E·Δ·i/P，给出齿轮比与定位精度',
+    keywords: ['伺服', '电子齿轮比', '脉冲当量', 'servo', 'gear', '编码器'],
+    tags: ['工控', '伺服'],
+    icon: '🎯',
+    order: 0,
+    calcId: 'servoGear',
+    defaultInput: { encoderRes: 131072, pitch: 10, gearRatio: 10, pulseEquiv: 0.001 },
+    Component: ServoGear,
+  },
   {
     id: 'automation.analog',
     code: 'P1',

@@ -445,14 +445,14 @@ describe('QA · A4/A5 带宽与传输时间（独立复算）', () => {
 
 // ──────────────────────────────────────────────────────────────── 结构与一致性
 describe('QA · 注册表结构 / 一致性', () => {
-  it('53 工具；分布 11/7/10/15/10；P0 恰 20', () => {
-    expect(getAll().length).toBe(53);
+  it('63 工具；分布 11/8/15/17/12；P0 恰 30', () => {
+    expect(getAll().length).toBe(63);
     expect(byDomain('network').length).toBe(11);
-    expect(byDomain('building').length).toBe(7);
-    expect(byDomain('hvac').length).toBe(10);
-    expect(byDomain('automation').length).toBe(15);
-    expect(byDomain('elec').length).toBe(10);
-    expect(byPriority('P0').length).toBe(20);
+    expect(byDomain('building').length).toBe(8);
+    expect(byDomain('hvac').length).toBe(15);
+    expect(byDomain('automation').length).toBe(17);
+    expect(byDomain('elec').length).toBe(12);
+    expect(byPriority('P0').length).toBe(30);
   });
 
   it('每个工具 getById 可回取，且 Component 非空、元信息完整', () => {
