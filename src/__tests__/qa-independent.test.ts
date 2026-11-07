@@ -445,13 +445,13 @@ describe('QA · A4/A5 带宽与传输时间（独立复算）', () => {
 
 // ──────────────────────────────────────────────────────────────── 结构与一致性
 describe('QA · 注册表结构 / 一致性', () => {
-  it('63 工具；分布 11/8/15/17/12；P0 恰 30', () => {
-    expect(getAll().length).toBe(63);
-    expect(byDomain('network').length).toBe(11);
-    expect(byDomain('building').length).toBe(8);
-    expect(byDomain('hvac').length).toBe(15);
-    expect(byDomain('automation').length).toBe(17);
-    expect(byDomain('elec').length).toBe(12);
+  it('78 工具；分布 14/12/18/19/15；P0 恰 30', () => {
+    expect(getAll().length).toBe(78);
+    expect(byDomain('network').length).toBe(14);
+    expect(byDomain('building').length).toBe(12);
+    expect(byDomain('hvac').length).toBe(18);
+    expect(byDomain('automation').length).toBe(19);
+    expect(byDomain('elec').length).toBe(15);
     expect(byPriority('P0').length).toBe(30);
   });
 

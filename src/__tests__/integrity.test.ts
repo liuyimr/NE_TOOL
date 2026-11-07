@@ -52,13 +52,13 @@ describe('数据与注册表引用完整性', () => {
     expect(new Set(codes).size).toBe(codes.length);
   });
 
-  it('注册表覆盖五大领域且总数为 63', () => {
+  it('注册表覆盖五大领域且总数为 78', () => {
     const tools = getAll();
-    expect(tools.length).toBe(63);
-    expect(tools.filter((t) => t.domain === 'network').length).toBe(11);
-    expect(tools.filter((t) => t.domain === 'building').length).toBe(8);
-    expect(tools.filter((t) => t.domain === 'hvac').length).toBe(15);
-    expect(tools.filter((t) => t.domain === 'automation').length).toBe(17);
-    expect(tools.filter((t) => t.domain === 'elec').length).toBe(12);
+    expect(tools.length).toBe(78);
+    expect(tools.filter((t) => t.domain === 'network').length).toBe(14);
+    expect(tools.filter((t) => t.domain === 'building').length).toBe(12);
+    expect(tools.filter((t) => t.domain === 'hvac').length).toBe(18);
+    expect(tools.filter((t) => t.domain === 'automation').length).toBe(19);
+    expect(tools.filter((t) => t.domain === 'elec').length).toBe(15);
   });
 });

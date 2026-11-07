@@ -1,0 +1,32 @@
+{
+  "id": "building.sensorSelection",
+  "title": "传感器量程与精度选型",
+  "domain": "building",
+  "columns": [
+    { "key": "point", "label": "测点", "align": "left" },
+    { "key": "range", "label": "推荐量程", "align": "left" },
+    { "key": "accuracy", "label": "推荐精度", "align": "left" },
+    { "key": "signal", "label": "输出信号", "align": "left" },
+    { "key": "install", "label": "安装位置与注意", "align": "left" }
+  ],
+  "rows": [
+    { "id": "indoor-temp", "label": "室内温度 房间温度传感器", "values": { "point": "室内温度", "range": "0~50 ℃（或 −10~50 ℃）", "accuracy": "±0.3~0.5 ℃", "signal": "PT1000 / NTC 10k 电阻，或 0-10 V、4-20 mA 变送", "install": "离地 1.2~1.5 m 墙面，避开送风口直吹、阳光直射、外墙冷辐射与门边；不与温控器热源同盒" } },
+    { "id": "outdoor-temp", "label": "室外温度 焓值经济运行", "values": { "point": "室外温度", "range": "−40~+60 ℃", "accuracy": "±0.5 ℃", "signal": "PT1000 或 4-20 mA / 0-10 V 变送", "install": "装在北向通风百叶箱内、遮阳防雨，远离排风口、冷却塔与屋面热辐射；引线需屏蔽" } },
+    { "id": "duct-temp", "label": "风管送风 回风温度", "values": { "point": "风管送/回风温度", "range": "0~50 ℃（送风常用 0~40 ℃）", "accuracy": "±0.3~0.5 ℃", "signal": "PT1000 / NTC，或 0-10 V、4-20 mA 变送", "install": "探头插入风管中心气流稳定段，插入深度 ≥ 管径 1/3~1/2，迎/逆气流按厂家要求；穿管处密封防漏风，避开表冷器直接辐射" } },
+    { "id": "pipe-temp", "label": "水管供水 回水温度", "values": { "point": "水管供/回水温度", "range": "冷冻水 0~50 ℃；热水 0~100 ℃（可选 0~120 ℃）", "accuracy": "±0.3~0.5 ℃", "signal": "PT1000 或 4-20 mA 变送", "install": "必须配温度计套管（不锈钢），插入深度 ≥ 管径 1/2 且越过管中心，宜逆流 45° 斜插；套管内填导热硅脂，避免装在阀门/弯头湍流区" } },
+    { "id": "humidity", "label": "相对湿度 房间 风管", "values": { "point": "相对湿度", "range": "0~100 %RH", "accuracy": "±3~5 %RH（20~80 %RH @ 25 ℃）", "signal": "0-10 V / 4-20 mA / Modbus RTU", "install": "避开风口直吹、结露与蒸汽；风管型需带防结露探头；高分子电容式年漂移约 1~3 %RH，建议每年校准" } },
+    { "id": "co2", "label": "CO2 浓度 新风需求控制", "values": { "point": "CO₂ 浓度", "range": "0~2000 ppm（人员密集场所可选 0~5000 ppm）", "accuracy": "±(50 ppm + 3% 读数)", "signal": "0-10 V / 4-20 mA / Modbus RTU / BACnet", "install": "NDIR 原理；装于回风管或人员区 1.2~1.8 m，避开新风直吹与门口；开启自动基线校准(ABC)需保证定期有新鲜空气；定期单点校验" } },
+    { "id": "room-dp", "label": "房间压差 洁净 负压", "values": { "point": "房间 / 区域压差", "range": "−50~+50 Pa（洁净室常用 ±30 Pa 或 0~60 Pa）", "accuracy": "±1~2 Pa 或 ±1% FS", "signal": "0-10 V / 4-20 mA 微差压变送器", "install": "两侧取压管等长同径、避免气流直冲与温度差，室内侧加阻尼；零点随季节漂移需定期校准，取压口远离门缝与送风口" } },
+    { "id": "filter-dp", "label": "滤网压差 风管压差", "values": { "point": "风管 / 滤网压差", "range": "0~500 Pa（滤网差压常用 0~250 Pa）", "accuracy": "±1~2% FS", "signal": "0-10 V / 4-20 mA，或差压开关干接点", "install": "高/低压取压点分设滤网前后直管段；引压软管不得积水、应坡向取压点；报警值按初阻力 2~3 倍设定（工程经验值）" } },
+    { "id": "water-pressure", "label": "水管压力 供回水压差", "values": { "point": "水管压力 / 压差", "range": "0~1.0 MPa 或 0~1.6 MPa（按系统工作压力 1.5 倍选）", "accuracy": "±0.5~1% FS", "signal": "4-20 mA（两线制）或 0-10 V", "install": "取压点设在直管段（前 ≥5D、后 ≥2D），加缓冲弯管/阻尼防泵启停水锤；配检修阀与针阀，传感器避免装在最高点气塞处" } },
+    { "id": "water-flow", "label": "水流量 电磁流量计", "values": { "point": "水流量（冷冻水 / 冷却水）", "range": "按管径与 0.5~3 m/s 流速确定（DN100 约 14~85 m³/h）", "accuracy": "±1~2% 读数（电磁式）", "signal": "4-20 mA / 脉冲 / Modbus RTU", "install": "必须满管，前后直管段 ≥5D / 2D，装接地环并可靠接地；避免装在泵出口、最高点或 downward 自由出流管段；介质电导率需满足厂家要求" } },
+    { "id": "flow-switch", "label": "水流开关 流量开关 桨片式", "values": { "point": "水流开关（流量开关）", "range": "动作流量按管径现场整定（DN100 常取 8~20 m³/h 可调）", "accuracy": "开关量，重复性约 ±10~20% 设定值", "signal": "无源干接点 → DDC DI", "install": "桨片长度按管径选、不得碰管壁或焊缝；装在水平直管段，前后 ≥5D，箭头方向与水流一致；禁止装在阀门后立即湍流区；需与水泵反馈做延时防抖" } },
+    { "id": "level", "label": "液位 水箱 水池", "values": { "point": "液位（水箱 / 集水坑）", "range": "0~2 m / 0~5 m（按容器高度选，留 10% 余量）", "accuracy": "±0.5~1% FS（静压投入式）；超声波 ±0.25~0.5% FS", "signal": "4-20 mA，或高/低液位开关干接点", "install": "静压式探头装底部但避开进水冲击与沉积物，加阻尼筒或防浪涌管；超声波需避开液面泡沫与波束内障碍物、留盲区；高低液位开关宜独立设置作安全联锁" } },
+    { "id": "outdoor-enthalpy", "label": "室外焓值 温湿度组合", "values": { "point": "室外焓值（由温湿度计算）", "range": "由 −40~60 ℃、0~100 %RH 组合计算（约 −40~120 kJ/kg 干空气）", "accuracy": "取决于温度 ±0.5 ℃ 与湿度 ±3~5 %RH 的合成误差", "signal": "温湿度一体变送器 0-10 V / 4-20 mA / Modbus / BACnet", "install": "与室外温湿度传感器同址装在百叶箱内；计算需代入当地大气压；用于焓值经济运行比较时与回风焓值采用同一算法与单位" } },
+    { "id": "illuminance", "label": "照度 室内 室外", "values": { "point": "照度（照明控制 / 遮阳联动）", "range": "室内 0~2000 lx；室外 0~100 klx", "accuracy": "±3~5% 读数", "signal": "0-10 V / 4-20 mA / Modbus RTU", "install": "感光面水平安装、与被测面同高度，避开灯具直射眩光、结构遮挡与阴影；室外加防尘罩并定期清洁镜片" } },
+    { "id": "pm25", "label": "PM2.5 空气质量 可选", "values": { "point": "PM2.5 / 空气质量（可选测点）", "range": "0~500 µg/m³（或 0~1000 µg/m³）", "accuracy": "±10~15% 读数（激光散射法）", "signal": "Modbus RTU / 0-10 V / BACnet", "install": "装在回风管或人员区，避开高湿结露、油烟与风口直吹；激光光路需定期清洁；仅用于通风联动与舒适度监测，不作计量溯源（工程经验值）" } }
+  ],
+  "searchable": true,
+  "source": "楼宇自控常用传感器选型的工程经验值（量程、精度、信号、安装要求）；铂电阻精度参考 IEC 60751，CO₂ 为常见 NDIR 产品样本指标，电磁流量计/微差压变送器指标取自厂商样本。以上均为选型推荐值而非规范强制值，具体以设计说明、点表与厂家样本为准；本表偏楼控选型，与工控信号形式速查 automation.sensors 侧重点不同",
+  "updatedAt": "2026-11-05"
+}

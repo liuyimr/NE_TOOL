@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 楼宇自控与弱电领域（BA 组）工具注册项：BA1~BA7
+ * 楼宇自控与弱电领域（BA 组）工具注册项：BA1~BA12
  * 说明：原 B6 精密空调 / B8 时间计费 / B9 冷量计费 / B13 设备参数 已迁入「暖通/水暖」；
  *      原 B10 照度 / B11 灯具数量 已迁入「电气与配电」（B11 并入 B10）。
  */
@@ -14,6 +14,10 @@ const UpsCalculator = lazy(() => import('@/features/building/UpsCalculator'));
 const DdcTemplate = lazy(() => import('@/features/building/DdcTemplate'));
 const Symbols = lazy(() => import('@/features/building/Symbols'));
 const DdcSizing = lazy(() => import('@/features/building/DdcSizing'));
+const BaControlStrategy = lazy(() => import('@/features/building/BaControlStrategy'));
+const SensorSelection = lazy(() => import('@/features/building/SensorSelection'));
+const ValveKv = lazy(() => import('@/features/building/ValveKv'));
+const BacnetRef = lazy(() => import('@/features/building/BacnetRef'));
 
 export const buildingTools: ToolDef[] = [
   {
@@ -139,5 +143,66 @@ export const buildingTools: ToolDef[] = [
     order: 7,
     quickRefId: 'building.symbols',
     Component: Symbols,
+  },
+  {
+    id: 'building.controlStrategy',
+    code: 'BA9',
+    domain: 'building',
+    kind: 'quickref',
+    priority: 'P1',
+    title: 'BA 控制策略速查（冷冻站 / 空调箱 / 新风机）',
+    subtitle: '冷冻站台数控制与联锁、AHU/FAU 启停顺序、防冻保护与手自动无扰动切换',
+    keywords: ['ba', '控制策略', '冷冻站', '空调箱', '新风机', 'ahu', 'fau', '联锁', '台数控制', '防冻'],
+    tags: ['弱电', 'BA'],
+    icon: '🎛️',
+    order: 9,
+    quickRefId: 'building.controlStrategy',
+    Component: BaControlStrategy,
+  },
+  {
+    id: 'building.sensorSelection',
+    code: 'BA10',
+    domain: 'building',
+    kind: 'quickref',
+    priority: 'P1',
+    title: '传感器量程与精度选型',
+    subtitle: '温度/湿度/压力/流量/液位等楼控测点的量程、精度、输出信号与安装要点',
+    keywords: ['传感器', '量程', '精度', '选型', 'sensor', 'pt1000', '4-20ma', '楼控', '测点'],
+    tags: ['弱电', '仪表'],
+    icon: '🌡️',
+    order: 10,
+    quickRefId: 'building.sensorSelection',
+    Component: SensorSelection,
+  },
+  {
+    id: 'building.valveKv',
+    code: 'BA11',
+    domain: 'building',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '控制阀门 Kv 值计算与选型',
+    subtitle: 'Kv = Q/√Δp，含密度修正、阀权度校核与标准 Kvs 系列就近选型',
+    keywords: ['阀门', 'kv', 'kvs', '阀权度', '压差', '选型', '调节阀', '流量'],
+    tags: ['弱电', 'BA'],
+    icon: '🎚️',
+    order: 11,
+    calcId: 'valveKv',
+    defaultInput: { flowM3h: 10, dpKPa: 100, rhoRel: 1.0, dpTotalKPa: 0 },
+    Component: ValveKv,
+  },
+  {
+    id: 'building.bacnetRef',
+    code: 'BA12',
+    domain: 'building',
+    kind: 'quickref',
+    priority: 'P1',
+    title: 'BACnet 对象与服务速查',
+    subtitle: 'AI/AO/AV/BI/BO 对象属性、ReadProperty / COV 服务与 BACnet/IP、MS/TP 要点',
+    keywords: ['bacnet', '对象', '服务', 'ai', 'ao', 'cov', '47808', 'mstp', 'bbmd', 'bacnet/ip'],
+    tags: ['弱电', 'BA'],
+    icon: '🔗',
+    order: 12,
+    quickRefId: 'building.bacnetRef',
+    Component: BacnetRef,
   },
 ];

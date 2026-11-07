@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 电气与配电领域（E 组）工具注册项：E1~E10
+ * 电气与配电领域（E 组）工具注册项：E1~E15
  * 说明：E1/E2/E4/E5/E8/E9/E10 由原「水电」强电 7 项迁入（原 D3 电压降已并入 E3）；
  *      E3/E6 由原「工控」迁入（C10/C11）；E7 由原「智能化」迁入（B10，原 B11 灯具数量并入本页）。
  */
@@ -18,6 +18,9 @@ const AmpacityRef = lazy(() => import('@/features/automation/AmpacityRef'));
 const IlluminanceCalc = lazy(() => import('@/features/building/IlluminanceCalc'));
 const CableTypes = lazy(() => import('@/features/elec/CableTypes'));
 const InstallLimits = lazy(() => import('@/features/elec/InstallLimits'));
+const RcdSelect = lazy(() => import('@/features/elec/RcdSelect'));
+const ShortCircuit = lazy(() => import('@/features/elec/ShortCircuit'));
+const ReactivePower = lazy(() => import('@/features/elec/ReactivePower'));
 
 export const elecTools: ToolDef[] = [
   {
@@ -211,5 +214,54 @@ export const elecTools: ToolDef[] = [
     calcId: 'waterEmergency',
     defaultInput: { lampW: 5, count: 20, durationMin: 90, batteryV: 24, efficiency: 0.85, dod: 0.8 },
     Component: EmergencyLight,
+  },
+  {
+    id: 'elec.rcdSelect',
+    code: 'E13',
+    domain: 'elec',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '漏电保护 RCD 选型与级配',
+    subtitle: '按回路场所选 IΔn 与型式，校验上下级动作电流与延时级配',
+    keywords: ['漏电保护', 'rcd', '漏保', '剩余电流', 'iδn', '级配', '选择性', '30ma', 'a型', 'b型'],
+    tags: ['电工', '配电'],
+    icon: '🛡️',
+    order: 11,
+    calcId: 'rcdSelect',
+    quickRefIds: ['elec.rcdRef'],
+    defaultInput: { circuitType: 'socket', ratedCurrentA: 16, upstreamMa: 300, upstreamDelayed: 'yes' },
+    Component: RcdSelect,
+  },
+  {
+    id: 'elec.shortCircuit',
+    code: 'E14',
+    domain: 'elec',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '短路电流估算',
+    subtitle: '由变压器容量/阻抗电压与电缆阻抗算三相短路电流、峰值电流与 Icu 建议',
+    keywords: ['短路电流', 'ik3', '冲击电流', 'ip', 'icu', '变压器阻抗', '短路容量', 'short circuit'],
+    tags: ['电工', '配电'],
+    icon: '⚡',
+    order: 12,
+    calcId: 'shortCircuit',
+    defaultInput: { transformerKva: 1000, ukPercent: 6, voltageV: 400, cableLengthM: 0, cableSectionMm2: 185, material: 'copper', kappa: 1.8 },
+    Component: ShortCircuit,
+  },
+  {
+    id: 'elec.reactivePower',
+    code: 'E15',
+    domain: 'elec',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '无功补偿容量计算',
+    subtitle: 'Qc = P·(tanφ₁ − tanφ₂)，给出补偿容量、电容器步数与补偿后视在功率',
+    keywords: ['无功补偿', '功率因数', 'cosφ', '电容器', 'kvar', 'tan', '补偿容量', 'reactive power'],
+    tags: ['电工', '配电'],
+    icon: '🔋',
+    order: 13,
+    calcId: 'reactivePower',
+    defaultInput: { activeKw: 200, cosPhi1: 0.75, cosPhi2: 0.95, voltageV: 380, stepKvar: 25, transformerKva: 0 },
+    Component: ReactivePower,
   },
 ];

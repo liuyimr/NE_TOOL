@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 暖通空调与给排水领域（H 组）工具注册项：H1~H10
+ * 暖通空调与给排水领域（H 组）工具注册项：H1~H18
  * 说明：H1~H4 由原「智能化」迁入（B6/B8/B9/B13）；H5~H10 由原「水电」给排水 6 项迁入。
  */
 const FcuBilling = lazy(() => import('@/features/building/FcuBilling'));
@@ -20,6 +20,9 @@ const AirVolume = lazy(() => import('@/features/hvac/AirVolume'));
 const DuctSize = lazy(() => import('@/features/hvac/DuctSize'));
 const WaterFlow = lazy(() => import('@/features/hvac/WaterFlow'));
 const FcuSelect = lazy(() => import('@/features/hvac/FcuSelect'));
+const FanPower = lazy(() => import('@/features/hvac/FanPower'));
+const HydraulicBalance = lazy(() => import('@/features/hvac/HydraulicBalance'));
+const CoolingTower = lazy(() => import('@/features/hvac/CoolingTower'));
 
 export const hvacTools: ToolDef[] = [
   {
@@ -261,5 +264,53 @@ export const hvacTools: ToolDef[] = [
     calcId: 'waterHeater',
     defaultInput: { volumeL: 1000, coldTemp: 10, hotTemp: 60, heatHours: 4, efficiency: 0.9 },
     Component: WaterHeater,
+  },
+  {
+    id: 'hvac.fanPower',
+    code: 'H16',
+    domain: 'hvac',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '风机选型与轴功率',
+    subtitle: 'P = Q·Δp/(3600·1000·η)，计入传动效率、电机储备与标准功率档推荐',
+    keywords: ['风机', '轴功率', '全压', '风量', '选型', 'fan', '电机功率', '效率'],
+    tags: ['暖通', '风系统'],
+    icon: '🌀',
+    order: 16,
+    calcId: 'fanPower',
+    defaultInput: { flowM3h: 10000, totalPa: 500, fanEff: 0.7, transEff: 0.95, motorMargin: 1.2 },
+    Component: FanPower,
+  },
+  {
+    id: 'hvac.hydraulicBalance',
+    code: 'H17',
+    domain: 'hvac',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '水力平衡 / 最不利环路',
+    subtitle: '逐段沿程 + 局部阻力算最不利环路压降、不平衡率与平衡阀附加阻力',
+    keywords: ['水力平衡', '最不利环路', '压降', '阻力', '沿程', '局部', '平衡阀', 'hydraulic'],
+    tags: ['暖通', '水系统'],
+    icon: '⚖️',
+    order: 17,
+    calcId: 'hydraulicBalance',
+    defaultInput: { segments: '30,53,20,2.5;15,40,12,1.5', nearLoopKPa: 0 },
+    Component: HydraulicBalance,
+  },
+  {
+    id: 'hvac.coolingTower',
+    code: 'H18',
+    domain: 'hvac',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '冷却塔选型与冷却水量',
+    subtitle: '由制冷量与排热系数算冷却水量、补水量、逼近度与湿球温度校核',
+    keywords: ['冷却塔', '冷却水量', '补水量', '漂水', '浓缩倍数', '逼近度', '湿球', 'cooling tower'],
+    tags: ['暖通', '设备'],
+    icon: '🗼',
+    order: 18,
+    calcId: 'coolingTower',
+    defaultInput: { coolingLoadKw: 500, heatRejectionFactor: 1.25, deltaT: 5, driftRatio: 0.0005, cycles: 4, approach: 4, wetBulb: 28 },
+    Component: CoolingTower,
   },
 ];

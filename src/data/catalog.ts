@@ -8,6 +8,7 @@ import wifiChannels from './network/wifiChannels.json';
 import cableSpec from './network/cableSpec.json';
 import wifiSignal from './network/wifiSignal.json';
 import troubleshoot from './network/troubleshoot.json';
+import mqttRef from './network/mqttRef.json';
 // —— 建筑智能化 domain
 import billingModes from './building/billingModes.json';
 import illuminance from './building/illuminance.json';
@@ -16,6 +17,9 @@ import pointTypes from './building/pointTypes.json';
 import ddcTemplate from './building/ddcTemplate.json';
 import deviceParams from './building/deviceParams.json';
 import symbols from './building/symbols.json';
+import controlStrategy from './building/controlStrategy.json';
+import sensorSelection from './building/sensorSelection.json';
+import bacnetRef from './building/bacnetRef.json';
 // —— 工业自动化 domain
 import modbus from './automation/modbus.json';
 import modbusExceptions from './automation/modbusExceptions.json';
@@ -27,6 +31,8 @@ import cableAmpacity from './automation/cableAmpacity.json';
 import unitFactors from './automation/unitFactors.json';
 import servo from './automation/servo.json';
 import opcua from './automation/opcua.json';
+import s7Addressing from './automation/s7Addressing.json';
+import safetyCircuit from './automation/safetyCircuit.json';
 // —— 暖通空调与给排水 domain
 import pipeSpecs from './hvac/pipeSpecs.json';
 import drainSlope from './hvac/drainSlope.json';
@@ -34,6 +40,7 @@ import drainSlope from './hvac/drainSlope.json';
 import cableTypes from './elec/cableTypes.json';
 import installLimits from './elec/installLimits.json';
 import groundingLimits from './elec/groundingLimits.json';
+import rcdRef from './elec/rcdRef.json';
 
 /**
  * 速查数据目录
@@ -50,6 +57,7 @@ const rawTables: QuickRefTable[] = [
   cableSpec,
   wifiSignal,
   troubleshoot,
+  mqttRef,
   billingModes,
   illuminance,
   fillRate,
@@ -57,6 +65,9 @@ const rawTables: QuickRefTable[] = [
   ddcTemplate,
   deviceParams,
   symbols,
+  controlStrategy,
+  sensorSelection,
+  bacnetRef,
   modbus,
   modbusExceptions,
   sensors,
@@ -67,11 +78,14 @@ const rawTables: QuickRefTable[] = [
   unitFactors,
   servo,
   opcua,
+  s7Addressing,
+  safetyCircuit,
   cableTypes,
   installLimits,
   pipeSpecs,
   drainSlope,
   groundingLimits,
+  rcdRef,
 ] as unknown as QuickRefTable[];
 
 /** 全部速查表（按 id 建立索引以避免重复） */

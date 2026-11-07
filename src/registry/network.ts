@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 网络与物联网领域（N 组）工具注册项：N1~N11
+ * 网络与物联网领域（N 组）工具注册项：N1~N14
  * 说明：原 A2「IP 地址转换」已并入 N1 子网计算器页内；原 A5「传输时间」已并入 N3 带宽换算页内。
  */
 const SubnetCalculator = lazy(() => import('@/features/network/SubnetCalculator'));
@@ -16,6 +16,9 @@ const CableSpec = lazy(() => import('@/features/network/CableSpec'));
 const WifiChannels = lazy(() => import('@/features/network/WifiChannels'));
 const WifiSignal = lazy(() => import('@/features/network/WifiSignal'));
 const Troubleshoot = lazy(() => import('@/features/network/Troubleshoot'));
+const PoeBudget = lazy(() => import('@/features/network/PoeBudget'));
+const MqttRef = lazy(() => import('@/features/network/MqttRef'));
+const IotGateway = lazy(() => import('@/features/network/IotGateway'));
 
 export const networkTools: ToolDef[] = [
   {
@@ -186,5 +189,52 @@ export const networkTools: ToolDef[] = [
     order: 11,
     quickRefId: 'network.troubleshoot',
     Component: Troubleshoot,
+  },
+  {
+    id: 'network.poeBudget',
+    code: 'N12',
+    domain: 'network',
+    kind: 'calculator',
+    priority: 'P1',
+    title: 'PoE 供电功率预算',
+    subtitle: '按 802.3af/at/bt 统计 PD 功率需求，乘余量后校核交换机 PoE 总预算',
+    keywords: ['poe', '供电', '功率预算', '802.3af', '802.3at', '802.3bt', '交换机', 'pd', 'poe budget'],
+    tags: ['网络', 'PoE'],
+    icon: '🔋',
+    order: 12,
+    calcId: 'poeBudget',
+    defaultInput: { camCount: 10, camW: 12, apCount: 4, apW: 15, otherCount: 2, otherW: 7, budgetW: 370, margin: 1.2, standard: 'at' },
+    Component: PoeBudget,
+  },
+  {
+    id: 'network.mqttRef',
+    code: 'N13',
+    domain: 'network',
+    kind: 'quickref',
+    priority: 'P1',
+    title: 'MQTT 主题 / QoS / 保活速查',
+    subtitle: '主题层级与通配符、QoS 0/1/2、Keep Alive、遗言与 retained、常用端口',
+    keywords: ['mqtt', '主题', 'topic', 'qos', '保活', 'keepalive', '遗嘱', 'lwt', 'retain', '1883', '8883', 'broker'],
+    tags: ['网络', '物联网'],
+    icon: '📨',
+    order: 13,
+    quickRefId: 'network.mqttRef',
+    Component: MqttRef,
+  },
+  {
+    id: 'network.iotGateway',
+    code: 'N14',
+    domain: 'network',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '物联网网关点位容量与带宽估算',
+    subtitle: '按节点数、上报周期与报文长度估算上行带宽、网关台数与并发压力',
+    keywords: ['物联网', '网关', '点位', '带宽', 'iot', 'gateway', 'mqtt', '上报周期', '并发', '容量'],
+    tags: ['网络', '物联网'],
+    icon: '📡',
+    order: 14,
+    calcId: 'iotGateway',
+    defaultInput: { nodes: 500, intervalSec: 60, payloadBytes: 120, overheadBytes: 60, gatewayCapacity: 500, gatewayKbps: 1000 },
+    Component: IotGateway,
   },
 ];

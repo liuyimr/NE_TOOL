@@ -6,9 +6,9 @@ import { getQuickRef } from '@/data/catalog';
  * 水电类目已按 5 类目重构拆入 elec / hvac：本文件校验拆分后注册与数据的完整性。
  */
 describe('原「水电」类目拆分后注册完整性', () => {
-  it('拆入后（含新增）elec 12 个、hvac 15 个', () => {
-    expect(byDomain('elec').length).toBe(12);
-    expect(byDomain('hvac').length).toBe(15);
+  it('拆入后（含新增）elec 15 个、hvac 18 个', () => {
+    expect(byDomain('elec').length).toBe(15);
+    expect(byDomain('hvac').length).toBe(18);
   });
 
   it('强电工具全部具备 Component（无占位）', () => {

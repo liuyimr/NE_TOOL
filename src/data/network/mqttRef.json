@@ -1,0 +1,38 @@
+{
+  "id": "network.mqttRef",
+  "title": "MQTT 主题 / QoS / 保活速查",
+  "domain": "network",
+  "columns": [
+    { "key": "item", "label": "项目", "align": "left" },
+    { "key": "value", "label": "要点", "align": "left", "mono": true },
+    { "key": "note", "label": "说明", "align": "left" }
+  ],
+  "rows": [
+    { "id": "qos-0", "label": "QoS 0 最多一次", "values": { "item": "QoS 0 服务质量", "value": "At most once（最多一次）", "note": "PUBLISH 发出即完成，无确认、无重传；网络断开即丢消息。适合可容忍丢失的高频遥测（OASIS MQTT 3.1.1 §4.3）" } },
+    { "id": "qos-1", "label": "QoS 1 至少一次 PUBACK", "values": { "item": "QoS 1 服务质量", "value": "At least once / PUBACK（至少一次）", "note": "发布端收到 PUBACK 才算完成，超时重发会把 DUP 标志置 1，因此可能重复投递；接收端须按 Packet Identifier 或业务幂等去重" } },
+    { "id": "qos-2", "label": "QoS 2 恰好一次 四次握手", "values": { "item": "QoS 2 服务质量", "value": "Exactly once / 四次握手（恰好一次）", "note": "PUBLISH → PUBREC → PUBREL → PUBCOMP 双阶段确认，不丢不重；报文数与延迟最大，适合计费、控制指令等关键消息" } },
+    { "id": "qos-packet-id", "label": "QoS 报文标识 Packet Identifier", "values": { "item": "QoS 1/2 报文标识", "value": "Packet Identifier（2 字节，非零）", "note": "QoS 1/2 的 PUBLISH 必须携带，用于 PUBACK / PUBREC / PUBREL / PUBCOMP 配对；同一会话内未完成的报文标识不可复用" } },
+    { "id": "topic-level", "label": "主题层级分隔符 /", "values": { "item": "主题层级分隔符", "value": "/", "note": "如 factory/line1/plc1/temp；Topic Name 为 UTF-8 字符串、区分大小写；订阅时使用 Topic Filter 才可含通配符" } },
+    { "id": "topic-plus", "label": "单层通配符 +", "values": { "item": "单层通配符", "value": "+", "note": "只匹配一个完整层级：factory/+/temp 匹配 factory/line1/temp，不匹配 factory/line1/cell2/temp；必须独占整个层级，可出现在任意层" } },
+    { "id": "topic-hash", "label": "多层通配符 # 父级匹配", "values": { "item": "多层通配符", "value": "#", "note": "匹配零个或多个层级，只能出现在过滤器末尾并独占最后一层；sport/# 同时匹配父级 sport 本身；不允许写成 sport/#/ranking；订阅 # 会收到 $ 开头主题以外的全部消息" } },
+    { "id": "topic-dollar", "label": "$SYS 系统主题不被通配符匹配", "values": { "item": "$ 前缀系统主题", "value": "$SYS/...", "note": "以 $ 开头的 Topic Name 不会被 # 或 + 开头的过滤器匹配（MQTT 3.1.1 §4.7.2），常用于 Broker 运行统计；需订阅 $SYS/# 显式写出前缀" } },
+    { "id": "topic-empty", "label": "前导斜杠与空层级", "values": { "item": "空层级与命名禁忌", "value": "/a、a//b 均为合法层级", "note": "层级允许为空字符串，单独的 / 也是一个合法层级；前导 / 会多出无意义首层并浪费索引，属工程经验值，命名时应避免" } },
+    { "id": "retain", "label": "保留消息 retain", "values": { "item": "保留消息", "value": "RETAIN = 1", "note": "Broker 为每个 Topic 保存最后一条保留消息，新订阅者连接后立即收到最新值；清除需向该 Topic 发布一条 payload 为空的保留消息" } },
+    { "id": "lwt", "label": "遗嘱消息 LWT willTopic", "values": { "item": "遗嘱消息 LWT", "value": "willTopic / willPayload / willQos / willRetain", "note": "在 CONNECT 报文中声明；客户端异常断开（未发 DISCONNECT、keepalive 超时、网络中断）时由 Broker 代为发布；正常 DISCONNECT 不触发；MQTT 5 另有 Will Delay Interval" } },
+    { "id": "clean-session", "label": "clean session 持久会话 3.1.1", "values": { "item": "Clean Session（MQTT 3.1.1）", "value": "CleanSession = 1 / 0", "note": "=1 每次新建会话、断开即清除订阅与未完成的 QoS 1/2 报文；=0 使用持久会话，重连后恢复订阅与排队消息" } },
+    { "id": "session-expiry", "label": "Session Expiry Interval MQTT 5", "values": { "item": "会话过期间隔（MQTT 5.0）", "value": "0 / 1~4294967295 s", "note": "单位秒；0 = 连接断开即失效，4294967295(0xFFFFFFFF) = 永不过期；MQTT 5 用它替代并细化 3.1.1 的持久会话机制" } },
+    { "id": "keepalive", "label": "keepalive 默认 60 s", "values": { "item": "保活间隔 Keep Alive", "value": "默认 60 s（常见 30~120 s）", "note": "CONNECT 报文字段，单位秒；客户端须在该间隔内发送任意报文，空闲则发 PINGREQ。工程经验值，按链路质量与 NAT/负载均衡空闲超时设定，以设计说明/厂家样本为准" } },
+    { "id": "keepalive-15", "label": "1.5 倍 keepalive 超时断开", "values": { "item": "服务端超时判定", "value": "1.5 × Keep Alive", "note": "服务端在 1.5 倍保活时间内未收到任何报文即断开连接（MQTT 3.1.1 §3.1.2.10）；客户端重连退避与告警阈值为工程经验值" } },
+    { "id": "ping", "label": "心跳 PINGREQ PINGRESP", "values": { "item": "心跳报文", "value": "PINGREQ / PINGRESP", "note": "固定头 2 字节、无 payload、无 QoS；客户端空闲时发 PINGREQ，服务端回 PINGRESP；同时用于维持 NAT 与防火墙会话表项" } },
+    { "id": "port-1883", "label": "端口 1883 MQTT TCP", "values": { "item": "明文 TCP 端口", "value": "1883", "note": "IANA 注册服务名 mqtt，MQTT over TCP；适用于内网与测试环境，公网应配合 TLS 与认证" } },
+    { "id": "port-8883", "label": "端口 8883 MQTT TLS", "values": { "item": "TLS 加密端口", "value": "8883", "note": "IANA 注册服务名 secure-mqtt，MQTT over TLS；双向认证(mTLS) 需配客户端证书，注意 SNI 与证书主题校验" } },
+    { "id": "port-websocket", "label": "端口 8083 8084 WebSocket", "values": { "item": "WebSocket 端口", "value": "8083 (ws) / 8084 (wss)", "note": "浏览器需走 ws/wss；8083/8084 为 EMQX、Mosquitto 等 Broker 常见默认监听端口，非 IANA 固定值，属工程经验值，以所用 Broker 配置与厂家样本为准" } },
+    { "id": "client-id", "label": "ClientId 唯一性 互踢", "values": { "item": "客户端标识唯一性", "value": "同一 Broker 内 ClientId 唯一", "note": "MQTT 3.1.1 中重复 ClientId 会使服务端断开先前连接（互踢），造成两台设备反复掉线；MQTT 5 允许留空由服务端分配。建议用 设备编号_随机后缀" } },
+    { "id": "topic-naming", "label": "Topic 命名建议 前导斜杠 空格", "values": { "item": "Topic 命名规范", "value": "小写 + 下划线、层级固定", "note": "避免前导 /、空格、非 ASCII 字符，不用 # + $ 作普通层；推荐 <租户>/<区域>/<设备类型>/<设备id>/<测点>，便于分层授权与订阅。工程经验值，以设计说明为准" } },
+    { "id": "msg-size", "label": "单条消息大小 256 MB 上限", "values": { "item": "单条消息长度", "value": "协议上限 268435455 B ≈ 256 MB", "note": "由 4 字节变长 Remaining Length 决定；现场遥测建议 payload ≤ 1~16 KB，MQTT 5 可用 Maximum Packet Size 协商上限。工程经验值，以 Broker 配置与厂家样本为准" } },
+    { "id": "payload-json", "label": "payload JSON ts deviceId", "values": { "item": "payload 组织建议", "value": "JSON + ts + deviceId", "note": "带毫秒时间戳与设备唯一标识，便于去重、排序与溯源；高频或窄带链路可用二进制/压缩编码。工程经验值，以设计说明与厂家样本为准" } }
+  ],
+  "searchable": true,
+  "source": "OASIS MQTT 3.1.1（OASIS Standard, 2014）与 OASIS MQTT 5.0（OASIS Standard, 2019）规范（QoS 流程、主题通配符、retain、LWT、会话、Keep Alive、报文格式、端口注册）；WebSocket 端口 8083/8084、Topic 命名、消息与 payload 大小建议为工程经验值，以设计说明与所用 Broker（EMQX / Mosquitto 等）厂家样本及配置为准",
+  "updatedAt": "2026-11-05"
+}

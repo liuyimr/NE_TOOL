@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 工业自动化控制领域（P 组）工具注册项：P1~P15
+ * 工业自动化控制领域（P 组）工具注册项：P1~P19
  * 说明：原 C10 电缆压降 / C11 导线载流量 已迁入「电气与配电」。
  */
 const AnalogScaling = lazy(() => import('@/features/automation/AnalogScaling'));
@@ -22,6 +22,8 @@ const OpcuaRef = lazy(() => import('@/features/automation/OpcuaRef'));
 const FaultsRef = lazy(() => import('@/features/automation/FaultsRef'));
 const PlcSizing = lazy(() => import('@/features/automation/PlcSizing'));
 const ServoGear = lazy(() => import('@/features/automation/ServoGear'));
+const S7Addressing = lazy(() => import('@/features/automation/S7Addressing'));
+const SafetyCircuit = lazy(() => import('@/features/automation/SafetyCircuit'));
 
 export const automationTools: ToolDef[] = [
   {
@@ -289,5 +291,35 @@ export const automationTools: ToolDef[] = [
     order: 15,
     quickRefId: 'automation.plcErrors',
     Component: FaultsRef,
+  },
+  {
+    id: 'automation.s7Addressing',
+    code: 'P18',
+    domain: 'automation',
+    kind: 'quickref',
+    priority: 'P1',
+    title: 'S7 数据块 / 寻址速查',
+    subtitle: 'I/Q/M/DB 存储区、位/字节/字/双字写法、ANY/POINTER 指针与优化 DB 差异',
+    keywords: ['s7', '寻址', '数据块', 'db', '指针', 'any', 'pointer', 'plc', '西门子', 'tia'],
+    tags: ['工控', 'PLC'],
+    icon: '🧠',
+    order: 18,
+    quickRefId: 'automation.s7Addressing',
+    Component: S7Addressing,
+  },
+  {
+    id: 'automation.safetyCircuit',
+    code: 'P19',
+    domain: 'automation',
+    kind: 'quickref',
+    priority: 'P1',
+    title: '安全回路与安全继电器速查',
+    subtitle: '停止类别 0/1/2、双通道急停与安全门、PL/SIL、EDM 与复位要点',
+    keywords: ['安全回路', '安全继电器', '急停', 'estop', '安全门', 'pl', 'sil', '双通道', '13849'],
+    tags: ['工控', '安全'],
+    icon: '🛡️',
+    order: 19,
+    quickRefId: 'automation.safetyCircuit',
+    Component: SafetyCircuit,
   },
 ];
