@@ -33,6 +33,7 @@ import servo from './automation/servo.json';
 import opcua from './automation/opcua.json';
 import s7Addressing from './automation/s7Addressing.json';
 import safetyCircuit from './automation/safetyCircuit.json';
+import scadaPointList from './automation/scadaPointList.json';
 // —— 暖通空调与给排水 domain
 import pipeSpecs from './hvac/pipeSpecs.json';
 import drainSlope from './hvac/drainSlope.json';
@@ -41,6 +42,8 @@ import cableTypes from './elec/cableTypes.json';
 import installLimits from './elec/installLimits.json';
 import groundingLimits from './elec/groundingLimits.json';
 import rcdRef from './elec/rcdRef.json';
+import lowVoltageModels from './elec/lowVoltageModels.json';
+import earthingSystems from './elec/earthingSystems.json';
 
 /**
  * 速查数据目录
@@ -80,12 +83,15 @@ const rawTables: QuickRefTable[] = [
   opcua,
   s7Addressing,
   safetyCircuit,
+  scadaPointList,
   cableTypes,
   installLimits,
   pipeSpecs,
   drainSlope,
   groundingLimits,
   rcdRef,
+  lowVoltageModels,
+  earthingSystems,
 ] as unknown as QuickRefTable[];
 
 /** 全部速查表（按 id 建立索引以避免重复） */

@@ -1,0 +1,33 @@
+{
+  "id": "elec.earthingSystems",
+  "title": "接地系统形式 TN / TT / IT 速查",
+  "domain": "elec",
+  "columns": [
+    { "key": "system", "label": "系统形式", "align": "left", "mono": true },
+    { "key": "definition", "label": "定义", "align": "left" },
+    { "key": "peMethod", "label": "保护接地方式", "align": "left" },
+    { "key": "faultPath", "label": "故障电流路径", "align": "left" },
+    { "key": "application", "label": "适用场所", "align": "left" },
+    { "key": "keyPoints", "label": "要点", "align": "left" }
+  ],
+  "rows": [
+    { "id": "tn-c", "label": "TN-C", "values": { "system": "TN-C", "definition": "整个系统内中性导体与保护导体合一为 PEN，电源端中性点直接接地，设备外露可导电部分接 PEN", "peMethod": "外露可导电部分接 PEN（保护线与中性线合一）", "faultPath": "相导体对 PEN 的金属性短路，回路阻抗小、故障电流大，由过流保护（断路器/熔断器）按自动切断时间要求动作", "application": "老工业厂房、有专职电气维护的老系统；新建民用建筑与有 RCD 要求的场所不宜采用", "keyPoints": "PEN 严禁穿过剩余电流保护器的电流互感器（会被 PEN 分流导致误动或拒动）；PEN 上不得装设开关电器或熔断器、PEN 不得断开；PEN 不得再兼作保护接地干线之外的用途" } },
+    { "id": "tn-s", "label": "TN-S", "values": { "system": "TN-S", "definition": "全系统内中性导体 N 与保护导体 PE 分开敷设，仅一点相连（通常在电源端或进线柜）", "peMethod": "外露可导电部分接独立的 PE 导体", "faultPath": "相导体对 PE 的金属性短路，故障电流大，由过流保护动作；PE 中正常无电流，电磁兼容性好", "application": "公共建筑、数据中心、医院、精密电子与变频设备较多的场所（首选）", "keyPoints": "PE 导体上严禁装设开关或熔断器；N 与 PE 分开后不得再合并；PE 截面按相导体截面分档选取，且须做等电位联结" } },
+    { "id": "tn-c-s", "label": "TN-C-S", "values": { "system": "TN-C-S", "definition": "电源侧为 TN-C（PEN），在进线配电箱或总配电柜处将 PEN 分为 PE + N，其后为 TN-S", "peMethod": "分界点之后外露可导电部分接 PE；分界点处 PEN 与 PE、N 一点连接", "faultPath": "分界点之后同 TN-S（相—PE 短路，大电流由过流保护切断）；分界点之前同 TN-C", "application": "常见的住宅与公建低压进线方式（小区箱变 + 楼内配电）", "keyPoints": "PEN 分成 PE 与 N 后严禁再合并；分界点之后不得再出现 PEN；PEN 在分界点前同样严禁穿过 RCD 互感器、不得断开；分界点应设重复接地" } },
+    { "id": "tt", "label": "TT", "values": { "system": "TT", "definition": "电源端中性点直接接地，设备外露可导电部分通过各自独立的接地极接地，两个接地在电气上无金属连接", "peMethod": "外露可导电部分单独接地（独立接地极）", "faultPath": "相导体经设备接地极、大地、电源接地极返回，故障电流受两侧接地电阻限制（通常仅数安到数十安），过流保护往往不能可靠动作", "application": "分散小负荷、农村与郊区供电、市政照明、无等电位联结条件的独立建筑", "keyPoints": "TT 系统必须装设剩余电流保护器（RCD）作保护，不能只靠过流保护；外露可导电部分必须与 N 线绝缘；接地电阻与 RCD 动作电流共同决定接触电压是否安全" } },
+    { "id": "it", "label": "IT", "values": { "system": "IT", "definition": "电源端不接地或经高阻抗（如千欧级）接地，设备外露可导电部分接地", "peMethod": "外露可导电部分单独或集中接地（可共用接地装置）", "faultPath": "首次接地故障仅流过线路对地容性电流（很小），不构成危险接触电压，允许继续运行；发生第二次异相接地故障时形成两相短路，由过流保护或 RCD 快速切断", "application": "医院手术室与 ICU、矿山井下、不允许停电的连续性生产装置、船舶与部分工业现场", "keyPoints": "必须装设绝缘监测装置（IMD）并在首次接地故障时报警，且须尽快查找消除；IT 系统严禁引出 N 线作普通配电（除非经隔离变压器）；第二次故障的切断要求须专门校核" } },
+    { "id": "pen-rcd", "label": "PEN 与 RCD", "values": { "system": "PEN 导体（TN-C / TN-C-S 前段）", "definition": "PEN 兼具保护与中性功能，正常运行时承载负荷电流", "peMethod": "保护功能与中性功能共用一根导体", "faultPath": "PEN 中的负荷电流与故障电流叠加，剩余电流检测被掩盖", "application": "仅存在于 TN-C 与 TN-C-S 的分界点之前", "keyPoints": "PEN 严禁穿过剩余电流保护器的电流互感器：否则负荷电流被 PEN 分流，RCD 会误动或拒动；TN-C 段无法用 RCD 作直接保护，须在 PEN 分为 PE 和 N 之后再装设" } },
+    { "id": "pe-continuity", "label": "PE / PEN 不得断开", "values": { "system": "TN 系统的 PE 与 PEN", "definition": "PE/PEN 是故障电流返回路径，一旦断开，设备外壳将带故障电压", "peMethod": "全程连续、可靠连接，禁止串接开关电器", "faultPath": "PE/PEN 断开后故障电流无通路，过流保护不动作，外壳长期带危险电压", "application": "所有 TN 系统的保护导体", "keyPoints": "PE 与 PEN 上严禁装设开关、熔断器或可拆卸连接件（允许用可拆卸的连接器件但不得断开保护连续性）；插座回路的 PE 必须可靠连接到配电箱 PE 排，不得浮空或串接" } },
+    { "id": "rcd-tt", "label": "RCD 配置（TT）", "values": { "system": "TT 系统的 RCD", "definition": "TT 系统故障电流小，过流保护难以满足切断要求，必须以剩余电流保护作主保护", "peMethod": "RCD 检测相线与 PE（大地回路）之间的剩余电流", "faultPath": "故障电流经设备接地极—大地—电源接地极返回，由 RCD 检测剩余电流后跳闸", "application": "TT 系统的所有配电回路（末端插座回路必设）", "keyPoints": "末端插座回路与潮湿场所 IΔn 取 30 mA；干线可选 100~300 mA 并做级配（上级 IΔn 不小于下级 3 倍、上级选 S 型延时）；RCD 动作电流与接地电阻之积须满足接触电压限值" } },
+    { "id": "rcd-tn", "label": "RCD 配置（TN）", "values": { "system": "TN 系统的 RCD", "definition": "TN 系统主要靠过流保护作接地故障保护，RCD 作为附加保护或按场所要求设置", "peMethod": "RCD 串接在相线与 N 线上，PE 不穿过互感器", "faultPath": "相—PE 短路电流大，过流保护可动作；RCD 用于补充保护（如 30 mA 人身保护）", "application": "插座回路、潮湿与临时用电场所、手持电动工具、住宅与公共建筑末端回路（按现行规范要求设置）", "keyPoints": "PE 导体严禁穿过 RCD 互感器；TN-C 段严禁装 RCD；带电子负载（变频器、LED 驱动、充电桩）时选 A 型或 B 型，避免直流分量导致拒动" } },
+    { "id": "rcd-it", "label": "RCD 配置（IT）", "values": { "system": "IT 系统的剩余电流保护", "definition": "IT 系统首次接地故障不切断，仅报警；第二次异相故障才必须快速切断", "peMethod": "外露可导电部分接地，必要时加装 RCD 作第二次故障保护", "faultPath": "首次故障为容性小电流；第二次异相接地形成两相短路，由过流保护或 RCD 切除", "application": "医院手术室、矿山、连续性生产装置", "keyPoints": "首次故障只报警、不跳闸（由绝缘监测装置报警并人工查找）；不得因装设 RCD 而使首次故障即跳闸，否则失去 IT 系统供电连续性的意义" } },
+    { "id": "imd", "label": "绝缘监测 IMD", "values": { "system": "IT 系统的绝缘监测装置（IMD）", "definition": "实时监测系统对地绝缘电阻，绝缘下降到设定值时发出报警", "peMethod": "IMD 通过注入测量信号或测量漏电流判断对地绝缘状态", "faultPath": "绝缘劣化 → 对地泄漏电流上升 → IMD 报警，运维人员查找并消除故障点", "application": "医院手术室与 ICU 隔离电源系统、矿山 IT 系统、不允许停电的连续生产装置", "keyPoints": "报警阈值与响应时间按场所与规范设定；必须与绝缘故障定位装置（IFLS）配合使用才能快速找到故障回路；IMD 本身故障应有自检与故障报警" } },
+    { "id": "trip-time", "label": "自动切断电源时间", "values": { "system": "TN / TT / IT 的自动切断", "definition": "发生接地故障时，保护电器应在规定时间内切断故障回路，使接触电压与持续时间在安全范围内", "peMethod": "由过流保护（TN）或剩余电流保护（TT）实现切断", "faultPath": "故障电流大小与回路阻抗直接相关，阻抗越大切断时间越长", "application": "所有低压配电回路的接地故障保护", "keyPoints": "具体切断时间按 GB 50054 现行版本对 TN/TT 系统的规定执行，并与回路电压、场所条件（如潮湿、手持设备）相关；本表不给出具体数值，设计时须查现行规范原文与表格" } },
+    { "id": "fault-current-impedance", "label": "故障电流与回路阻抗", "values": { "system": "故障电流与回路阻抗", "definition": "接地故障电流近似为 Id ≈ U0 / Zs，U0 为相电压，Zs 为故障回路总阻抗（含电源、线路、PE 与电弧电阻）", "peMethod": "Zs 中 PE 导体截面与长度是主控因素", "faultPath": "TN 系统 Zs 小 → Id 大 → 过流保护易动作；TT 系统含接地电阻 → Id 小 → 须靠 RCD", "application": "断路器/熔断器选型与末端短路电流校核", "keyPoints": "线路过长导致 Zs 增大是末端保护失效的主因，须校核最末端单相接地故障电流是否满足保护电器动作要求；铝导体、接头氧化与电弧电阻会使实际 Id 明显低于计算值" } },
+    { "id": "repeat-earth", "label": "重复接地与等电位联结", "values": { "system": "重复接地 / 等电位联结", "definition": "在 PEN 或 PE 线路上多处再次接地（重复接地）；将可导电部分互相连接并使电位接近（等电位联结）", "peMethod": "重复接地降低 PEN 断线时的外壳对地电压；等电位联结消除电位差", "faultPath": "等电位联结使故障时的接触电压显著降低，是电击防护的最后一道防线", "application": "TN 系统的 PEN 进线处与分支处；卫生间、手术室、机房、金属管道集中的场所设局部等电位联结", "keyPoints": "等电位联结不能替代保护接地与自动切断，三者是互补关系；辅助等电位联结的导体截面与连接可靠性须按规范校核；卫生间局部等电位联结（LEB）端子箱不得拆除或封堵" } },
+    { "id": "selection", "label": "系统形式选择对照", "values": { "system": "选型对照", "definition": "按供电连续性、维护能力、场所条件三者综合选择接地系统形式", "peMethod": "连续性要求高且需带故障运行 → IT；分散负荷且无等电位条件 → TT；其余优先 TN-S", "faultPath": "TN 故障电流大、切断快；TT 故障电流小、依赖 RCD；IT 首次故障不切断", "application": "TN-S：公建/数据中心/医院普通区域；TN-C：老工业；TN-C-S：住宅与公建进线；TT：分散小负荷/农村/市政照明；IT：手术室/矿山/连续生产", "keyPoints": "同一建筑物内宜采用同一接地系统形式，不同形式共存时须由同一接地装置引出并做等电位联结，且须核算相互影响（尤其 IT 与 TN 混用）" } }
+  ],
+  "searchable": true,
+  "source": "GB 50054《低压配电设计规范》、GB/T 16895 系列（IEC 60364 系列）",
+  "updatedAt": "2026-11-07"
+}

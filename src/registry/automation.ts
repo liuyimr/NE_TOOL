@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 工业自动化控制领域（P 组）工具注册项：P1~P19
+ * 工业自动化控制领域（P 组）工具注册项：P1~P20
  * 说明：原 C10 电缆压降 / C11 导线载流量 已迁入「电气与配电」。
  */
 const AnalogScaling = lazy(() => import('@/features/automation/AnalogScaling'));
@@ -24,6 +24,7 @@ const PlcSizing = lazy(() => import('@/features/automation/PlcSizing'));
 const ServoGear = lazy(() => import('@/features/automation/ServoGear'));
 const S7Addressing = lazy(() => import('@/features/automation/S7Addressing'));
 const SafetyCircuit = lazy(() => import('@/features/automation/SafetyCircuit'));
+const ScadaPointList = lazy(() => import('@/features/automation/ScadaPointList'));
 
 export const automationTools: ToolDef[] = [
   {
@@ -321,5 +322,20 @@ export const automationTools: ToolDef[] = [
     order: 19,
     quickRefId: 'automation.safetyCircuit',
     Component: SafetyCircuit,
+  },
+  {
+    id: 'automation.scadaPointList',
+    code: 'P20',
+    domain: 'automation',
+    kind: 'quickref',
+    priority: 'P2',
+    title: 'SCADA / 上位机点表模板',
+    subtitle: '点表必备列、ISA-5.1 位号构成与功能字母、模拟量/数字量点属性、报警分级、Modbus 地址规划与交付物清单',
+    keywords: ['scada', '点表', '上位机', '位号', 'tag', 'isa-5.1', '功能字母', '报警分级', '寄存器', 'modbus', '组态', 'dcs'],
+    tags: ['工控', 'SCADA'],
+    icon: '🗂️',
+    order: 20,
+    quickRefId: 'automation.scadaPointList',
+    Component: ScadaPointList,
   },
 ];

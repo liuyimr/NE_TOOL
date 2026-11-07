@@ -3,16 +3,16 @@ import { buildSearchDocs, byDomain, byPriority, getAll, getById } from '@/regist
 import { buildIndex, resetSearchIndex, search } from '@/lib/search';
 
 describe('工具注册表', () => {
-  it('共 78 个工具', () => {
-    expect(getAll().length).toBe(78);
+  it('共 84 个工具', () => {
+    expect(getAll().length).toBe(84);
   });
 
-  it('各领域数量：网络/IoT 14 / BA 12 / 暖通 18 / 工控 19 / 电工 15', () => {
-    expect(byDomain('network').length).toBe(14);
-    expect(byDomain('building').length).toBe(12);
-    expect(byDomain('hvac').length).toBe(18);
-    expect(byDomain('automation').length).toBe(19);
-    expect(byDomain('elec').length).toBe(15);
+  it('各领域数量：网络/IoT 15 / BA 13 / 暖通 19 / 工控 20 / 电工 17', () => {
+    expect(byDomain('network').length).toBe(15);
+    expect(byDomain('building').length).toBe(13);
+    expect(byDomain('hvac').length).toBe(19);
+    expect(byDomain('automation').length).toBe(20);
+    expect(byDomain('elec').length).toBe(17);
   });
 
   it('P0 共 30 个', () => {
@@ -35,7 +35,7 @@ describe('工具注册表', () => {
 
   it('buildSearchDocs 含工具与速查行', () => {
     const docs = buildSearchDocs();
-    expect(docs.length).toBeGreaterThan(78);
+    expect(docs.length).toBeGreaterThan(84);
     expect(docs.some((d) => d.type === 'tool')).toBe(true);
     expect(docs.some((d) => d.type === 'quickref-item')).toBe(true);
   });

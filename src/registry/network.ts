@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 网络与物联网领域（N 组）工具注册项：N1~N14
+ * 网络与物联网领域（N 组）工具注册项：N1~N15
  * 说明：原 A2「IP 地址转换」已并入 N1 子网计算器页内；原 A5「传输时间」已并入 N3 带宽换算页内。
  */
 const SubnetCalculator = lazy(() => import('@/features/network/SubnetCalculator'));
@@ -19,6 +19,7 @@ const Troubleshoot = lazy(() => import('@/features/network/Troubleshoot'));
 const PoeBudget = lazy(() => import('@/features/network/PoeBudget'));
 const MqttRef = lazy(() => import('@/features/network/MqttRef'));
 const IotGateway = lazy(() => import('@/features/network/IotGateway'));
+const LoraBudget = lazy(() => import('@/features/network/LoraBudget'));
 
 export const networkTools: ToolDef[] = [
   {
@@ -236,5 +237,21 @@ export const networkTools: ToolDef[] = [
     calcId: 'iotGateway',
     defaultInput: { nodes: 500, intervalSec: 60, payloadBytes: 120, overheadBytes: 60, gatewayCapacity: 500, gatewayKbps: 1000 },
     Component: IotGateway,
+  },
+  {
+    id: 'network.loraBudget',
+    code: 'N15',
+    domain: 'network',
+    kind: 'calculator',
+    priority: 'P2',
+    title: 'LoRa 链路预算与覆盖距离',
+    subtitle: '由发射功率、天线增益、馈线损耗与接收灵敏度算链路余量，按对数距离模型估算覆盖距离与 1 km 处余量',
+    keywords: ['lora', 'lorawan', '链路预算', 'link budget', '覆盖距离', 'sf', '扩频因子', '接收灵敏度', 'cn470', '470', '网关', '余量'],
+    tags: ['网络', '物联网'],
+    icon: '📶',
+    order: 15,
+    calcId: 'loraBudget',
+    defaultInput: { txPowerDbm: 14, txGainDbi: 2, rxGainDbi: 2, cableLossDb: 0.5, fadeMarginDb: 10, freqMhz: 470, sf: 9, envFactor: 2.8 },
+    Component: LoraBudget,
   },
 ];

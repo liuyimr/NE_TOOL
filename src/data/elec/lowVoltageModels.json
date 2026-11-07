@@ -1,0 +1,33 @@
+{
+  "id": "elec.lowVoltageModels",
+  "title": "低压电气元件型号含义速查",
+  "domain": "elec",
+  "columns": [
+    { "key": "component", "label": "元件", "align": "left" },
+    { "key": "model", "label": "型号示例", "align": "left", "mono": true },
+    { "key": "breakdown", "label": "含义拆解", "align": "left" },
+    { "key": "points", "label": "要点", "align": "left" }
+  ],
+  "rows": [
+    { "id": "mcb-dz47", "label": "微型断路器 MCB", "values": { "component": "微型断路器（MCB）", "model": "DZ47-63 C16", "breakdown": "DZ47 = 产品型号 / 63 = 壳架等级额定电流 63 A / C = 瞬时脱扣曲线 C 型 / 16 = 额定电流 In 16 A", "points": "壳架等级决定可选的 In 档位；In 须满足 Ib ≤ In ≤ Iz 并校核 I2 ≤ 1.45·Iz。分断能力（如 6000 A）常标在型号后缀或铭牌，选型时必须核对，不能只看 In" } },
+    { "id": "curve-b", "label": "脱扣曲线 B", "values": { "component": "脱扣曲线 B 型", "model": "B16 / B20 / B32", "breakdown": "磁脱扣瞬时动作倍数 3~5 In（热脱扣仍按反时限）", "points": "用于阻性负载与电子负载：照明、插座、IT 设备、长线缆末端。倍数低、动作快，能兼顾较长线路的短路保护" } },
+    { "id": "curve-c", "label": "脱扣曲线 C", "values": { "component": "脱扣曲线 C 型", "model": "C16 / C25 / C32", "breakdown": "磁脱扣瞬时动作倍数 5~10 In", "points": "最常用的通用型：照明与插座混合回路、小功率动力。启动电流不大的负载优先选 C 型，兼顾误动与保护灵敏度" } },
+    { "id": "curve-d", "label": "脱扣曲线 D", "values": { "component": "脱扣曲线 D 型", "model": "D20 / D32 / D40", "breakdown": "磁脱扣瞬时动作倍数 10~20 In", "points": "用于启动冲击大的负载：电动机、变压器、电焊机、大电容充电回路。倍数高可躲过启动电流，但短路保护灵敏度下降，须校核末端最小短路电流" } },
+    { "id": "mccb-nm1", "label": "塑壳断路器 MCCB", "values": { "component": "塑壳断路器（MCCB）", "model": "NM1-125S/3300", "breakdown": "NM1 = 系列 / 125 = 壳架等级 125 A / S = 分断能力档（L 低、S 标准、H 高、R 限流）/ 33 = 3 极 / 00 = 无附件、配热磁脱扣", "points": "壳架电流 ≠ 额定电流（同壳架有 16~125 A 多档，整定值以脱扣器为准）；分断能力须 ≥ 安装点最大短路电流，S 档常 25~35 kA，具体以样本为准" } },
+    { "id": "acb-dw15", "label": "框架断路器 ACB", "values": { "component": "框架断路器（ACB）", "model": "DW15-1600/3", "breakdown": "DW15 = 系列 / 1600 = 框架等级额定电流 1600 A / 3 = 3 极", "points": "用于进线与母联主开关；注意区分「框架等级」「壳架等级」「额定电流」「运行短路分断 Ics」「极限短路分断 Icu」四个概念，Ics 常低于 Icu" } },
+    { "id": "contactor-cjx2", "label": "交流接触器", "values": { "component": "交流接触器", "model": "CJX2-1810", "breakdown": "CJX2 = 系列（C 接触器、J 交流、X 小型、2 设计序号）/ 18 = 额定工作电流 18 A（380 V AC-3 使用类别）/ 1 = 1 组常开辅助触头 / 0 = 0 组常闭辅助触头", "points": "主回路按 AC-3（笼型电机）或 AC-1（阻性）使用类别选；线圈电压须与控制回路一致（AC220 / DC24 等）；频繁点动或重载场合需降容使用" } },
+    { "id": "thermal-jr36", "label": "热继电器", "values": { "component": "热继电器（过载保护）", "model": "JR36-20", "breakdown": "JR36 = 系列 / 20 = 壳架/整定电流上限档（整定范围常见 14~22 A 一类分档）", "points": "整定电流按电机额定电流取 1.0~1.05 倍（重载启动取 1.1~1.15）；必须与接触器、电机容量配套，并注意环境温度补偿与复位方式（手动/自动）" } },
+    { "id": "relay-my2nj", "label": "中间继电器", "values": { "component": "中间继电器", "model": "MY2NJ（2 组转换）/ JZ7-44（4 组转换）", "breakdown": "MY = 小型通用继电器系列 / 2 = 触头组数 / N = 带动作指示 / J = 带续流二极管或指示灯（各厂后缀不同）；JZ7-44 = 4 常开 4 常闭", "points": "用于触点扩展、信号隔离与电平转换；线圈功耗与吸合电流要计入控制回路电源容量；直流线圈务必配续流二极管以保护驱动管" } },
+    { "id": "button-la38", "label": "按钮", "values": { "component": "按钮（控制元件）", "model": "LA38-11", "breakdown": "LA38 = 系列 / Φ22 安装孔 / 11 = 1 常开 + 1 常闭", "points": "急停按钮须用带自锁的蘑菇头红色按钮并直接切断控制回路（不经过软件）；启动/停止按颜色区分：绿启动、红停止、黄异常" } },
+    { "id": "lamp-ad16", "label": "指示灯", "values": { "component": "指示灯", "model": "AD16-22DS", "breakdown": "AD16 = 系列 / 22 = Φ22 安装孔 / DS = 交直流通用型（后缀随厂而异）", "points": "优先选 LED 并以 24 V DC 供电；颜色含义须全项目统一（红=运行/故障要在图纸里写清，不能各柜不一）" } },
+    { "id": "breaker-accessory", "label": "断路器附件", "values": { "component": "断路器附件", "model": "OF / SD / MX / 欠压脱扣器", "breakdown": "OF = 辅助触头（分合状态反馈）/ SD = 报警触头（故障脱扣报警）/ MX = 分励脱扣器（远控跳闸）/ 欠压脱扣器（电压跌落跳闸）", "points": "附件与断路器型号严格配套，订货时写清极数与触点形式；消防联动「切非」用 MX，不能靠 OF 反馈反推；SD 与 OF 不可互代" } },
+    { "id": "spd-t1t2t3", "label": "浪涌保护器 SPD", "values": { "component": "浪涌保护器（SPD）", "model": "T1（Iimp，10/350 μs）/ T2（In、Imax，8/20 μs）/ T3（Uoc，组合波）", "breakdown": "试验类别决定参数口径：T1 用冲击电流 Iimp，T2 用标称放电电流 In 与最大放电电流 Imax，T3 用组合波电压 Uoc；Up 为电压保护水平", "points": "分级配置：总配电 T1、分配电 T2、设备端 T3；Up 须低于被保护设备耐冲击电压额定值 Uw，且两级之间满足能量配合（线缆长度或配去耦元件）" } },
+    { "id": "rcbo-dz47le", "label": "剩余电流断路器 RCBO", "values": { "component": "剩余电流断路器（RCBO，带过流保护）", "model": "DZ47LE-63 C16 30 mA", "breakdown": "DZ47LE = MCB + 剩余电流脱扣一体 / 63 = 壳架 63 A / C16 = C 型 16 A / 30 mA = 额定剩余动作电流 IΔn，多为 AC 型或无延时型", "points": "插座回路、潮湿场所、手持电动工具回路必须配置；IΔn 30 mA 用于人身保护，100~300 mA 用于防火；带电子负载（变频器、充电器）时应选 A 型或 B 型" } },
+    { "id": "rccb", "label": "剩余电流断路器 RCCB", "values": { "component": "剩余电流断路器（RCCB，无过流保护）", "model": "NL1-63 4P 100 mA", "breakdown": "NL1 = 系列 / 63 = 壳架 63 A / 4P = 四极（三相 + N）/ 100 mA = IΔn，可选 S 型延时", "points": "只做漏电保护，必须与上级或本级断路器配合实现过流保护；上下级级配时上级选 S 型（延时）且 IΔn 不小于下级 3 倍" } },
+    { "id": "fuse-rt18", "label": "熔断器", "values": { "component": "熔断器（熔断器组合电器）", "model": "RT18-32 / 熔体 32 A（gG）", "breakdown": "RT18 = 圆筒形熔断器底座系列 / 32 = 底座额定电流 32 A；熔体另标额定电流与特性（gG 全范围一般用途、aM 电机保护）", "points": "底座额定电流不得小于熔体额定电流；aM 熔体不能用于一般配电保护；更换时必须同型号同特性，禁止用铜丝替代" } },
+    { "id": "isolator-hd11", "label": "隔离开关", "values": { "component": "隔离开关（负荷开关）", "model": "HD11-100/3", "breakdown": "HD = 刀开关（单投）/ 11 = 设计序号 / 100 = 额定电流 100 A / 3 = 3 极", "points": "仅作隔离与可见断开点，不能带负荷分断（除非标明为负荷开关）；检修时必须形成明显断开点并挂牌上锁" } }
+  ],
+  "searchable": true,
+  "source": "GB/T 14048 系列、GB/T 10963.1（IEC 60898-1）、GB 50054；型号为常见国产系列示例，各厂命名有差异，以样本为准",
+  "updatedAt": "2026-11-07"
+}

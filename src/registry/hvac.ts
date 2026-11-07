@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 暖通空调与给排水领域（H 组）工具注册项：H1~H18
+ * 暖通空调与给排水领域（H 组）工具注册项：H1~H19
  * 说明：H1~H4 由原「智能化」迁入（B6/B8/B9/B13）；H5~H10 由原「水电」给排水 6 项迁入。
  */
 const FcuBilling = lazy(() => import('@/features/building/FcuBilling'));
@@ -23,6 +23,7 @@ const FcuSelect = lazy(() => import('@/features/hvac/FcuSelect'));
 const FanPower = lazy(() => import('@/features/hvac/FanPower'));
 const HydraulicBalance = lazy(() => import('@/features/hvac/HydraulicBalance'));
 const CoolingTower = lazy(() => import('@/features/hvac/CoolingTower'));
+const VrvCheck = lazy(() => import('@/features/hvac/VrvCheck'));
 
 export const hvacTools: ToolDef[] = [
   {
@@ -312,5 +313,21 @@ export const hvacTools: ToolDef[] = [
     calcId: 'coolingTower',
     defaultInput: { coolingLoadKw: 500, heatRejectionFactor: 1.25, deltaT: 5, driftRatio: 0.0005, cycles: 4, approach: 4, wetBulb: 28 },
     Component: CoolingTower,
+  },
+  {
+    id: 'hvac.vrvCheck',
+    code: 'H19',
+    domain: 'hvac',
+    kind: 'calculator',
+    priority: 'P2',
+    title: 'VRV 多联机配比与管长校核',
+    subtitle: '校核室内外机容量配比、配管长度与高差是否超限，并给出容量衰减与修正后外机能力',
+    keywords: ['vrv', '多联机', '配比', '超配率', '管长', '高差', '容量衰减', '室内外机', 'vrf', '空调'],
+    tags: ['暖通', '设备'],
+    icon: '❄️',
+    order: 19,
+    calcId: 'vrvCheck',
+    defaultInput: { indoorTotalKw: 60, outdoorKw: 56, pipeLengthM: 80, referenceLengthM: 5, heightDiffM: 20, heightReferenceM: 10, lengthCorrectionPerM: 0.003, heightCorrectionPerM: 0.001, ratioMin: 0.5, ratioMax: 1.3, maxPipeLengthM: 165, maxHeightDiffM: 50 },
+    Component: VrvCheck,
   },
 ];

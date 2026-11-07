@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 楼宇自控与弱电领域（BA 组）工具注册项：BA1~BA12
+ * 楼宇自控与弱电领域（BA 组）工具注册项：BA1~BA13
  * 说明：原 B6 精密空调 / B8 时间计费 / B9 冷量计费 / B13 设备参数 已迁入「暖通/水暖」；
  *      原 B10 照度 / B11 灯具数量 已迁入「电气与配电」（B11 并入 B10）。
  */
@@ -18,6 +18,7 @@ const BaControlStrategy = lazy(() => import('@/features/building/BaControlStrate
 const SensorSelection = lazy(() => import('@/features/building/SensorSelection'));
 const ValveKv = lazy(() => import('@/features/building/ValveKv'));
 const BacnetRef = lazy(() => import('@/features/building/BacnetRef'));
+const AccessControl = lazy(() => import('@/features/building/AccessControl'));
 
 export const buildingTools: ToolDef[] = [
   {
@@ -204,5 +205,21 @@ export const buildingTools: ToolDef[] = [
     order: 12,
     quickRefId: 'building.bacnetRef',
     Component: BacnetRef,
+  },
+  {
+    id: 'building.accessControl',
+    code: 'BA13',
+    domain: 'building',
+    kind: 'calculator',
+    priority: 'P2',
+    title: '门禁系统容量与选型',
+    subtitle: '按门数算控制器台数与读卡器数量，按电锁同时动作率算峰值功率、电源容量与后备电池容量',
+    keywords: ['门禁', 'access control', '控制器', '读卡器', '电锁', '磁力锁', '门禁电源', '后备电池', '同时动作率', '出入口'],
+    tags: ['弱电', '门禁'],
+    icon: '🚪',
+    order: 13,
+    calcId: 'accessControl',
+    defaultInput: { doorCount: 20, doorsPerController: 2, readersPerDoor: 2, lockCurrentA: 0.5, lockVoltageV: 12, lockDutyRatio: 0.2, controllerPowerW: 10, backupHours: 4, psuMargin: 1.3 },
+    Component: AccessControl,
   },
 ];

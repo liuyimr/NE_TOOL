@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 电气与配电领域（E 组）工具注册项：E1~E15
+ * 电气与配电领域（E 组）工具注册项：E1~E17
  * 说明：E1/E2/E4/E5/E8/E9/E10 由原「水电」强电 7 项迁入（原 D3 电压降已并入 E3）；
  *      E3/E6 由原「工控」迁入（C10/C11）；E7 由原「智能化」迁入（B10，原 B11 灯具数量并入本页）。
  */
@@ -21,6 +21,8 @@ const InstallLimits = lazy(() => import('@/features/elec/InstallLimits'));
 const RcdSelect = lazy(() => import('@/features/elec/RcdSelect'));
 const ShortCircuit = lazy(() => import('@/features/elec/ShortCircuit'));
 const ReactivePower = lazy(() => import('@/features/elec/ReactivePower'));
+const LowVoltageModels = lazy(() => import('@/features/elec/LowVoltageModels'));
+const EarthingSystems = lazy(() => import('@/features/elec/EarthingSystems'));
 
 export const elecTools: ToolDef[] = [
   {
@@ -263,5 +265,35 @@ export const elecTools: ToolDef[] = [
     calcId: 'reactivePower',
     defaultInput: { activeKw: 200, cosPhi1: 0.75, cosPhi2: 0.95, voltageV: 380, stepKvar: 25, transformerKva: 0 },
     Component: ReactivePower,
+  },
+  {
+    id: 'elec.lowVoltageModels',
+    code: 'E16',
+    domain: 'elec',
+    kind: 'quickref',
+    priority: 'P2',
+    title: '低压电气元件型号含义速查',
+    subtitle: 'MCB / MCCB / 接触器 / 热继电器 / 附件 / SPD / RCBO 的型号拆解、脱扣曲线与适用负载',
+    keywords: ['断路器', 'mcb', 'mccb', '脱扣曲线', 'dz47', 'nm1', '接触器', 'cjx2', '热继电器', 'spd', 'rcbo', '型号含义'],
+    tags: ['电工', '元件'],
+    icon: '🧩',
+    order: 14,
+    quickRefId: 'elec.lowVoltageModels',
+    Component: LowVoltageModels,
+  },
+  {
+    id: 'elec.earthingSystems',
+    code: 'E17',
+    domain: 'elec',
+    kind: 'quickref',
+    priority: 'P2',
+    title: '接地系统形式 TN / TT / IT 速查',
+    subtitle: 'TN-C / TN-S / TN-C-S / TT / IT 的定义、PE 与 PEN 处理、故障电流路径、RCD 配置与适用场所',
+    keywords: ['接地', 'tn-c', 'tn-s', 'tn-c-s', 'tt', 'it', 'pe', 'pen', 'rcd', '绝缘监测', 'imd', '等电位'],
+    tags: ['电工', '接地'],
+    icon: '🌍',
+    order: 15,
+    quickRefId: 'elec.earthingSystems',
+    Component: EarthingSystems,
   },
 ];

@@ -465,16 +465,16 @@ describe('servoGear（独立复算）', () => {
 });
 
 // ===========================================================================
-// 结构一致性：78 个工具 / 5 类目 14-12-18-19-15 / 速查 id 改名
+// 结构一致性：84 个工具 / 5 类目 15-13-19-20-17 / 速查 id 改名
 // ===========================================================================
 describe('注册表结构（第 1 步）', () => {
-  it('全量 78 个工具 = 14+12+18+19+15', () => {
-    expect(getAll()).toHaveLength(78);
-    expect(byDomain('network')).toHaveLength(14);
-    expect(byDomain('building')).toHaveLength(12);
-    expect(byDomain('hvac')).toHaveLength(18);
-    expect(byDomain('automation')).toHaveLength(19);
-    expect(byDomain('elec')).toHaveLength(15);
+  it('全量 84 个工具 = 15+13+19+20+17', () => {
+    expect(getAll()).toHaveLength(84);
+    expect(byDomain('network')).toHaveLength(15);
+    expect(byDomain('building')).toHaveLength(13);
+    expect(byDomain('hvac')).toHaveLength(19);
+    expect(byDomain('automation')).toHaveLength(20);
+    expect(byDomain('elec')).toHaveLength(17);
   });
 
   it('每类目首个工具为本次新增 P0（network 无新增，为首个 N1）', () => {
