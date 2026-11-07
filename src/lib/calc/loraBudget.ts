@@ -212,6 +212,9 @@ export function loraBudget(input: LoraBudgetInput): LoraBudgetResult {
   if (!reachBeyond1km) {
     notes.push('1 km 处已无链路余量，理论覆盖半径不足 1 km，宜缩短距离、提高天线增益或降低 SF 传输速率要求');
   }
+  if (input.envFactor < 1.5) {
+    notes.push('环境衰减指数 n < 1.5，低于常见取值范围（开阔 2.0~2.3），覆盖距离会被显著高估，请按实际环境取值');
+  }
   notes.push(
     '理论值，实际受地形/植被/建筑遮挡、天线高度与干扰影响，工程常按理论值 ×0.3~0.6 折算，须现场勘测',
   );

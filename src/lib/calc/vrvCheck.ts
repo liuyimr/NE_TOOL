@@ -175,7 +175,7 @@ export function vrvCheck(input: VrvCheckInput): VrvCheckResult {
     input.heightCorrectionPerM *
     100;
   const totalLossPct = lengthLossPct + heightLossPct;
-  const correctedCapacityKw = input.outdoorKw * (1 - totalLossPct / 100);
+  const correctedCapacityKw = Math.max(0, input.outdoorKw * (1 - totalLossPct / 100));
   const pipeOk = input.pipeLengthM <= input.maxPipeLengthM;
   const heightOk = input.heightDiffM <= input.maxHeightDiffM;
   const overallOk = ratioOk && pipeOk && heightOk;
@@ -195,6 +195,9 @@ export function vrvCheck(input: VrvCheckInput): VrvCheckResult {
   }
   if (!heightOk) {
     notes.push(`高差 ${input.heightDiffM} m 超过上限 ${input.maxHeightDiffM} m，须核对样本的分项高差限制`);
+  }
+  if (totalLossPct >= 100) {
+    notes.push('衰减合计 ≥100%，修正后外机能力不可用（按 0 kW 计），须缩短管长、降低高差或重新选型');
   }
   notes.push(
     '配比与修正系数以厂家样本为准（常见 50%~130%，管长/高差上限随机型不同）；衰减率默认值为方案阶段经验值',

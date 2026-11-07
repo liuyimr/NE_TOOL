@@ -176,6 +176,9 @@ export function accessControl(input: AccessControlInput): AccessControlResult {
     `电锁按同时动作率 ${input.lockDutyRatio} 折减，峰值电流 ${lockPeakCurrentA.toFixed(2)} A、峰值功率 ${lockPeakPowerW.toFixed(1)} W；控制器功耗 ${controllerTotalPowerW.toFixed(1)} W，合计 ${totalPowerW.toFixed(1)} W，电源按 ${input.psuMargin} 倍余量取 ${psuRequiredW.toFixed(1)} W`,
     '电锁为短时工作制，同时动作率取 0.2~0.3；蓄电池按 DoD 0.8 估算，须按电池放电曲线与厂家样本校核；消防联动开门要求另计',
   ];
+  if (input.doorCount === 0) {
+    notes.push('门数为 0，请确认输入；当前各容量结果均为 0');
+  }
   notes.push(GENERAL_DISCLAIMER);
 
   return {

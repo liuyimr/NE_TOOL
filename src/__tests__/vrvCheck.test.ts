@@ -106,13 +106,14 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     }
   });
 
-  it('边界：衰减率极大导致修正后容量为负（仍为有限数，提示按样本取值）', () => {
+  it('边界：衰减率极大导致修正后容量按 0 钳制（不出现负能力，提示不可用）', () => {
     const r = vrvCheck(baseInput({ lengthCorrectionPerM: 1 }));
     expect(r.valid).toBe(true);
-    // (80−5)×1×100 = 7500% → 修正后为负值
+    // (80−5)×1×100 = 7500% → 衰减远超 100%，容量按 0 计
     expect(r.totalLossPct).toBeCloseTo(7501, 6);
-    expect(r.correctedCapacityKw).toBeLessThan(0);
+    expect(r.correctedCapacityKw).toBe(0);
     expect(Number.isFinite(r.correctedCapacityKw)).toBe(true);
+    expect(r.note).toContain('不可用');
   });
 
   it('边界：极大容量导致结果溢出被拦截', () => {
