@@ -26,7 +26,7 @@ describe('E13 漏电保护 RCD 选型与级配', () => {
     expect(r.valid).toBe(true);
     expect(r.iDeltaNMa).toBe(30);
     expect(r.rcdType).toContain('一般型');
-    expect(r.maxBreakMs).toBe(100);
+    expect(r.designBreakTimeMs).toBe(100);
     expect(r.ratedCurrentMinA).toBe(16);
     expect(r.gradingRatio).toBeCloseTo(10, 9);
     expect(r.gradingOk).toBe(true);
@@ -36,24 +36,40 @@ describe('E13 漏电保护 RCD 选型与级配', () => {
     expect(RCD_GRADING_MIN_RATIO).toBe(3);
     expect(RCD_CURRENT_SERIES_A[0]).toBe(6);
     expect(RCD_CURRENT_SERIES_A[RCD_CURRENT_SERIES_A.length - 1]).toBe(250);
+    expect('designBreakTimeMs' in r).toBe(true);
+    expect('maxBreakMs' in r).toBe(false);
   });
 
-  it('规则表：main 延时型 S/300 mA/500 ms，fire 报警不脱扣/0 ms', () => {
+  it('规则表：main 延时型 S/300 mA/500 ms，fire 报警不脱扣/动作时间不适用', () => {
     const main = rcdSelect(baseInput({ circuitType: 'main' }));
     expect(main.iDeltaNMa).toBe(300);
     expect(main.rcdType).toContain('延时型 S');
-    expect(main.maxBreakMs).toBe(500);
+    expect(main.designBreakTimeMs).toBe(500);
+    expect(main.note).toContain('0.13');
 
     const fire = rcdSelect(baseInput({ circuitType: 'fire' }));
     expect(fire.iDeltaNMa).toBe(300);
     expect(fire.rcdType).toContain('报警不脱扣');
-    expect(fire.maxBreakMs).toBe(0);
+    expect(fire.designBreakTimeMs).toBeNull();
     expect(fire.note).toContain('消防设备不应自动切断电源');
+    expect(fire.note).toContain('不适用');
 
     expect(RCD_RULES.wet.iDeltaNMa).toBe(30);
     expect(RCD_RULES.motor.iDeltaNMa).toBe(100);
-    expect(RCD_RULES.motor.maxBreakMs).toBe(200);
+    expect(RCD_RULES.motor.designBreakTimeMs).toBe(100);
+    expect(RCD_RULES.motor.rcdType).toContain('无延时');
     expect(RCD_RULES.lighting.note).toContain('不强制');
+  });
+
+  it('B1：两套口径并列、出处改挂 JGJ/T 46-2024 与已废止标准说明', () => {
+    const r = rcdSelect(baseInput());
+    expect(r.note).toContain('JGJ/T 46-2024 3.3.4');
+    expect(r.note).toContain('GB 13955-2005 三级保护，已由 GB/T 13955-2017 替代');
+    expect(r.note).toContain('《技术措施·电气》2009 6.4.7');
+    expect(r.note).toContain('最小不驱动 ≥0.13 s');
+    expect(r.note).toContain('设计选用/分级配合');
+    expect(r.note).toContain('严禁将本工具数值用于产品合格判定');
+    expect(r.note).not.toContain('2IΔn 下不早于 0.1 s');
   });
 
   it('级配不满足：上级 30 mA 且非延时 → gradingOk=false 并给出越级跳闸提示', () => {
@@ -105,5 +121,10 @@ describe('E13 漏电保护 RCD 选型与级配', () => {
     expect(r.gradingRatio).toBeCloseTo(10, 9);
     expect(Number.isFinite(r.iDeltaNMa)).toBe(true);
     expect(r.note).toContain('超出常用 RCD 电流档');
+  });
+
+  it('D：note 末尾含通用免责句', () => {
+    const r = rcdSelect(baseInput());
+    expect(r.note).toContain('不作为施工图设计、设备采购、产品验收或安全校验依据');
   });
 });

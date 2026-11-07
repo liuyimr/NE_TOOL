@@ -15,7 +15,7 @@ const fields: FieldDef[] = [
     default: 60,
     min: 0,
     unit: 'B',
-    help: 'MQTT + TCP/IP 头经验值',
+    help: '单包协议开销经验值：MQTT/TCP/IPv4 约 80~120 B，CoAP/UDP/IPv6 约 60~70 B，LoRaWAN 约 20~30 B；默认 60 B 为方案取整下限，不含 TLS、心跳、重传、下行 ACK 与以太网前导码',
   },
   {
     key: 'gatewayCapacity',
@@ -24,6 +24,7 @@ const fields: FieldDef[] = [
     default: 500,
     min: 1,
     unit: '点',
+    help: '须按实际网关样本覆盖',
   },
   {
     key: 'gatewayKbps',
@@ -32,6 +33,7 @@ const fields: FieldDef[] = [
     default: 1000,
     min: 1,
     unit: 'kbit/s',
+    help: '须按实际网关样本覆盖',
   },
 ];
 

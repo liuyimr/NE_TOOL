@@ -33,6 +33,10 @@ export const MOTOR_SERIES_KW: number[] = [
 /** 风机全压—功率换算常数：3600 s/h × 1000 W/kW */
 export const FAN_POWER_DIVISOR = 3_600_000;
 
+/** 通用免责句（§3）：所有计算模块 note 末尾统一追加 */
+const GENERAL_DISCLAIMER =
+  '本结果为方案阶段工程估算，含多项经验系数与简化假设（详见各字段说明），不作为施工图设计、设备采购、产品验收或安全校验依据；实际须按现行国家/行业标准、厂家样本与注册工程师复核。';
+
 export interface FanPowerInput {
   /** 风量 Q（m³/h），默认 10000 */
   flowM3h: number;
@@ -123,6 +127,10 @@ export function fanPower(input: FanPowerInput): FanPowerResult {
   if (recommendedMotorKw === null) {
     notes.push('所需功率超出常用电机序列，需多台并联或按厂家定制校核');
   }
+  notes.push(
+    '严格定义：风机轴功率 = Q·P/(3.6e6·η_fan)；本项已计入传动效率 η_trans，实为电机侧输入功率，与风机样本「轴功率」对比时须先除以 η_trans',
+  );
+  notes.push(GENERAL_DISCLAIMER);
 
   return {
     valid: true,

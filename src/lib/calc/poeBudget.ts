@@ -40,6 +40,10 @@ export const POE_PORT_LIMIT_W: Record<PoeStandard, number> = {
   bt4: 71.3,
 };
 
+/** 通用免责句（§3）：所有计算模块 note 末尾统一追加 */
+const GENERAL_DISCLAIMER =
+  '本结果为方案阶段工程估算，含多项经验系数与简化假设（详见各字段说明），不作为施工图设计、设备采购、产品验收或安全校验依据；实际须按现行国家/行业标准、厂家样本与注册工程师复核。';
+
 export interface PoeBudgetInput {
   /** 摄像机数量（默认 10） */
   camCount: number;
@@ -174,6 +178,10 @@ export function poeBudget(input: PoeBudgetInput): PoeBudgetResult {
   notes.push(
     '单口可用功率取 PD 侧保证值（PSE 侧 15.4/30/60/90 W 扣除线缆损耗），结果仅供方案阶段校核，以交换机与受电设备样本为准',
   );
+  notes.push(
+    'budgetW 为 PSE 侧整机预算，单台设备功率为 PD 侧功耗，余量系数兼顾 100 m 线缆损耗；单口上限取该类型最大 Class（Type3 另有 40 W、Type4 另有 62 W 档）',
+  );
+  notes.push(GENERAL_DISCLAIMER);
 
   return {
     valid: true,

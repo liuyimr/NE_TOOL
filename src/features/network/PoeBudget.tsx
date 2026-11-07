@@ -11,7 +11,15 @@ const fields: FieldDef[] = [
   { key: 'apW', label: '单台 AP 功率', type: 'number', default: 15, min: 0, step: 0.5, unit: 'W' },
   { key: 'otherCount', label: '其他 PoE 设备数量', type: 'number', default: 2, min: 0, unit: '台' },
   { key: 'otherW', label: '单台其他设备功率', type: 'number', default: 7, min: 0, step: 0.5, unit: 'W' },
-  { key: 'budgetW', label: '交换机 PoE 总预算', type: 'number', default: 370, min: 0, unit: 'W' },
+  {
+    key: 'budgetW',
+    label: '交换机 PoE 总预算',
+    type: 'number',
+    default: 370,
+    min: 0,
+    unit: 'W',
+    help: '常见 24 口 PoE+ 交换机整机预算示例值，须按实际交换机铭牌/样本填写（130/370/740 W 不等）',
+  },
   { key: 'margin', label: '余量系数', type: 'number', default: 1.2, min: 1, step: 0.1 },
   {
     key: 'standard',

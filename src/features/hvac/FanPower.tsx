@@ -18,7 +18,15 @@ const fields: FieldDef[] = [
     step: 0.05,
     help: '直联取 1.0',
   },
-  { key: 'motorMargin', label: '电机储备系数', type: 'number', default: 1.2, min: 1, step: 0.1 },
+  {
+    key: 'motorMargin',
+    label: '电机储备系数',
+    type: 'number',
+    default: 1.2,
+    min: 1,
+    step: 0.1,
+    help: '电机储备系数：GBJ 19-87 表 4.7.6 / GB 50019-2015 6.8.2 按轴功率与机型分级（离心 1.15~1.5、轴流 1.05~1.2）；默认 1.2 仅适用于 2~5 kW 离心风机。变频风机须再附加 15~20%，风机风压须附加 10~15%，本工具均未计入',
+  },
 ];
 
 function run(v: Record<string, string>): CalcResult[] {
@@ -33,7 +41,7 @@ function run(v: Record<string, string>): CalcResult[] {
     return [res('error', '错误', r.note, '', { copyable: false })];
   }
   return [
-    res('shaftKw', '风机轴功率', r.shaftKw, 'kW', { highlight: true }),
+    res('shaftKw', '电机侧所需功率（含传动损失）', r.shaftKw, 'kW', { highlight: true }),
     res('requiredKw', '所需电机功率', r.requiredKw, 'kW'),
     res(
       'recommendedMotorKw',

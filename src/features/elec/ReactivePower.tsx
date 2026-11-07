@@ -25,7 +25,15 @@ const fields: FieldDef[] = [
     step: 0.01,
   },
   { key: 'voltageV', label: '线电压 U', type: 'number', default: 380, min: 0, unit: 'V' },
-  { key: 'stepKvar', label: '单步电容器容量', type: 'number', default: 25, min: 0.1, unit: 'kvar' },
+  {
+    key: 'stepKvar',
+    label: '单步电容器容量',
+    type: 'number',
+    default: 25,
+    min: 0.1,
+    unit: 'kvar',
+    help: '常用步长示例（非标准强制），如 10/15/20/25/50 kvar',
+  },
   {
     key: 'transformerKva',
     label: '变压器容量',

@@ -40,6 +40,10 @@ export const BYTES_PER_MB = 1e6;
 /** 十进制 GB 口径（1 GB = 10⁹ B） */
 export const BYTES_PER_GB = 1e9;
 
+/** 通用免责句（§3）：所有计算模块 note 末尾统一追加 */
+const GENERAL_DISCLAIMER =
+  '本结果为方案阶段工程估算，含多项经验系数与简化假设（详见各字段说明），不作为施工图设计、设备采购、产品验收或安全校验依据；实际须按现行国家/行业标准、厂家样本与注册工程师复核。';
+
 export interface IotGatewayInput {
   /** 节点（点位）数量，默认 500 */
   nodes: number;
@@ -175,6 +179,8 @@ export function iotGateway(input: IotGatewayInput): IotGatewayResult {
   if (byBandwidth > byNodes) {
     notes.push('带宽是网关数量的控制因素，缩短上报周期时须同步核算上行链路');
   }
+  notes.push('按平均速率估算，未计上报突发（常见峰值 3~10×）、重传与下行 ACK；链路与网关台数须按峰值复核');
+  notes.push(GENERAL_DISCLAIMER);
 
   return {
     valid: true,

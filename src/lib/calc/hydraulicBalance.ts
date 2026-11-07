@@ -32,10 +32,13 @@
  *   WATER_RHO = 1000 kg/m³：20℃ 水密度工程取值。
  *   GRAVITY = 9.81 m/s²：标准重力加速度。
  *   LAMINAR_RE = 2300：圆管层流/湍流临界雷诺数常规取值。
- *   BLASIUS_MAX_RE = 1e5：Blasius 公式 0.3164/Re^0.25 适用上限（光滑管、
- *                          Re 约 4e3~1e5）；超出时结果仅供粗估，须改用
- *                          Colebrook / Moody 图并计入管壁粗糙度。
- *   15% 不平衡率：暖通静态水力平衡常规判据（经验值，以设计院要求为准）。
+ *   BLASIUS_MAX_RE = 1e5：λ=0.3164/Re^0.25 为 Darcy 系数的 Blasius 光滑管公式，
+ *                          适用于 Re≈4e3~1e5 且水力光滑管；实际钢管/镀锌钢管为
+ *                          粗糙管，λ 可高 30~80%，本结果偏小。施工图宜按
+ *                          Colebrook–White / Haaland 公式或《实用供热空调设计手册》
+ *                          比摩阻表复核。Re=2300~4000 过渡区未单独处理，λ 在
+ *                          临界点存在跳变，低流速小管径工况请人工复核。
+ *   15% 不平衡率：暖通静态水力平衡经验判据，以设计院要求为准，非规范强制。
  *
  * 未计入：设备/末端、过滤器、软接、阀门全开阻力（需另计 ζ）、水温变化导致
  * 的黏度与密度变化、并联支路的流量再分配；结果为最不利串联环路的压降估算。
@@ -55,6 +58,10 @@ export const LAMINAR_RE = 2300;
 export const BLASIUS_MAX_RE = 1e5;
 /** 不平衡率提示阈值（%） */
 export const IMBALANCE_LIMIT_PCT = 15;
+
+/** 通用免责句（§3）：所有计算模块 note 末尾统一追加 */
+const GENERAL_DISCLAIMER =
+  '本结果为方案阶段工程估算，含多项经验系数与简化假设（详见各字段说明），不作为施工图设计、设备采购、产品验收或安全校验依据；实际须按现行国家/行业标准、厂家样本与注册工程师复核。';
 
 export interface HydraulicSegmentDetail {
   /** 段序号（1 基） */
@@ -232,7 +239,12 @@ export function hydraulicBalance(input: HydraulicBalanceInput): HydraulicBalance
   } else if (imbalancePct !== null) {
     notes.push(`不平衡率 ${imbalancePct}%，在常规 15% 判据以内`);
   }
+  notes.push(
+    '沿程阻力按 Blasius 光滑管公式估算（λ=0.3164/Re^0.25，适用 Re≈4e3~1e5 且水力光滑管；λ 为 Darcy 系数）。实际钢管/镀锌钢管为粗糙管，λ 可高 30~80%，本结果偏小；施工图宜按 Colebrook–White / Haaland 公式或《实用供热空调设计手册》比摩阻表复核。Re=2300~4000 过渡区未单独处理，λ 在临界点存在跳变，低流速小管径工况请人工复核。',
+  );
+  notes.push('不平衡率 ≤15% 为暖通经验判据，以设计院要求为准，非规范强制');
   notes.push('结果为最不利串联环路的沿程+局部阻力，未计入末端设备、过滤器与阀门阻力，20℃ 水物性；方案阶段估算，施工图须逐项复核');
+  notes.push(GENERAL_DISCLAIMER);
 
   return {
     valid: true,

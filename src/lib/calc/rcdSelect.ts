@@ -1,34 +1,44 @@
 /**
  * E13 · 漏电保护 RCD 选型与级配（纯函数）
  * ------------------------------------------------------------------
- * 依据：GB 50054《低压配电设计规范》、GB 13955《剩余电流动作保护装置
- * 安装和运行》、GB/T 16916/16917（RCD 产品标准）、IEC 60364-4-41。
+ * 依据：GB 50054-2011（应装 RCD 的场所；TN 系统末端自动切断时间 ≤0.4 s，
+ * IEC 60364-4-41）、GB/T 13955-2017（现行，5.7 动作参数与级配）、
+ * GB 13955-2005 三级保护分断时间（历史沿用，已废止，由 GB/T 13955-2017 替代）、
+ * JGJ/T 46-2024 3.3.3/3.3.4、《技术措施·电气》2009 6.4.7、
+ * GB/T 16916.1/16917.1、IEC 60364-4-41。
+ * **GB 50054 不承担 0.1 s 依据**：其对应 TN 系统末端自动切断时间 ≤0.4 s；
+ * 末级 ≤0.1 s 的设计选用依据为 JGJ/T 46-2024 第 3.3.4 条（推荐性标准）。
  *
  * 选型表口径（RCD_RULES）：
- *   socket / wet / lighting → IΔn = 30 mA、一般型（无延时）、最大分断时间 100 ms。
- *     30 mA 属「直接接触的附加防护」（不能替代基本绝缘/接地），GB 50054 对
- *     干燥场所固定式照明并不强制装 RCD，此处按住宅/公共建筑常规配置统一取 30 mA；
- *     潮湿场所（浴室、厨房、户外插座）则属强制要求。
- *   motor → 100 mA、一般型、200 ms：设备与电缆防火/接地故障保护，兼顾电机
- *     正常泄漏电流避免误动作。
- *   main → 300 mA、延时型 S、500 ms：总进线/上级，利用延时实现选择性。
- *   fire → 300 mA、报警不脱扣、0 ms：消防设备（消防泵、应急照明、防火卷帘）
- *     供电不应自动切断，剩余电流只作用于报警（GB 50054 / GB 50116 原则）。
+ *   socket / wet / lighting → IΔn = 30 mA、一般型（无延时）、设计选用/分级配合
+ *     动作时间提示 100 ms（工程口径，非产品型式试验限值、非产品额定动作时间
+ *     保证值）。30 mA 属「直接接触的附加防护」（不能替代基本绝缘/接地），
+ *     GB 50054 对干燥场所固定式照明并不强制装 RCD，此处按住宅/公共建筑常规
+ *     配置统一取 30 mA；潮湿场所（浴室、厨房、户外插座）则属强制要求。
+ *   motor → 100 mA、一般型（无延时）、100 ms：依据 GB/T 13955-2017 5.7 b)，
+ *     单台电气机械设备可选 30 mA 以上、100 mA 及以下、无延时 RCD。
+ *   main → 300 mA、延时型 S、500 ms：总进线/上级，利用延时实现选择性；
+ *     0.5 s 是 IΔn 下的分断时间上限，2IΔn ≤0.2 s、5IΔn ≤0.15 s，大故障
+ *     电流下更快，不写作「延时 500 ms」。
+ *   fire → 300 mA、报警不脱扣、动作时间不适用（null）：消防设备（消防泵、
+ *     应急照明、防火卷帘）供电不应自动切断，剩余电流只作用于报警
+ *     （GB 50054 / GB 50116 原则）。
  *
  * 动作时间口径说明（与配套速查表 elec.rcdRef 并列一致，避免混淆）：
- *   RCD_RULES 中的 100 / 200 / 500 ms 是「设计/工程口径」的选型提示值
- *   （末端附加防护要求快速切断，常按 ≤0.1 s 表述；上级 S 型按 ≤0.5 s 且
- *   须有 ≥0.1 s 延时实现选择性），并非产品标准的型式试验限值。
- *   GB/T 16916 / GB/T 16917（对应 IEC 61008 / IEC 61009）对一般型 RCD 规定的是
- *   IΔn 下 ≤0.3 s、2IΔn 下 ≤0.15 s、5IΔn 下 ≤0.04 s；延时型 S 在 IΔn 下
- *   ≤0.5 s 且在 2IΔn 下不早于 0.1 s 脱扣。两者不可互相替代，校核时须说明口径；
- *   本工具的 maxBreakMs 仅用于选型提示，不作为产品合格判定依据。
+ *   RCD_RULES 中的 100 / 500 ms 是「设计选用/分级配合动作时间」提示值
+ *   （工程口径：末级 ≤0.1 s、中间级 ≤0.3 s、上级 ≤0.5 s），并非产品标准的
+ *   型式试验限值，也不是产品额定动作时间保证值。
+ *   GB/T 16916.1 / GB/T 16917.1（IEC 61008-1 / IEC 61009-1 表 1）规定一般型
+ *   IΔn ≤0.3 s、2IΔn ≤0.15 s、5IΔn（或 0.25 A）≤0.04 s、500 A ≤0.04 s；
+ *   S 型 IΔn ≤0.5 s（IΔn 下最小不驱动时间 ≥0.13 s、2IΔn 下 ≥0.06 s）、
+ *   2IΔn ≤0.2 s、5IΔn ≤0.15 s、500 A ≤0.15 s。两者用途不同、不可互相替代；
+ *   本工具的 designBreakTimeMs 仅用于选型提示，不作为产品合格判定依据。
  *
  * 级配判据（选择性）：
  *   gradingRatio = upstreamMa / IΔn（upstreamMa = 0 表示无上级，返回 null）
  *   gradingOk    = upstreamMa === 0 || (gradingRatio ≥ 3 && upstreamDelayed === 'yes')
  *   上级 IΔn 至少为下级的 3 倍、且上级为延时型（S 型），才能避免越级跳闸；
- *   该 3 倍判据为 GB 13955 与厂商选择性配合表的常用工程经验值。
+ *   该 3 倍判据为 GB/T 13955 与厂商选择性配合表的常用工程经验值。
  *
  * 电流档口径：RCD_CURRENT_SERIES_A 为 GB/T 16916/16917 与 IEC 60898 常见的
  * 额定电流优先数序列（6~250 A），RCD 额定电流须 ≥ 回路计算电流并 ≤ 导线载流量。
@@ -44,13 +54,17 @@ export type RcdCircuitType = 'socket' | 'wet' | 'lighting' | 'motor' | 'main' | 
 /** 上级是否延时型 */
 export type RcdDelayed = 'yes' | 'no';
 
+/** 通用免责句（§3）：所有计算模块 note 末尾统一追加 */
+const GENERAL_DISCLAIMER =
+  '本结果为方案阶段工程估算，含多项经验系数与简化假设（详见各字段说明），不作为施工图设计、设备采购、产品验收或安全校验依据；实际须按现行国家/行业标准、厂家样本与注册工程师复核。';
+
 export interface RcdRule {
   /** 额定剩余动作电流 IΔn（mA） */
   iDeltaNMa: number;
   /** RCD 型式 */
   rcdType: string;
-  /** 选型用的动作时间提示（ms，设计/工程口径，非产品型式试验限值）；报警不脱扣记 0 */
-  maxBreakMs: number;
+  /** 设计选用/分级配合动作时间提示（ms，工程口径，非产品型式试验限值）；不适用为 null */
+  designBreakTimeMs: number | null;
   /** 该回路类型的说明 */
   note: string;
 }
@@ -60,38 +74,38 @@ export const RCD_RULES: Record<RcdCircuitType, RcdRule> = {
   socket: {
     iDeltaNMa: 30,
     rcdType: '一般型（无延时）',
-    maxBreakMs: 100,
-    note: '插座回路：30 mA 为直接接触附加防护',
+    designBreakTimeMs: 100,
+    note: '插座回路：30 mA 为直接接触附加防护；100 ms 为设计选用/分级配合动作时间提示值（工程口径，非产品型式试验限值、非产品额定动作时间保证值）',
   },
   wet: {
     iDeltaNMa: 30,
     rcdType: '一般型（无延时）',
-    maxBreakMs: 100,
-    note: '潮湿场所插座：强制装设 30 mA RCD',
+    designBreakTimeMs: 100,
+    note: '潮湿场所插座：强制装设 30 mA RCD；100 ms 为设计选用/分级配合动作时间提示值（工程口径，非产品型式试验限值）',
   },
   lighting: {
     iDeltaNMa: 30,
     rcdType: '一般型（无延时）',
-    maxBreakMs: 100,
-    note: 'GB 50054 对干燥场所固定照明不强制装 RCD，此处按住宅常规配置取 30 mA',
+    designBreakTimeMs: 100,
+    note: 'GB 50054 对干燥场所固定照明不强制装 RCD，此处按住宅常规配置取 30 mA；100 ms 为设计选用/分级配合提示值（工程口径）',
   },
   motor: {
     iDeltaNMa: 100,
     rcdType: '一般型（无延时）',
-    maxBreakMs: 200,
-    note: '设备与防火保护，兼顾电机正常泄漏电流避免误动作',
+    designBreakTimeMs: 100,
+    note: '依据 GB/T 13955-2017 5.7 b)：单台电气机械设备可选 30 mA 以上、100 mA 及以下、无延时 RCD；100 ms 为设计选用/分级配合提示值（工程口径）',
   },
   main: {
     iDeltaNMa: 300,
     rcdType: '延时型 S',
-    maxBreakMs: 500,
-    note: '总进线/上级，靠延时实现上下级选择性',
+    designBreakTimeMs: 500,
+    note: '总进线/上级，靠延时实现上下级选择性；0.5 s 是 IΔn 下的分断时间上限，2IΔn ≤0.2 s、5IΔn ≤0.15 s，大故障电流下更快；500 ms 为设计选用/配合动作时间提示值（工程口径，非「延时 500 ms」）',
   },
   fire: {
     iDeltaNMa: 300,
     rcdType: '报警不脱扣',
-    maxBreakMs: 0,
-    note: '消防设备不应自动切断电源，剩余电流只报警不脱扣',
+    designBreakTimeMs: null,
+    note: '消防设备不应自动切断电源，剩余电流只报警不脱扣；动作时间不适用（不脱扣，仅报警）',
   },
 };
 
@@ -125,8 +139,8 @@ export interface RcdSelectResult {
   iDeltaNMa: number;
   /** 推荐 RCD 型式 */
   rcdType: string;
-  /** 最大分断时间（ms） */
-  maxBreakMs: number;
+  /** 设计选用/分级配合动作时间提示（ms，工程口径，非产品型式试验限值）；不适用为 null */
+  designBreakTimeMs: number | null;
   /** 首个 ≥ ratedCurrentA 的额定电流档（A）；超出序列为 null */
   ratedCurrentMinA: number | null;
   /** 上级/下级 IΔn 比值；无上级时为 null */
@@ -147,7 +161,7 @@ function invalidResult(note: string): RcdSelectResult {
     circuitType: 'socket',
     iDeltaNMa: 0,
     rcdType: '输入无效',
-    maxBreakMs: 0,
+    designBreakTimeMs: null,
     ratedCurrentMinA: null,
     gradingRatio: null,
     gradingOk: false,
@@ -196,11 +210,21 @@ export function rcdSelect(input: RcdSelectInput): RcdSelectResult {
     input.upstreamMa === 0 ||
     (gradingRatio !== null && gradingRatio >= RCD_GRADING_MIN_RATIO && upstreamDelayed === 'yes');
 
-  const outputs = [iDeltaNMa, rule.maxBreakMs, gradingRatio ?? 0, input.ratedCurrentA, input.upstreamMa];
+  const outputs = [
+    iDeltaNMa,
+    rule.designBreakTimeMs ?? 0,
+    gradingRatio ?? 0,
+    input.ratedCurrentA,
+    input.upstreamMa,
+  ];
   if (!outputs.every((x) => Number.isFinite(x))) {
     return invalidResult('输入量级过大导致结果溢出，请缩小回路电流或上级 IΔn');
   }
 
+  const breakText =
+    rule.designBreakTimeMs === null
+      ? '不适用（不脱扣，仅报警）'
+      : `${rule.designBreakTimeMs} ms`;
   const notes: string[] = [rule.note];
   if (!gradingOk) {
     notes.push('存在越级跳闸风险：上级 IΔn 应 ≥ 3× 下级且上级为延时型（S）');
@@ -209,11 +233,12 @@ export function rcdSelect(input: RcdSelectInput): RcdSelectResult {
     notes.push('回路额定电流超出常用 RCD 电流档，需按厂家样本或改用框架式/互感器式方案');
   }
   notes.push(
-    `动作时间 ${rule.maxBreakMs} ms 为设计/工程口径的选型提示；GB/T 16916/16917 产品标准另规定一般型在 IΔn / 2IΔn / 5IΔn 下分别 ≤0.3 s / 0.15 s / 0.04 s，S 型在 IΔn 下 ≤0.5 s 且延时 ≥0.1 s，详见配套速查表 elec.rcdRef`,
+    `本回路动作时间：${breakText}（「设计选用/分级配合」提示值，工程口径，不是产品标准分断时间）。设计口径：末级 ≤0.1 s、中间级 ≤0.3 s、上级 ≤0.5 s（JGJ/T 46-2024 3.3.4；GB 13955-2005 三级保护，已由 GB/T 13955-2017 替代；《技术措施·电气》2009 6.4.7）。产品型式试验最大分断时间（GB/T 16916.1 / 16917.1，IEC 61008-1 / 61009-1 表 1）：一般型 IΔn ≤0.3 s、2IΔn ≤0.15 s、5IΔn（或 0.25 A）≤0.04 s、500 A ≤0.04 s；S 型 IΔn ≤0.5 s（最小不驱动 ≥0.13 s）、2IΔn ≤0.2 s（≥0.06 s）、5IΔn ≤0.15 s（≥0.05 s）、500 A ≤0.15 s（≥0.04 s）。两者不冲突、用途不同：工程选型按设计口径，产品验收按型式试验口径；严禁将本工具数值用于产品合格判定或替代厂家样本。`,
   );
   notes.push(
     `依据 GB 50054《低压配电设计规范》/ GB 13955《剩余电流动作保护装置安装和运行》；30 mA 属直接接触附加防护，结果仅供选型参考，须按接地系统型式与实测泄漏电流复核`,
   );
+  notes.push(GENERAL_DISCLAIMER);
 
   return {
     valid: true,
@@ -221,7 +246,7 @@ export function rcdSelect(input: RcdSelectInput): RcdSelectResult {
     circuitType,
     iDeltaNMa,
     rcdType: rule.rcdType,
-    maxBreakMs: rule.maxBreakMs,
+    designBreakTimeMs: rule.designBreakTimeMs,
     ratedCurrentMinA,
     gradingRatio,
     gradingOk,
