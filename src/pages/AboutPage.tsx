@@ -1,4 +1,5 @@
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 // NewE 标识：构建时内联为 data URI（见 vite.config.ts 的 assetsInlineLimit），
 // 保证单文件构建同样自包含，不额外产生外部资源请求
 import neweLogo from '@/assets/newe-logo.webp';
@@ -30,13 +31,25 @@ function Row({ label, children }: { label: string; children: ReactNode }): JSX.E
 }
 
 /**
- * 关于页：版本、作者、仓库、许可、数据来源与本地数据管理
+ * 关于页：版本、作者、仓库、许可、数据来源、全站统一免责声明与本地数据管理
  */
 export default function AboutPage(): JSX.Element {
   const favorites = useAppStore((s) => s.favorites);
   const recents = useAppStore((s) => s.recents);
   const resetLocalData = useAppStore((s) => s.resetLocalData);
   const [cleared, setCleared] = useState(false);
+  const location = useLocation();
+
+  // HashRouter 会把 `#/about#disclaimer` 解析为 pathname=/about、hash=#disclaimer，
+  // 路由本身不负责锚点滚动，故在关于页挂载/定位变化时手动滚动到统一免责卡片。
+  useEffect(() => {
+    if (location.hash !== '#disclaimer') return;
+    const target = document.getElementById('disclaimer');
+    // jsdom 等离线/测试环境可能未实现 scrollIntoView，做能力检测避免运行时报错
+    if (target && typeof target.scrollIntoView === 'function') {
+      target.scrollIntoView({ block: 'start' });
+    }
+  }, [location.hash]);
 
   const total = getAll().length;
   const counts = {
@@ -104,16 +117,30 @@ export default function AboutPage(): JSX.Element {
         </p>
       </Card>
 
-      <Card title="数据来源与免责声明">
-        <p className="text-sm text-muted">
-          计算公式依据通用工程教材与行业惯例；速查数据（线序、端口、信道、Modbus 功能码、
-          载流量、照度标准等）整理自公开标准与厂家资料，页面底部标注了依据与更新日期。
-        </p>
-        <p className="mt-2 text-sm text-muted">
-          结果仅供参考，正式设计、选型与验收请以现行国家标准、行业规范和厂家手册为准。
-          作者不对因使用本工具产生的任何后果承担责任。
-        </p>
-      </Card>
+      {/* 全站统一免责口径：稳定锚点 id，供结果区入口与外部分享链接单点引用 */}
+      <div id="disclaimer" className="scroll-mt-16">
+        <Card title="数据来源与免责声明">
+          <p className="text-sm text-muted">
+            计算公式依据通用工程教材与行业惯例；速查数据（线序、端口、信道、Modbus 功能码、
+            载流量、照度标准等）整理自公开标准与厂家资料，页面底部标注了依据与更新日期。
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            本工具所有计算结果与速查数据均为方案阶段工程估算，含经验系数与简化假设，
+            不得作为施工图设计、设备采购、产品验收、安全校验，或消防、人身电击防护判定依据；
+            也不得替代设计计算书、型式试验与法定检验。
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            涉及强制性要求的，一律以现行全文强制性工程建设规范、现行国家/行业标准、
+            项目设计说明与厂家样本为准。本工具引用的推荐性标准（GB/T、JGJ/T 等）仅供技术参考，
+            不得标注或理解为「强制性条文」；已废止标准均标明被替代关系，例如 GB 13955-2005
+            已废止并由 GB/T 13955-2017 替代，不得作为现行强制性依据引用。
+          </p>
+          <p className="mt-2 text-sm text-muted">
+            实际工程须由相应专业注册工程师按项目实际条件复核后方可采用；作者不对因使用本工具
+            产生的任何后果承担责任。
+          </p>
+        </Card>
+      </div>
 
       <Card title="本地数据">
         <p className="text-sm text-muted">

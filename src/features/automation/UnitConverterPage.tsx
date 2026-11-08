@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Card from '@/components/ui/Card';
 import CopyButton from '@/components/ui/CopyButton';
 import Field from '@/components/ui/Field';
@@ -83,6 +83,17 @@ export default function UnitConverterPage({ tool }: { tool: ToolDef }): JSX.Elem
       </Card>
 
       <ResultCard results={results} title="换算结果" />
+
+      {/* 结果区统一免责入口：与关于页 #/about#disclaimer 保持同一口径 */}
+      <p className="px-1 text-xs leading-relaxed text-muted">
+        结果为方案阶段工程估算，含经验系数与简化假设，不作为施工图设计、采购、验收或安全校验依据；
+        <Link
+          to="/about#disclaimer"
+          className="ne-focus ml-1 underline decoration-dotted underline-offset-2"
+        >
+          查看完整免责声明 →
+        </Link>
+      </p>
 
       <QuickRefTable tableId="automation.unitFactors" />
     </div>

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { buildToolHash } from '@/lib/url';
 import type { CalcResult, FieldDef } from '@/types/calculator';
 import Button from '@/components/ui/Button';
@@ -113,6 +113,17 @@ export default function CalculatorView({
       </Card>
 
       <ResultCard results={results} />
+
+      {/* 结果区统一免责入口：与关于页 #/about#disclaimer 保持同一口径 */}
+      <p className="px-1 text-xs leading-relaxed text-muted">
+        结果为方案阶段工程估算，含经验系数与简化假设，不作为施工图设计、采购、验收或安全校验依据；
+        <Link
+          to="/about#disclaimer"
+          className="ne-focus ml-1 underline decoration-dotted underline-offset-2"
+        >
+          查看完整免责声明 →
+        </Link>
+      </p>
 
       {quickRefIds?.map((id) => (
         <QuickRefTable key={id} tableId={id} />
