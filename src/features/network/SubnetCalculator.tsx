@@ -60,7 +60,8 @@ export default function SubnetCalculator({ tool }: { tool: ToolDef }): JSX.Eleme
         <p className="px-1 text-xs text-muted">
           同一地址的十进制 / 二进制 / 十六进制与类别判定（原「IP 地址转换」已并入本页）。
         </p>
-        <IpConverter tool={tool} />
+        {/* 外层 CalculatorView 已展示免责入口，内嵌的转换器不再重复渲染 */}
+        <IpConverter tool={tool} showDisclaimer={false} />
       </section>
     </div>
   );

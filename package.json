@@ -1,7 +1,7 @@
 {
   "name": "ne-engineer-toolbox",
   "private": true,
-  "version": "1.5.0",
+  "version": "1.5.1",
   "type": "module",
   "description": "网络与物联网、楼宇自控、暖通空调、工业自动化、电气配电工程师的离线工具箱：84 个常用计算与速查，纯前端、免登录、手机电脑都能用、断网也能用。",
   "keywords": [

@@ -20,6 +20,8 @@ export interface CalculatorViewProps {
   run: (values: Record<string, string>) => CalcResult[];
   /** 需要附带展示的速查表 id 列表 */
   quickRefIds?: string[];
+  /** 是否展示结果区免责入口；同一页面内嵌多个 CalculatorView 时由宿主关闭重复项，默认 true */
+  showDisclaimer?: boolean;
 }
 
 /** 由字段默认值与 URL 参数初始化表单 */
@@ -44,6 +46,7 @@ export default function CalculatorView({
   fields,
   run,
   quickRefIds,
+  showDisclaimer = true,
 }: CalculatorViewProps): JSX.Element {
   const [searchParams] = useSearchParams();
   const [values, setValues] = useState<Record<string, string>>(() =>
@@ -115,15 +118,17 @@ export default function CalculatorView({
       <ResultCard results={results} />
 
       {/* 结果区统一免责入口：与关于页 #/about#disclaimer 保持同一口径 */}
-      <p className="px-1 text-xs leading-relaxed text-muted">
-        结果为方案阶段工程估算，含经验系数与简化假设，不作为施工图设计、采购、验收或安全校验依据；
-        <Link
-          to="/about#disclaimer"
-          className="ne-focus ml-1 underline decoration-dotted underline-offset-2"
-        >
-          查看完整免责声明 →
-        </Link>
-      </p>
+      {showDisclaimer && (
+        <p className="px-1 text-xs leading-relaxed text-muted">
+          结果为方案阶段工程估算，含经验系数与简化假设，不作为施工图设计、采购、验收或安全校验依据；
+          <Link
+            to="/about#disclaimer"
+            className="ne-focus ml-1 underline decoration-dotted underline-offset-2"
+          >
+            查看完整免责声明 →
+          </Link>
+        </p>
+      )}
 
       {quickRefIds?.map((id) => (
         <QuickRefTable key={id} tableId={id} />

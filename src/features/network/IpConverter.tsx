@@ -21,7 +21,20 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** A2 IP 地址转换与校验 */
-export default function IpConverter({ tool }: { tool: ToolDef }): JSX.Element {
-  return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
+/** A2 IP 地址转换与校验；被子网页内嵌时可关闭免责入口，避免同页重复 */
+export default function IpConverter({
+  tool,
+  showDisclaimer = true,
+}: {
+  tool: ToolDef;
+  showDisclaimer?: boolean;
+}): JSX.Element {
+  return (
+    <CalculatorView
+      toolId={tool.id}
+      fields={fields}
+      run={run}
+      showDisclaimer={showDisclaimer}
+    />
+  );
 }

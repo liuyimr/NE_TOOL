@@ -28,6 +28,7 @@ coverage/
 .tmp/
 .vtmp/
 .tmp-vitest/
+.playwright-cli/
 *.tsbuildinfo
 
 # 内部规划与验证文档（协作过程产物，不随公开仓库发布）
