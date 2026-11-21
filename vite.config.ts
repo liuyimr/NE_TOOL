@@ -37,7 +37,8 @@ export default defineConfig(({ mode }) => {
           registerType: 'prompt',
           // 关闭自动注入，改由 useRegisterSW（PwaReloadPrompt）统一注册与更新提示
           injectRegister: false,
-          includeAssets: ['favicon.svg', 'logo.svg'],
+          // 说明：public/ 下的 favicon.svg、logo.svg 已由下面 workbox.globPatterns 的
+          // `**/*.svg` 纳入预缓存，不再重复声明 includeAssets（否则预缓存条目重复计数）。
           manifest: {
             name: '工程师工具箱',
             short_name: '工程工具箱',
@@ -63,6 +64,11 @@ export default defineConfig(({ mode }) => {
           },
           workbox: {
             globPatterns: ['**/*.{js,css,html,svg,png,woff2,json}'],
+            // manifest.icons 里的三张 PWA 图标会被插件按其自身的 revision 注入预缓存清单，
+            // 若同时被 globPatterns 的 `**/*.png` 再扫一遍，就会出现同 URL 的两条重复条目
+            // （条目数虚高、体积统计翻倍）。这里把这三张图从 glob 中排除，图标仍由 manifest 注入，
+            // 离线可用性不变，预缓存条目数 = 实际文件数。
+            globIgnores: ['icons/pwa-*.png'],
             cleanupOutdatedCaches: true,
             navigateFallback: 'index.html',
             // 全量预缓存，首访后 100% 离线可用

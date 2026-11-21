@@ -55,19 +55,20 @@ describe('C10 增强 · 简化系数法 ΔU% = P·L/(C·S)', () => {
     expect(simpleVoltageDrop({ powerKw: 5, length: 50, section: 6, phase: 'single', material: 'aluminum' }).coefficient).toBeCloseTo(7.75, 6);
   });
 
-  it('照明限值 2.5% / 动力 5%', () => {
+  it('照明限值 3% / 动力 5%（与按电流法口径一致）', () => {
     const power = simpleVoltageDrop({ powerKw: 40, length: 100, section: 16, phase: 'three', lighting: false });
     const light = simpleVoltageDrop({ powerKw: 40, length: 100, section: 16, phase: 'three', lighting: true });
     expect(power.limit).toBe(5);
-    expect(light.limit).toBe(2.5);
+    expect(light.limit).toBe(3);
     // 40×100/(76.5×16) ≈ 3.27%
     expect(power.compliant).toBe(true);
     expect(light.compliant).toBe(false);
   });
 
-  it('边界：截面 0 → 百分比 0 且不合规', () => {
+  it('边界：截面 0 → 百分比 0、valid=false 且不合规', () => {
     const r = simpleVoltageDrop({ powerKw: 30, length: 100, section: 0 });
     expect(r.percent).toBe(0);
+    expect(r.valid).toBe(false);
     expect(r.compliant).toBe(false);
     expect(COEFFICIENT_C.three.copper).toBe(76.5);
   });

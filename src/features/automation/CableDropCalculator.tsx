@@ -20,7 +20,7 @@ const fields: FieldDef[] = [
       { label: '按电流（精确式）', value: 'current' },
       { label: '按功率（简化系数法）', value: 'power' },
     ],
-    help: '按功率时使用 ΔU% = P·L/(C·S) 速算法，默认限值 照明 2.5% / 动力 5%',
+    help: '按功率时使用 ΔU% = P·L/(C·S) 速算法；两法共用限值：照明 3% / 动力 5%',
   },
   { key: 'current', label: '负载电流', type: 'number', default: 32, min: 0, unit: 'A' },
   { key: 'power', label: '有功功率（按功率法）', type: 'number', default: 10, min: 0, unit: 'kW' },
@@ -54,10 +54,13 @@ const fields: FieldDef[] = [
     default: '0',
     options: [
       { label: '动力（≤5%）', value: '0' },
-      { label: '照明（≤3%，简化法 ≤2.5%）', value: '1' },
+      { label: '照明（≤3%）', value: '1' },
     ],
   },
 ];
+
+/** 输入无效时的统一提示（长度 / 电流（功率）/ 截面 / 电压 必须为有效正值） */
+const INVALID_INPUT_NOTE = '输入无效：长度 / 电流（功率）/ 截面 / 电压必须为有效正值';
 
 function run(v: Record<string, string>): CalcResult[] {
   const mode = str(v, 'mode', 'current');
@@ -71,6 +74,9 @@ function run(v: Record<string, string>): CalcResult[] {
   if (mode === 'power') {
     const powerKw = num(v, 'power', 10);
     const r = simpleVoltageDrop({ powerKw, length, section, material, phase, lighting });
+    if (!r.valid) {
+      return [res('error', '错误', INVALID_INPUT_NOTE, '', { copyable: false })];
+    }
     const voltage = num(v, 'voltage', 380);
     const k = phase === 'three' ? Math.sqrt(3) : 1;
     const cos = 0.85;
@@ -98,6 +104,9 @@ function run(v: Record<string, string>): CalcResult[] {
     lighting,
   };
   const r = cableVoltageDrop(input);
+  if (!r.valid) {
+    return [res('error', '错误', INVALID_INPUT_NOTE, '', { copyable: false })];
+  }
   const maxLen = maxLengthForDrop(input, r.limit);
   return [
     res('percent', '电压降百分比', r.percent, '%', { highlight: true }),

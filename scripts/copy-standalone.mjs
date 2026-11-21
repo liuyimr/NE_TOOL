@@ -21,6 +21,9 @@
  *      （data: URI 不算；无引号属性 `${"<script src=/x.js>"}` 也能命中）。
  *   2. CSS 资源：`@import` 出现即失败；`url(...)` 内容为非 data:（且非 `#` 内部引用）即失败。
  *   3. 含 `navigator.serviceWorker`。
+ *   4. 版本号断言：产物 HTML 必须包含 package.json 的 version（__APP_VERSION__ 注入值）。
+ *   5. 构建日期断言：产物 HTML 必须包含今天日期 YYYY-MM-DD（__BUILD_TIME__ 注入值），
+ *      跨天未重建会失败，避免发布「新版号 + 旧产物」。
  *   注意：产物 JS 字符串含大量 `https://`（React 报错链接、W3C 命名空间等）属正常，
  *   因校验只针对 <link>/<script> 标签属性与 CSS url()/@import，故不会误报。
  */
@@ -183,3 +186,28 @@ console.log('[standalone] 已生成 docs/index.html');
 console.log('  路径：' + target);
 console.log('  体积：' + sizeKb + ' KB');
 console.log('  自包含校验：通过（link/script 无外部引用、CSS 无外部 url/@import、无 navigator.serviceWorker）');
+
+// ---------------------------------------------------------------------------
+// 产物内容断言：版本号与构建日期必须与实际注入值一致
+//   版本：dist-single 构建时由 vite.config.ts 的 __APP_VERSION__ 注入（取自 package.json），
+//         若产物是旧版本编译的，这里会立即失败，避免「新版号 + 旧产物」发布。
+//   日期：__BUILD_TIME__ 为构建当天日期；跨天未重建即失败，提醒重新构建。
+// ---------------------------------------------------------------------------
+const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+const expectedVersion = String(pkg.version ?? '');
+const expectedDate = new Date().toISOString().slice(0, 10);
+const builtHtml = readFileSync(target, 'utf8');
+
+if (expectedVersion === '' || !builtHtml.includes(expectedVersion)) {
+  console.error('[standalone] 版本号断言失败：产物未包含 package.json 的 version（' + expectedVersion + '）。');
+  console.error('[standalone] 请重新执行：npm run build:standalone');
+  process.exit(1);
+}
+
+if (!builtHtml.includes(expectedDate)) {
+  console.error('[standalone] 构建日期断言失败：产物未包含今天的日期（' + expectedDate + '）。');
+  console.error('[standalone] 产物可能不是今天构建的，请重新执行：npm run build:standalone');
+  process.exit(1);
+}
+
+console.log('  版本 ' + expectedVersion + ' / 构建日期 ' + expectedDate + ' 校验通过');

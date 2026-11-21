@@ -5,6 +5,10 @@
  *   单相简化 ΔU = 2 · ρ · L · I ÷ S
  * 铜 ρ ≈ 0.0175 Ω·mm²/m，铝 ρ ≈ 0.0282 Ω·mm²/m。
  * 判据：动力回路电压降 ≤ 5%，照明回路 ≤ 3%（工程常用）。
+ * 口径统一：按电流法（精确式）与按功率法（简化系数法）共用同一限值口径
+ *   —— 照明 3%、动力 5%，避免同一回路两种算法给出相反结论。
+ * 输入校验：长度 / 电流（功率）/ 截面 / 电压 为负或非正、或非有限值时 valid=false，
+ *   deltaV / percent 置 0、compliant=false，不再把负值算出的负百分比判为「合规」。
  */
 
 export type ConductorMaterial = 'copper' | 'aluminum';
@@ -34,13 +38,15 @@ export interface CableDropInput {
 }
 
 export interface CableDropResult {
+  /** 输入是否有效（长度 / 电流 / 截面 / 电压 均为有限且为正；无效时其余数值字段为 0） */
+  valid: boolean;
   /** 电压降（V） */
   deltaV: number;
   /** 电压降百分比（%） */
   percent: number;
   /** 判据限值（%） */
   limit: number;
-  /** 是否合规 */
+  /** 是否合规（输入无效时恒为 false，不再因负值算出负百分比而误判合规） */
   compliant: boolean;
   /** 使用电阻率 */
   resistivity: number;
@@ -57,15 +63,25 @@ export function cableVoltageDrop(input: CableDropInput): CableDropResult {
   const section = input.section > 0 ? input.section : 0;
   const limit = input.lighting ? 3 : 5;
 
-  if (section <= 0 || !input.voltage || input.voltage <= 0) {
-    return { deltaV: 0, percent: 0, limit, compliant: false, resistivity: rho };
+  const voltage = input.voltage ?? Number.NaN;
+  const finiteValues = [input.current, input.length, input.section, voltage];
+  const invalid =
+    !finiteValues.every((x) => typeof x === 'number' && Number.isFinite(x)) ||
+    section <= 0 ||
+    input.length < 0 ||
+    input.current < 0 ||
+    voltage <= 0;
+
+  if (invalid) {
+    return { valid: false, deltaV: 0, percent: 0, limit, compliant: false, resistivity: rho };
   }
 
   const factor = phase === 'three' ? Math.sqrt(3) : 2;
   const deltaV = (factor * rho * input.length * input.current) / section;
-  const percent = (deltaV / input.voltage) * 100;
+  const percent = (deltaV / voltage) * 100;
 
   return {
+    valid: true,
     deltaV,
     percent,
     limit,
@@ -102,9 +118,9 @@ export const COEFFICIENT_C: Record<CircuitPhase, Record<ConductorMaterial, numbe
   single: { copper: 12.8, aluminum: 7.75 },
 };
 
-/** 允许电压降限值（%）：照明一般取 2.5%，动力一般取 5% */
+/** 允许电压降限值（%）：照明 3%、动力 5%，与按电流法（精确式）保持同一口径 */
 export const ALLOWABLE_DROP: { lighting: number; power: number } = {
-  lighting: 2.5,
+  lighting: 3,
   power: 5,
 };
 
@@ -119,18 +135,20 @@ export interface SimpleDropInput {
   material?: ConductorMaterial;
   /** 相制（默认三相） */
   phase?: CircuitPhase;
-  /** 是否照明回路（限值 2.5%，否则 5%） */
+  /** 是否照明回路（限值 3%，否则 5%，与精确式一致） */
   lighting?: boolean;
 }
 
 export interface SimpleDropResult {
+  /** 输入是否有效（功率 / 长度 / 截面 均为有限且符合要求；无效时 percent 为 0） */
+  valid: boolean;
   /** 电压降百分比（%） */
   percent: number;
   /** 选用的系数 C */
   coefficient: number;
   /** 判据限值（%） */
   limit: number;
-  /** 是否合规 */
+  /** 是否合规（输入无效时恒为 false） */
   compliant: boolean;
 }
 
@@ -145,9 +163,16 @@ export function simpleVoltageDrop(input: SimpleDropInput): SimpleDropResult {
   const limit = input.lighting ? ALLOWABLE_DROP.lighting : ALLOWABLE_DROP.power;
 
   const section = input.section > 0 ? input.section : 0;
-  if (section <= 0) {
-    return { percent: 0, coefficient, limit, compliant: false };
+  const finiteValues = [input.powerKw, input.length, input.section];
+  const invalid =
+    !finiteValues.every((x) => typeof x === 'number' && Number.isFinite(x)) ||
+    section <= 0 ||
+    input.length < 0 ||
+    input.powerKw < 0;
+
+  if (invalid) {
+    return { valid: false, percent: 0, coefficient, limit, compliant: false };
   }
   const percent = (input.powerKw * input.length) / (coefficient * section);
-  return { percent, coefficient, limit, compliant: percent <= limit };
+  return { valid: true, percent, coefficient, limit, compliant: percent <= limit };
 }

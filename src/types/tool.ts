@@ -35,8 +35,6 @@ export interface ToolMeta {
   tags: string[];
   /** emoji 或图标名 */
   icon: string;
-  /** 排序权重 */
-  order: number;
 }
 
 /**
@@ -48,8 +46,6 @@ export interface ToolMeta {
 export interface ToolDef<I = unknown, O = unknown> extends ToolMeta {
   /** 懒加载组件 */
   Component?: ComponentType<{ tool: ToolDef<I, O> }>;
-  /** URL 回填默认值 */
-  defaultInput?: Partial<I>;
   /** 关联速查数据 ID（quickref 型） */
   quickRefId?: string;
   /** 关联的多个速查表 ID（一个工具可挂多张速查表，如 Modbus 功能码 + 异常码） */

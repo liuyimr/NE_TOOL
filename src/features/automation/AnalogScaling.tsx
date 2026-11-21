@@ -10,7 +10,7 @@ const fields: FieldDef[] = [
     label: 'PLC 量程预设',
     type: 'select',
     default: 'custom',
-    help: '选择预设后自动采用其原始量程',
+    help: '选择预设后自动采用其原始量程；4mA 对应 0 还是 5530 因 CPU/模块系列而异，须按模块手册确认；两者混用会造成约 20% 量程偏差',
     options: [
       { label: '自定义', value: 'custom' },
       ...ANALOG_PRESETS.map((p, i) => ({ label: p.name, value: String(i) })),

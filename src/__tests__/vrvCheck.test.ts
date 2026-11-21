@@ -21,7 +21,7 @@ function baseInput(overrides: Partial<VrvCheckInput> = {}): VrvCheckInput {
 }
 
 describe('H19 VRV 多联机配比与管长校核', () => {
-  it('默认算例：配比 1.0714、衰减 23.5%、修正后 42.84 kW、三项校核通过', () => {
+  it('默认算例：配比 1.0714、衰减 23.5%、修正后 42.84 kW，能力校核不通过', () => {
     const r = vrvCheck(baseInput());
     expect(r.valid).toBe(true);
     // 60/56 = 1.0714286
@@ -35,8 +35,32 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     expect(r.correctedCapacityKw).toBeCloseTo(42.84, 9);
     expect(r.pipeOk).toBe(true);
     expect(r.heightOk).toBe(true);
-    expect(r.overallOk).toBe(true);
+    // 能力校核：42.84 < 60 → 不通过；缺口 60−42.84 = 17.16 kW；修正后配比 60/42.84 ≈ 1.4006
+    expect(r.capacityOk).toBe(false);
+    expect(r.capacityGapKw).toBeCloseTo(17.16, 9);
+    expect(r.correctedRatio).toBeCloseTo(1.4006, 3);
+    expect(r.overallOk).toBe(false);
     expect(r.note).toContain('厂家样本');
+    expect(r.note).toContain('修正后配比');
+    expect(r.note).toContain('能力不足');
+  });
+
+  it('能力充足：内机 30 kW / 外机 56 kW / 管长 10 m / 高差 5 m → 四项全通过', () => {
+    const r = vrvCheck(
+      baseInput({ indoorTotalKw: 30, pipeLengthM: 10, heightDiffM: 5 }),
+    );
+    // 30/56 = 0.5357（在 0.5~1.3 内）；衰减 (10−5)×0.003×100 = 1.5%
+    expect(r.ratio).toBeCloseTo(0.5357143, 7);
+    expect(r.ratioOk).toBe(true);
+    expect(r.totalLossPct).toBeCloseTo(1.5, 9);
+    // 56×(1−0.015) = 55.16 kW ≥ 30 kW
+    expect(r.correctedCapacityKw).toBeCloseTo(55.16, 9);
+    expect(r.capacityOk).toBe(true);
+    expect(r.capacityGapKw).toBe(0);
+    // 30/55.16 ≈ 0.5439
+    expect(r.correctedRatio).toBeCloseTo(0.5439, 3);
+    expect(r.overallOk).toBe(true);
+    expect(r.note).toContain('已覆盖内机总容量');
   });
 
   it('超配：内机 90 kW / 外机 56 kW → 配比 1.6071 超出 1.3，综合不通过', () => {
@@ -44,6 +68,7 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     expect(r.valid).toBe(true);
     expect(r.ratio).toBeCloseTo(1.6071429, 7);
     expect(r.ratioOk).toBe(false);
+    expect(r.capacityOk).toBe(false);
     expect(r.overallOk).toBe(false);
     expect(r.note).toContain('超配');
   });
@@ -53,6 +78,20 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     expect(r.ratio).toBeCloseTo(0.3571429, 7);
     expect(r.ratioOk).toBe(false);
     expect(r.note).toContain('欠配');
+    // 修正后 42.84 kW ≥ 20 kW → 能力够，但名义配比欠配，综合仍不通过
+    expect(r.capacityOk).toBe(true);
+    expect(r.overallOk).toBe(false);
+  });
+
+  it('边界：内机总容量为 0 → 能力校核恒通过，但名义配比 0 不在允许区间', () => {
+    const r = vrvCheck(baseInput({ indoorTotalKw: 0 }));
+    expect(r.valid).toBe(true);
+    expect(r.ratio).toBe(0);
+    expect(r.ratioOk).toBe(false);
+    expect(r.capacityOk).toBe(true);
+    expect(r.capacityGapKw).toBe(0);
+    expect(r.correctedRatio).toBe(0);
+    expect(r.overallOk).toBe(false);
   });
 
   it('管长超限：200 m 超过 165 m 上限 → 衰减 58.5%，pipeOk=false 且给出整改提示', () => {
@@ -63,6 +102,7 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     expect(r.correctedCapacityKw).toBeCloseTo(56 * (1 - 0.595), 9);
     expect(r.pipeOk).toBe(false);
     expect(r.heightOk).toBe(true);
+    expect(r.capacityOk).toBe(false);
     expect(r.overallOk).toBe(false);
     expect(r.note).toContain('超过上限');
   });
@@ -76,13 +116,16 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     expect(r.note).toContain('高差');
   });
 
-  it('不超基准：管长 5 m、高差 10 m → 无衰减，修正后等于外机容量', () => {
+  it('不超基准：管长 5 m、高差 10 m → 无衰减，修正后等于外机容量（内机 60>56 仍判能力不足）', () => {
     const r = vrvCheck(baseInput({ pipeLengthM: 5, heightDiffM: 10 }));
     expect(r.lengthLossPct).toBe(0);
     expect(r.heightLossPct).toBe(0);
     expect(r.totalLossPct).toBe(0);
     expect(r.correctedCapacityKw).toBeCloseTo(56, 9);
-    expect(r.overallOk).toBe(true);
+    // 无衰减时修正后能力仍为 56 kW < 内机 60 kW → 能力校核不通过
+    expect(r.capacityOk).toBe(false);
+    expect(r.capacityGapKw).toBeCloseTo(4, 9);
+    expect(r.overallOk).toBe(false);
   });
 
   it('边界：外机容量为 0、配比上下界非法、负长度、非有限输入 → valid=false 且输出有限', () => {
@@ -113,7 +156,13 @@ describe('H19 VRV 多联机配比与管长校核', () => {
     expect(r.totalLossPct).toBeCloseTo(7501, 6);
     expect(r.correctedCapacityKw).toBe(0);
     expect(Number.isFinite(r.correctedCapacityKw)).toBe(true);
+    expect(r.capacityOk).toBe(false);
+    expect(r.capacityGapKw).toBeCloseTo(60, 9);
+    // 修正后能力为 0 时配比无法计算（Infinity），note 给出明确说明
+    expect(r.correctedRatio).toBe(Number.POSITIVE_INFINITY);
+    expect(r.note).toContain('修正后能力为 0，无法计算配比');
     expect(r.note).toContain('不可用');
+    expect(r.overallOk).toBe(false);
   });
 
   it('边界：极大容量导致结果溢出被拦截', () => {

@@ -421,19 +421,23 @@ describe('D12 waterHeater（独立复算）', () => {
 // D13 · 接地电阻
 // ===========================================================================
 describe('D13 waterGrounding（独立复算）', () => {
-  it('算例1：ρ=100、L=2.5、d=0.05、目标4Ω → R₁≈33.73Ω、需12根', () => {
+  it('算例1：ρ=100、L=2.5、d=0.05、目标4Ω → R₁≈33.73Ω、按 η 自动需 13 根', () => {
     const r = groundingResistance({ rho: 100, length: 2.5, diameter: 0.05, targetR: 4 });
     const r1 = (100 / (2 * Math.PI * 2.5)) * Math.log((4 * 2.5) / 0.05);
     expect(r.singleR).toBeCloseTo(r1, 6);
-    expect(r.neededRods).toBe(Math.ceil(r1 / (4 * 0.75)));
-    expect(r.achievedR).toBeCloseTo(r1 / (r.neededRods * 0.75), 6);
+    // η 按根数自动取值：13 根 → η=0.65；ceil(33.73/(4×0.65)) = 13
+    expect(r.etaAuto).toBe(true);
+    expect(r.neededRods).toBe(13);
+    expect(r.eta).toBeCloseTo(0.65, 6);
+    expect(r.achievedR).toBeCloseTo(r1 / (r.neededRods * 0.65), 6);
     expect(r.compliant).toBe(true);
   });
 
-  it('算例2：仅 3 根 → 不达标', () => {
+  it('算例2：仅 3 根 → η=0.8，R≈14.05Ω 不达标', () => {
     const r = groundingResistance({ rho: 100, length: 2.5, targetR: 4, rods: 3 });
     expect(r.plannedRods).toBe(3);
-    expect(r.achievedR).toBeCloseTo(r.singleR / (3 * 0.75), 6);
+    expect(r.eta).toBeCloseTo(0.8, 6);
+    expect(r.achievedR).toBeCloseTo(r.singleR / (3 * 0.8), 6);
     expect(r.compliant).toBe(false);
   });
 
@@ -501,11 +505,15 @@ describe('C10 向后兼容（旧版 fixtures/cableDrop.old 对照）', () => {
     { current: 10, length: 10, section: 4, material: 'copper' as const, phase: 'three' as const, voltage: 0 },
   ];
 
-  it('cableVoltageDrop 逐字段一致', () => {
+  it('cableVoltageDrop 逐字段一致（新增 valid 字段单独校验）', () => {
     for (const c of cases) {
       const nw = cableVoltageDrop(c);
       const old = oldCableVoltageDrop(c);
-      expect(nw).toEqual(old);
+      const { valid, ...legacyFields } = nw;
+      expect(legacyFields).toEqual(old);
+      // 早退分支（截面 0 / 无电压）判为无效输入，其余为有效输入
+      const expectValid = c.section > 0 && Boolean(c.voltage);
+      expect(valid).toBe(expectValid);
     }
   });
 

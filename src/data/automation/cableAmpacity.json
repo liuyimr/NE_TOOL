@@ -6,7 +6,7 @@
     { "key": "section", "label": "截面 (mm²)", "align": "left", "mono": true },
     { "key": "air", "label": "明敷/空气 (A)", "align": "left" },
     { "key": "pipe", "label": "穿管 (A)", "align": "left" },
-    { "key": "breaker", "label": "参考空开 (A)", "align": "left" }
+    { "key": "breaker", "label": "参考空开（按明敷配，A）", "align": "left" }
   ],
   "rows": [
     { "id": "s1", "label": "1.0", "values": { "section": "1.0", "air": "11", "pipe": "9", "breaker": "6" } },
@@ -24,6 +24,6 @@
     { "id": "s120", "label": "120", "values": { "section": "120", "air": "239", "pipe": "195", "breaker": "225" } }
   ],
   "searchable": true,
-  "source": "GB/T 4706 / 电工手册（BV 铜芯塑料线，环境 30℃，单根直敷参考值）",
+  "source": "GB/T 4706 / 电工手册（BV 铜芯塑料线，环境 30℃，单根直敷参考值）；穿管敷设须按穿管载流量重新校核 In ≤ Iz，不得直接套用本列",
   "updatedAt": "2024-01-01"
 }

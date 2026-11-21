@@ -10,7 +10,10 @@
  *   correctedCapacityKw = outdoorKw × (1 − totalLossPct / 100)          修正后外机实际能力（kW）
  *   pipeOk              = pipeLengthM ≤ maxPipeLengthM                  管长是否超限
  *   heightOk            = heightDiffM ≤ maxHeightDiffM                  高差是否超限
- *   overallOk           = ratioOk && pipeOk && heightOk                 综合结论
+ *   capacityOk          = correctedCapacityKw ≥ indoorTotalKw           修正后外机能力是否覆盖内机总容量
+ *   correctedRatio      = indoorTotalKw / correctedCapacityKw           修正后配比（能力校核口径）
+ *   capacityGapKw       = max(0, indoorTotalKw − correctedCapacityKw)   能力缺口（kW）
+ *   overallOk           = ratioOk && pipeOk && heightOk && capacityOk   综合结论
  *
  * 常量与口径：
  *   ratioMin / ratioMax（默认 0.5 / 1.3）：多联机室内外机容量配比常见允许区间
@@ -30,6 +33,12 @@
  * 边界：outdoorKw ≤ 0、indoorTotalKw < 0、pipeLengthM/heightDiffM < 0、
  *       ratioMin ≤ 0、ratioMax < ratioMin、各上限/基准为负、任一输入非有限
  *       → valid=false；结果溢出 → valid=false。
+ *
+ * 两个配比口径的区别（勿混用）：
+ *   ratio（ratioOk）为「名义配比」＝内机总容量 ÷ 外机名义容量，是厂家样本给出的
+ *   「连接容量比」口径，不随管长/高差折减变化，因此不足以判断能力是否够用；
+ *   correctedRatio（capacityOk）为「修正后配比」＝内机总容量 ÷ 修正后外机能力，
+ *   反映管长与高差衰减后的真实能力匹配。两者同时满足才算综合通过。
  */
 
 /** 通用免责句（§3）：所有计算模块 note 末尾统一追加 */
@@ -96,11 +105,27 @@ export interface VrvCheckResult {
   totalLossPct: number;
   /** 修正后外机实际能力（kW） */
   correctedCapacityKw: number;
+  /**
+   * 能力校核是否通过：修正后外机实际能力是否覆盖内机总容量
+   * （correctedCapacityKw ≥ indoorTotalKw）。
+   * 内机总容量为 0 时恒为 true（此时 ratioOk 为 false，不影响 overallOk）。
+   */
+  capacityOk: boolean;
+  /**
+   * 修正后配比：内机总容量 ÷ 修正后外机能力。
+   * 修正后能力为 0 时无法计算，取 Infinity。
+   */
+  correctedRatio: number;
+  /** 能力缺口（kW）：max(0, 内机总容量 − 修正后外机能力)，0 表示无缺口 */
+  capacityGapKw: number;
   /** 管长是否超限 */
   pipeOk: boolean;
   /** 高差是否超限 */
   heightOk: boolean;
-  /** 综合结论 */
+  /**
+   * 综合结论：配比、管长、高差、修正后能力四项全部通过才为 true
+   * （ratioOk && pipeOk && heightOk && capacityOk）
+   */
   overallOk: boolean;
 }
 
@@ -115,6 +140,9 @@ function invalidResult(note: string): VrvCheckResult {
     heightLossPct: 0,
     totalLossPct: 0,
     correctedCapacityKw: 0,
+    capacityOk: false,
+    correctedRatio: 0,
+    capacityGapKw: 0,
     pipeOk: false,
     heightOk: false,
     overallOk: false,
@@ -176,9 +204,15 @@ export function vrvCheck(input: VrvCheckInput): VrvCheckResult {
     100;
   const totalLossPct = lengthLossPct + heightLossPct;
   const correctedCapacityKw = Math.max(0, input.outdoorKw * (1 - totalLossPct / 100));
+  // 能力校核：修正后的外机实际能力是否覆盖内机总容量（名义配比之外的第二道校核）
+  const capacityOk = correctedCapacityKw >= input.indoorTotalKw;
+  // 修正后配比与能力缺口：修正后能力为 0 时配比无法计算（取 Infinity），缺口等于全部内机容量
+  const correctedRatio =
+    correctedCapacityKw > 0 ? input.indoorTotalKw / correctedCapacityKw : Number.POSITIVE_INFINITY;
+  const capacityGapKw = Math.max(0, input.indoorTotalKw - correctedCapacityKw);
   const pipeOk = input.pipeLengthM <= input.maxPipeLengthM;
   const heightOk = input.heightDiffM <= input.maxHeightDiffM;
-  const overallOk = ratioOk && pipeOk && heightOk;
+  const overallOk = ratioOk && pipeOk && heightOk && capacityOk;
 
   const outputs = [ratio, lengthLossPct, heightLossPct, totalLossPct, correctedCapacityKw];
   if (!outputs.every((x) => Number.isFinite(x))) {
@@ -189,6 +223,12 @@ export function vrvCheck(input: VrvCheckInput): VrvCheckResult {
     `配比 ${ratio.toFixed(4)}（允许 ${input.ratioMin}~${input.ratioMax}）${ratioOk ? '，在允许区间内' : ratio > input.ratioMax ? '，超配' : '，欠配'}`,
     `管长 ${input.pipeLengthM} m 超出基准 ${input.referenceLengthM} m → 衰减 ${lengthLossPct.toFixed(2)}%；高差 ${input.heightDiffM} m 超出基准 ${input.heightReferenceM} m → 衰减 ${heightLossPct.toFixed(2)}%；合计 ${totalLossPct.toFixed(2)}%`,
     `修正后外机能力 ${correctedCapacityKw.toFixed(2)} kW（原 ${input.outdoorKw} kW）`,
+    correctedRatio === Number.POSITIVE_INFINITY
+      ? '修正后能力为 0，无法计算配比'
+      : `修正后配比 ${correctedRatio.toFixed(2)}（内机总容量 ÷ 修正后外机能力）`,
+    capacityOk
+      ? '能力校核：修正后外机能力已覆盖内机总容量'
+      : `能力校核：修正后外机能力不足 ${capacityGapKw.toFixed(2)} kW，须增大外机、缩短管长或减少内机`,
   ];
   if (!pipeOk) {
     notes.push(`配管总长 ${input.pipeLengthM} m 超过上限 ${input.maxPipeLengthM} m，须调整系统划分或改用多系统`);
@@ -202,6 +242,9 @@ export function vrvCheck(input: VrvCheckInput): VrvCheckResult {
   notes.push(
     '配比与修正系数以厂家样本为准（常见 50%~130%，管长/高差上限随机型不同）；衰减率默认值为方案阶段经验值',
   );
+  notes.push(
+    '名义配比（内机 ÷ 外机名义容量）为厂家样本的连接容量比口径，修正后配比（内机 ÷ 修正后能力）用于能力校核，两者须同时满足',
+  );
   notes.push(GENERAL_DISCLAIMER);
 
   return {
@@ -213,6 +256,9 @@ export function vrvCheck(input: VrvCheckInput): VrvCheckResult {
     heightLossPct,
     totalLossPct,
     correctedCapacityKw,
+    capacityOk,
+    correctedRatio,
+    capacityGapKw,
     pipeOk,
     heightOk,
     overallOk,

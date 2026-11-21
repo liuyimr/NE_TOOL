@@ -14,7 +14,7 @@ import { elecTools } from './elec';
  * 无需修改路由（/tool/:id 动态匹配）与首页（九宫格由注册表渲染）。
  */
 
-/** 全部工具（按 order 稳定排序） */
+/** 全部工具（按注册顺序） */
 export const ALL_TOOLS: ToolDef[] = [
   ...networkTools,
   ...buildingTools,
