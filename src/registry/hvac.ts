@@ -2,17 +2,18 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 暖通空调与给排水领域（H 组）工具注册项：H1~H19
+ * 暖通空调与给排水领域（H 组）工具注册项：H1~H19（现存 14 项）
  * 说明：H1~H4 由原「智能化」迁入（B6/B8/B9/B13）；H5~H10 由原「水电」给排水 6 项迁入。
+ *      v1.6：H9「暖通与水系设备参数速查」已淘汰（数据表 building/deviceParams.json 一并移除）。
+ *      v1.6 第二批：H7「冷量计费计算」并入 H6 宿主（H6 变为「时间型 / 能量型」双页签容器页）。
+ *      v1.6 第三批：H11 管径选择 / H12 给水扬程 / H13 水泵轴功率并入 H10 宿主
+ *                   （H10 变为「秒流量 → 管径 → 扬程 → 水泵」四步串联容器页）。
  */
-const FcuBilling = lazy(() => import('@/features/building/FcuBilling'));
-const CoolingBilling = lazy(() => import('@/features/building/CoolingBilling'));
+/** H6 宿主：时间型计费 + 能量型（冷量）计费两个页签（原 H7 并入） */
+const BillingCombined = lazy(() => import('@/features/building/BillingCombined'));
 const PrecisionAc = lazy(() => import('@/features/building/PrecisionAc'));
-const DeviceParams = lazy(() => import('@/features/building/DeviceParams'));
-const DemandFlow = lazy(() => import('@/features/hvac/DemandFlow'));
-const PipeSize = lazy(() => import('@/features/hvac/PipeSize'));
-const PumpHead = lazy(() => import('@/features/hvac/PumpHead'));
-const PumpPower = lazy(() => import('@/features/hvac/PumpPower'));
+/** H10 宿主：给水系统设计（秒流量 → 管径 → 扬程 → 水泵四步串联，原 H11/H12/H13 并入） */
+const WaterSystem = lazy(() => import('@/features/hvac/WaterSystem'));
 const DrainSlope = lazy(() => import('@/features/hvac/DrainSlope'));
 const WaterHeater = lazy(() => import('@/features/hvac/WaterHeater'));
 const LoadEstimate = lazy(() => import('@/features/hvac/LoadEstimate'));
@@ -87,7 +88,7 @@ export const hvacTools: ToolDef[] = [
     code: 'H5',
     domain: 'hvac',
     kind: 'calculator',
-    priority: 'P0',
+    priority: 'P1',
     title: 'FCU / AHU 选型速查',
     subtitle: '按冷量档位粗选 FCU 型号与台数',
     keywords: ['fcu', 'ahu', '风机盘管', '选型', '空调箱'],
@@ -101,29 +102,31 @@ export const hvacTools: ToolDef[] = [
     code: 'H6',
     domain: 'hvac',
     kind: 'calculator',
-    priority: 'P0',
+    priority: 'P1',
     title: '中央空调时间型计费计算',
-    subtitle: '按 FCU 运行时长与档位权重计算用量与费用',
-    keywords: ['计费', '时间型', 'fcu', '中央空调', '分摊', 'billing', '费用'],
+    subtitle: '时间型（按运行时长） / 能量型（按冷量）计费',
+    keywords: [
+      '计费',
+      '时间型',
+      '能量型',
+      'fcu',
+      '中央空调',
+      '分摊',
+      'billing',
+      '费用',
+      '冷量',
+      '能量',
+      '流量',
+      '温差',
+      '供回水',
+      'kwh',
+      '冷却',
+    ],
     tags: ['暖通', '计费'],
     icon: '🧾',
     calcId: 'billing',
     quickRefId: 'building.billingModes',
-    Component: FcuBilling,
-  },
-  {
-    id: 'hvac.cooling',
-    code: 'H7',
-    domain: 'hvac',
-    kind: 'calculator',
-    priority: 'P1',
-    title: '冷量计费计算',
-    subtitle: '按流量与供回水温差计算累计冷量与费用',
-    keywords: ['冷量', '计费', '能量型', '供回水', 'kwh', '冷却'],
-    tags: ['暖通', '计费'],
-    icon: '🌡️',
-    calcId: 'cooling',
-    Component: CoolingBilling,
+    Component: BillingCombined,
   },
   {
     id: 'hvac.precisionAc',
@@ -140,75 +143,47 @@ export const hvacTools: ToolDef[] = [
     Component: PrecisionAc,
   },
   {
-    id: 'hvac.deviceParams',
-    code: 'H9',
-    domain: 'hvac',
-    kind: 'quickref',
-    priority: 'P2',
-    title: '暖通与水系设备参数速查',
-    subtitle: '水泵、风机、冷却塔、阀件常用参数范围',
-    keywords: ['设备参数', '水泵', '风机', '冷却塔', '阀件', '选型', 'param'],
-    tags: ['暖通', '设备'],
-    icon: '⚙️',
-    quickRefId: 'building.deviceParams',
-    Component: DeviceParams,
-  },
-  {
     id: 'hvac.demandFlow',
     code: 'H10',
     domain: 'hvac',
     kind: 'calculator',
     priority: 'P2',
-    title: '给水设计秒流量（当量法）',
-    subtitle: 'q_g = 0.2·α·√N_g，定给水干管管径',
-    keywords: ['给水', '秒流量', '当量', '设计流量', '生活给水', '流量', 'demand'],
+    title: '给水系统设计（秒流量 → 管径 → 扬程 → 水泵）',
+    subtitle: '四步串联：当量法秒流量、管径选择、所需扬程、轴功率与配套功率',
+    keywords: [
+      '给水',
+      '秒流量',
+      '当量',
+      '设计流量',
+      '生活给水',
+      '流量',
+      'demand',
+      '管径',
+      '流速',
+      '选管',
+      '给水管',
+      'dn',
+      'pipe',
+      '反算',
+      '扬程',
+      '水头',
+      '压力',
+      '水泵',
+      '沿程损失',
+      '局部损失',
+      'pump',
+      'head',
+      '轴功率',
+      '配套功率',
+      '选泵',
+      '电机',
+      '功率',
+    ],
     tags: ['给排水', '水暖'],
     icon: '🚰',
     calcId: 'waterDemand',
     quickRefId: 'hvac.pipeSpecs',
-    Component: DemandFlow,
-  },
-  {
-    id: 'hvac.pipeSize',
-    code: 'H11',
-    domain: 'hvac',
-    kind: 'calculator',
-    priority: 'P2',
-    title: '管径选择（按流量与流速）',
-    subtitle: 'd = √(4Q/(π·v))，反算管径并就近选 DN',
-    keywords: ['管径', '流速', '选管', '给水管', 'dn', 'pipe', '反算'],
-    tags: ['给排水', '水暖'],
-    icon: '📏',
-    calcId: 'waterPipe',
-    Component: PipeSize,
-  },
-  {
-    id: 'hvac.pumpHead',
-    code: 'H12',
-    domain: 'hvac',
-    kind: 'calculator',
-    priority: 'P2',
-    title: '给水所需压力 / 扬程计算',
-    subtitle: 'H = H_几何 + Σh_f + Σh_j + H_自由，定水泵扬程',
-    keywords: ['扬程', '水头', '压力', '水泵', '沿程损失', '局部损失', 'pump', 'head'],
-    tags: ['给排水', '水暖'],
-    icon: '⬆️',
-    calcId: 'waterPumpHead',
-    Component: PumpHead,
-  },
-  {
-    id: 'hvac.pumpPower',
-    code: 'H13',
-    domain: 'hvac',
-    kind: 'calculator',
-    priority: 'P2',
-    title: '水泵选型与轴功率计算',
-    subtitle: 'P = Q·H/(367·η)，给出轴功率与配套功率建议',
-    keywords: ['水泵', '轴功率', '配套功率', '选泵', '电机', 'pump', '功率'],
-    tags: ['给排水', '水暖'],
-    icon: '🌀',
-    calcId: 'waterPumpPower',
-    Component: PumpPower,
+    Component: WaterSystem,
   },
   {
     id: 'hvac.drainSlope',
@@ -286,7 +261,7 @@ export const hvacTools: ToolDef[] = [
     code: 'H19',
     domain: 'hvac',
     kind: 'calculator',
-    priority: 'P2',
+    priority: 'P1',
     title: 'VRV 多联机配比与管长校核',
     subtitle: '校核室内外机容量配比、配管长度与高差是否超限，并给出容量衰减与修正后外机能力',
     keywords: ['vrv', '多联机', '配比', '超配率', '管长', '高差', '容量衰减', '室内外机', 'vrf', '空调'],

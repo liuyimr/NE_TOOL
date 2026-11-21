@@ -6,9 +6,9 @@ import { getQuickRef } from '@/data/catalog';
  * 水电类目已按 5 类目重构拆入 elec / hvac：本文件校验拆分后注册与数据的完整性。
  */
 describe('原「水电」类目拆分后注册完整性', () => {
-  it('拆入后（含新增）elec 17 个、hvac 19 个', () => {
-    expect(byDomain('elec').length).toBe(17);
-    expect(byDomain('hvac').length).toBe(19);
+  it('拆入后（含新增、v1.6 淘汰 H9 + H7 并入 H6 + H11~H13 并入 H10；v1.7 新增 E18）elec 18 个、hvac 14 个', () => {
+    expect(byDomain('elec').length).toBe(18);
+    expect(byDomain('hvac').length).toBe(14);
   });
 
   it('强电工具全部具备 Component（无占位）', () => {
@@ -26,7 +26,7 @@ describe('原「水电」类目拆分后注册完整性', () => {
   it('旧 id 别名解析到对应新工具', () => {
     expect(getById('water.loadCalc')?.id).toBe('elec.load');
     expect(getById('water.lightning')?.id).toBe('elec.lightning');
-    expect(getById('water.pumpPower')?.id).toBe('hvac.pumpPower');
+    expect(getById('water.pumpPower')?.id).toBe('hvac.demandFlow');
     // 合并项
     expect(getById('water.voltageDrop')?.id).toBe('elec.cableDrop');
     expect(getById('water.groundingRef')?.id).toBe('elec.grounding');

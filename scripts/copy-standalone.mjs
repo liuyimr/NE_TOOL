@@ -189,13 +189,20 @@ console.log('  自包含校验：通过（link/script 无外部引用、CSS 无�
 
 // ---------------------------------------------------------------------------
 // 产物内容断言：版本号与构建日期必须与实际注入值一致
+// 日期必须按本地时区计算，与 vite.config.ts 的 localDate() 同源；toISOString 是 UTC，会差一天
+function localDate() {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mm}-${dd}`;
+}
 //   版本：dist-single 构建时由 vite.config.ts 的 __APP_VERSION__ 注入（取自 package.json），
 //         若产物是旧版本编译的，这里会立即失败，避免「新版号 + 旧产物」发布。
 //   日期：__BUILD_TIME__ 为构建当天日期；跨天未重建即失败，提醒重新构建。
 // ---------------------------------------------------------------------------
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const expectedVersion = String(pkg.version ?? '');
-const expectedDate = new Date().toISOString().slice(0, 10);
+const expectedDate = localDate();
 const builtHtml = readFileSync(target, 'utf8');
 
 if (expectedVersion === '' || !builtHtml.includes(expectedVersion)) {

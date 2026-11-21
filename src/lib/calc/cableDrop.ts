@@ -154,6 +154,8 @@ export interface SimpleDropResult {
 
 /**
  * 简化系数法电压降 ΔU% = P·L/(C·S)
+ * 输入校验：功率 / 长度 / 截面 非有限值、截面 ≤ 0、长度为负、功率 ≤ 0（含 P=0）→
+ *   valid=false、percent=0、compliant=false，不再给出「0% 合规」的误导结论。
  * @param input 输入参数
  */
 export function simpleVoltageDrop(input: SimpleDropInput): SimpleDropResult {
@@ -168,7 +170,7 @@ export function simpleVoltageDrop(input: SimpleDropInput): SimpleDropResult {
     !finiteValues.every((x) => typeof x === 'number' && Number.isFinite(x)) ||
     section <= 0 ||
     input.length < 0 ||
-    input.powerKw < 0;
+    input.powerKw <= 0;
 
   if (invalid) {
     return { valid: false, percent: 0, coefficient, limit, compliant: false };

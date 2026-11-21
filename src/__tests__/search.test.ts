@@ -23,6 +23,11 @@ describe('全文检索', () => {
     expect(hits.some((h) => h.doc.toolId === 'automation.modbus')).toBe(true);
   });
 
+  it('“485”可命中 Modbus 速查工具（关键词补充：485 / rs485 / 串口）', () => {
+    const hits = search('485');
+    expect(hits.some((h) => h.doc.toolId === 'automation.modbus')).toBe(true);
+  });
+
   it('“T568B”可命中网线线序速查（速查行内容也被索引）', () => {
     const hits = search('T568B');
     expect(hits.length).toBeGreaterThan(0);

@@ -113,6 +113,20 @@ describe('C10 输入有效性校验（负值不得静默判合规）', () => {
     expect(r.compliant).toBe(false);
   });
 
+  it('功率 0 → valid=false、percent 置 0、不合规（不再给出 0% 合规）', () => {
+    const r = simpleVoltageDrop({ powerKw: 0, length: 100, section: 6 });
+    expect(r.valid).toBe(false);
+    expect(r.percent).toBe(0);
+    expect(r.compliant).toBe(false);
+  });
+
+  it('功率非有限值（NaN / Infinity）→ valid=false', () => {
+    expect(simpleVoltageDrop({ powerKw: Number.NaN, length: 100, section: 6 }).valid).toBe(false);
+    expect(simpleVoltageDrop({ powerKw: Number.POSITIVE_INFINITY, length: 100, section: 6 }).valid).toBe(
+      false,
+    );
+  });
+
   it('负长度（简化法）→ valid=false', () => {
     const r = simpleVoltageDrop({ powerKw: 10, length: -100, section: 6 });
     expect(r.valid).toBe(false);

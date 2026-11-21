@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# 同一分支的重复推送取消上一次运行，节省额度
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: 类型检查 / 测试 / 双构建
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 安装 Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: 安装依赖（严格按 lockfile）
+        run: npm ci
+
+      - name: 类型检查（tsc --noEmit）
+        run: npx tsc --noEmit -p tsconfig.json
+
+      - name: 单元与集成测试
+        run: npm run test
+
+      - name: 构建 PWA 产物（dist/）
+        run: npm run build
+
+      - name: 构建单文件产物（docs/index.html）
+        run: npm run build:standalone

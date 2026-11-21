@@ -543,13 +543,13 @@ describe('C10 向后兼容（旧版 fixtures/cableDrop.old 对照）', () => {
 // 结构一致性：原「水电」15 项已按 5 类目重构拆入 elec / hvac（合并 2 项）
 // ===========================================================================
 describe('注册表结构（水电类目已并入 elec / hvac）', () => {
-  it('原水电工具按归属拆入并扩充后：elec 17、hvac 19', () => {
-    expect(byDomain('elec')).toHaveLength(17);
-    expect(byDomain('hvac')).toHaveLength(19);
+  it('原水电工具按归属拆入并扩充后：elec 18、hvac 14（v1.6 淘汰 H9；H7→H6；H11~H13→H10；v1.7 新增 E18）', () => {
+    expect(byDomain('elec')).toHaveLength(18);
+    expect(byDomain('hvac')).toHaveLength(14);
   });
 
-  it('全量 84 个工具（63 + 新增 21）', () => {
-    expect(ALL_TOOLS).toHaveLength(84);
+  it('全量 70 个工具（v1.7 第一批：新增 BA14 / E18）', () => {
+    expect(ALL_TOOLS).toHaveLength(70);
   });
 
   it('D3 电压降并入 C10（电气 E3）：旧 id 别名解析且 calcId=cableDrop', () => {

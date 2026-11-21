@@ -11,6 +11,17 @@ const pkg = JSON.parse(
 ) as { version: string };
 
 /**
+ * 构建日期（本地时区 YYYY-MM-DD）
+ * 不能用 toISOString()：它返回 UTC 日期，中国时区 0~8 点构建会显示前一天。
+ */
+function localDate(): string {
+  const d = new Date();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  return `${d.getFullYear()}-${mm}-${dd}`;
+}
+
+/**
  * Vite 配置
  * - 默认构建（npm run build）→ 标准 PWA 产物（多文件 + Service Worker），输出 dist/
  * - 单文件构建（npm run build:single，mode=single）→ 关闭 PWA、启用 singlefile，
@@ -23,7 +34,7 @@ export default defineConfig(({ mode }) => {
     // 构建期常量：「关于」页展示的版本与构建日期，版本取自 package.json
     define: {
       __APP_VERSION__: JSON.stringify(pkg.version),
-      __BUILD_TIME__: JSON.stringify(new Date().toISOString().slice(0, 10)),
+      __BUILD_TIME__: JSON.stringify(localDate()),
     },
     // 相对路径基准：HashRouter + 单文件本地打开均兼容
     base: './',

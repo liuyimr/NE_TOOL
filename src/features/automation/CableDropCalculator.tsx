@@ -1,5 +1,11 @@
+import { useMemo, useState } from 'react';
 import CalculatorView from '@/features/shared/CalculatorView';
 import { bool, num, res, str } from '@/features/shared/calcHelpers';
+import Card from '@/components/ui/Card';
+import Field from '@/components/ui/Field';
+import Input from '@/components/ui/Input';
+import ResultCard from '@/components/ui/ResultCard';
+import Select from '@/components/ui/Select';
 import {
   cableVoltageDrop,
   maxLengthForDrop,
@@ -7,6 +13,13 @@ import {
   type CircuitPhase,
   type ConductorMaterial,
 } from '@/lib/calc/cableDrop';
+import {
+  AMPACITY_ENTRIES,
+  TEMP_FACTOR,
+  GROUP_FACTOR,
+  checkAmpacity,
+  type CableInstallMethod,
+} from '@/lib/calc/ampacityCheck';
 import type { CalcResult, FieldDef } from '@/types/calculator';
 import type { ToolDef } from '@/types/tool';
 
@@ -117,7 +130,157 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** C10 电缆选型与电压降计算（含按功率的简化系数法） */
+/** 载流量校核卡的默认状态（与上方电压降默认口径一致：6mm² 穿管 32A） */
+interface AmpacityFormState {
+  /** 校核截面（mm²，取自载流量速查表） */
+  section: string;
+  /** 回路计算电流 I_b（A） */
+  ib: string;
+  /** 敷设方式 */
+  method: CableInstallMethod;
+  /** 环境温度（℃） */
+  ambientC: string;
+  /** 并列回路数 */
+  circuits: string;
+}
+
+/** 默认值：6mm² 穿管、32A、30℃、单回路 */
+const AMPACITY_DEFAULT: AmpacityFormState = {
+  section: '6',
+  ib: '32',
+  method: 'pipe',
+  ambientC: '30',
+  circuits: '1',
+};
+
+/** 敷设方式选项 */
+const METHOD_OPTIONS: { label: string; value: CableInstallMethod }[] = [
+  { label: '穿管（管内敷设）', value: 'pipe' },
+  { label: '明敷 / 空气', value: 'air' },
+];
+
+/** 环境温度选项（与 TEMP_FACTOR 键一一对应） */
+const AMBIENT_OPTIONS = Object.keys(TEMP_FACTOR).map((key) => ({
+  label: `${key} ℃（k = ${TEMP_FACTOR[Number(key)]}）`,
+  value: key,
+}));
+
+/** 并列回路数选项（与 GROUP_FACTOR 键一一对应） */
+const CIRCUIT_OPTIONS = Object.keys(GROUP_FACTOR).map((key) => ({
+  label: `${key} 回路（k = ${GROUP_FACTOR[Number(key)]}）`,
+  value: key,
+}));
+
+/** 校核截面选项（仅取载流量表内档位，保证基准值有出处） */
+const SECTION_OPTIONS = AMPACITY_ENTRIES.map((entry) => ({
+  label: `${entry.sectionMm2} mm²`,
+  value: String(entry.sectionMm2),
+}));
+
+/**
+ * 载流量校核卡（E3 页内追加区，v1.7）
+ * ------------------------------------------------------------------
+ * 独立于上方电压降计算：只按「I_b + 敷设条件」查表修正并校核 I_b ≤ I_z，
+ * 不影响原有电压降两张结果的行为。数据源为 cableAmpacity.json（唯一数据源）。
+ */
+function AmpacityCheckCard(): JSX.Element {
+  const [form, setForm] = useState<AmpacityFormState>(AMPACITY_DEFAULT);
+
+  function update<K extends keyof AmpacityFormState>(key: K, value: AmpacityFormState[K]): void {
+    setForm((prev) => ({ ...prev, [key]: value }));
+  }
+
+  const results = useMemo<CalcResult[]>(() => {
+    const sectionMm2 = Number(form.section);
+    const r = checkAmpacity({
+      ib: Number(form.ib),
+      method: form.method,
+      ambientC: Number(form.ambientC),
+      circuits: Number(form.circuits),
+      sectionMm2: Number.isFinite(sectionMm2) ? sectionMm2 : undefined,
+    });
+    if (!r.valid) {
+      return [res('error', '错误', r.note, '', { copyable: false })];
+    }
+    return [
+      res('compliant', `I_b ≤ I_z 结论（I_b = ${form.ib} A）`, r.compliant ? '合规 ✅' : '超限 ❌', '', {
+        copyable: false,
+      }),
+      res('iz', '修正后允许载流量 I_z', r.izA, 'A', { highlight: true }),
+      res('base', '基准载流量（表内值）', r.baseA, 'A'),
+      res('tempFactor', '温度修正系数 k_t', r.tempFactor),
+      res('groupFactor', '并列回路修正系数 k_g', r.groupFactor),
+      res('recommended', '推荐最小截面', r.recommendedSectionMm2, 'mm²', { highlight: true }),
+      res('note', '校核说明', r.note, '', { copyable: false }),
+      res('breakerHint', '断路器配合提示', '断路器整定 In 须满足 In ≤ Iz，请到断路器选型页校核', '', {
+        copyable: false,
+      }),
+    ];
+  }, [form]);
+
+  return (
+    <Card title="载流量校核（按敷设条件修正）">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <Field label="校核截面" help="取自载流量速查表（GB/T 4706 / 电工手册参考值）">
+          <Select
+            ariaLabel="校核截面"
+            value={form.section}
+            onValueChange={(v) => update('section', v)}
+            options={SECTION_OPTIONS}
+          />
+        </Field>
+        <Field label="回路计算电流 I_b" help="取该回路的设计电流，不是断路器额定值">
+          <Input
+            type="number"
+            value={form.ib}
+            onValueChange={(v) => update('ib', v)}
+            unit="A"
+            min={0}
+            step={1}
+          />
+        </Field>
+        <Field label="敷设方式">
+          <Select
+            ariaLabel="敷设方式"
+            value={form.method}
+            onValueChange={(v) => update('method', v as CableInstallMethod)}
+            options={METHOD_OPTIONS}
+          />
+        </Field>
+        <Field label="环境温度">
+          <Select
+            ariaLabel="环境温度"
+            value={form.ambientC}
+            onValueChange={(v) => update('ambientC', v)}
+            options={AMBIENT_OPTIONS}
+          />
+        </Field>
+        <Field label="并列（成组）回路数" help="同一管内 / 同一桥架内同时载流的回路数">
+          <Select
+            ariaLabel="并列回路数"
+            value={form.circuits}
+            onValueChange={(v) => update('circuits', v)}
+            options={CIRCUIT_OPTIONS}
+          />
+        </Field>
+      </div>
+      <div className="mt-3">
+        <ResultCard results={results} title="载流量校核结果" />
+      </div>
+      <p className="mt-2 px-1 text-xs leading-relaxed text-muted">
+        修正系数按 GB/T 16895.15 / IEC 60364-5-52 常用值（方案阶段），实际应以所选电缆型号厂家数据与
+        现场敷设条件复核；本卡不改变上方电压降计算口径。
+      </p>
+    </Card>
+  );
+}
+
+/** E5 电缆选型与电压降计算（含按功率的简化系数法 + v1.7 载流量校核卡） */
 export default function CableDropCalculator({ tool }: { tool: ToolDef }): JSX.Element {
-  return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
+  return (
+    <div className="flex flex-col gap-4">
+      <CalculatorView toolId={tool.id} fields={fields} run={run} />
+      <AmpacityCheckCard />
+    </div>
+  );
 }

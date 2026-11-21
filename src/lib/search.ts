@@ -1,5 +1,5 @@
 import Fuse, { type IFuseOptions } from 'fuse.js';
-import { buildSearchDocs } from '@/registry';
+import { buildSearchDocs } from '@/lib/searchDocs';
 import type { SearchDoc } from '@/types/tool';
 
 /**

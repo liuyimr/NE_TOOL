@@ -9,12 +9,10 @@ import { describe, expect, it } from 'vitest';
 import { floatToHex, hexToFloat } from '@/lib/calc/ieee754';
 import { toBcd, fromBcd, datatypeInfo } from '@/lib/calc/datatype';
 import { mwToDbm, dbmToMw, signalLevel } from '@/lib/calc/wifiSignal';
-import { macInfo } from '@/lib/calc/mac';
 import { illuminanceCalc } from '@/lib/calc/illuminance';
 import { trayFill } from '@/lib/calc/trayFill';
 import { upsCapacity } from '@/lib/calc/ups';
 import { cableLength } from '@/lib/calc/cableLength';
-import { pointCount } from '@/lib/calc/pointCount';
 import { coolingBilling } from '@/lib/calc/cooling';
 import { precisionAc } from '@/lib/calc/precisionAc';
 import { round, roundSig, formatNumber, thousands, formatBytes, formatSI } from '@/lib/format';
@@ -74,27 +72,6 @@ describe('QA · A12 WiFi 信号', () => {
   });
 });
 
-describe('QA · A9 MAC 工具', () => {
-  it('规范化与 OUI / 单播判定', () => {
-    const r = macInfo('00:1A:2B:3C:4D:5E');
-    expect(r.valid).toBe(true);
-    expect(r.canonical).toBe('00:1A:2B:3C:4D:5E');
-    expect(r.oui).toBe('00:1A:2B');
-    expect(r.multicast).toBe(false);
-    expect(r.dotted).toBe('001A.2B3C.4D5E');
-  });
-
-  it('组播地址（首字节最低位=1）', () => {
-    expect(macInfo('01-00-5E-00-00-01').multicast).toBe(true);
-  });
-
-  it('非法输入 → valid=false', () => {
-    const r = macInfo('xx:yy:zz');
-    expect(r.valid).toBe(false);
-    expect(r.error).toBeTruthy();
-  });
-});
-
 describe('QA · B10/B11 照度 / B2 填充率 / B5 UPS / B1 线缆 / B3 点位 / B9 冷量 / B6 空调', () => {
   it('照度：面积 100 / 300lx / 3000lm / U0.7 / K0.8 → 需 18 盏', () => {
     const r = illuminanceCalc({
@@ -138,19 +115,6 @@ describe('QA · B10/B11 照度 / B2 填充率 / B5 UPS / B1 线缆 / B3 点位 /
     expect(r.boxes).toBe(13);
   });
 
-  it('点位统计：50 点 + 20% 余量 → 2 台 DDC', () => {
-    const r = pointCount({
-      points: [
-        { type: 'AI', count: 20 },
-        { type: 'DI', count: 30 },
-      ],
-    });
-    expect(r.total).toBe(50);
-    expect(r.byType).toEqual({ AI: 20, DI: 30 });
-    expect(r.designPoints).toBe(60); // 50 + ceil(10)
-    expect(r.ddcCount).toBe(2); // ceil(60 / (48*0.8))
-  });
-
   it('冷量：10m³/h ΔT5K → 58.14kW，8h=465.1kWh', () => {
     const r = coolingBilling({ flowM3h: 10, returnTemp: 12, supplyTemp: 7, hours: 8 });
     expect(r.deltaT).toBe(5);
@@ -171,7 +135,6 @@ describe('QA · B10/B11 照度 / B2 填充率 / B5 UPS / B1 线缆 / B3 点位 /
       trayFill({ cables: [], kind: 'power' }).fillRate,
       upsCapacity({ loadKW: 0, backupHours: 0 }).batteryAh,
       cableLength({ points: 0, horizontal: 0, vertical: 0 }).totalLength,
-      pointCount({ points: [] }).ddcCount,
       coolingBilling({ flowM3h: 0, returnTemp: 0, supplyTemp: 0, hours: 0 }).energyKWh,
       precisionAc({ itLoadKW: 0, area: 0 }).totalKW,
     ]) {

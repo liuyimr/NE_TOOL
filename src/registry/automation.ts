@@ -2,23 +2,24 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 工业自动化控制领域（P 组）工具注册项：P1~P20
+ * 工业自动化控制领域（P 组）工具注册项：P1~P20（现存 15 项）
  * 说明：原 C10 电缆压降 / C11 导线载流量 已迁入「电气与配电」。
+ *      v1.6：P11「伺服功率档参考」已淘汰（旧 id 别名指向 P2 伺服齿轮比）；
+ *            P13「常用传感器输出信号速查」并入 BA10（数据表保留）；
+ *            P16「OPC-UA 速查」已淘汰。
+ *      v1.6 第二批：P6「IEEE754 浮点转换」、P14「定时器 / 计数器换算」并入 P5 宿主
+ *            （P5 升级为「数据表示」容器页，含进制 / 数据类型 / BCD / IEEE754 / 字序 / 定时器）；
+ *            原「网络 N2 进制转换器」同样并入 P5。
  */
 const AnalogScaling = lazy(() => import('@/features/automation/AnalogScaling'));
 const TemperatureConverter = lazy(() => import('@/features/automation/TemperatureConverter'));
-const DatatypeConverter = lazy(() => import('@/features/automation/DatatypeConverter'));
-const Ieee754Converter = lazy(() => import('@/features/automation/Ieee754Converter'));
+const DataRepresentation = lazy(() => import('@/features/automation/DataRepresentation'));
 const UnitConverterPage = lazy(() => import('@/features/automation/UnitConverterPage'));
 const PidRef = lazy(() => import('@/features/automation/PidRef'));
 const MotorCalculator = lazy(() => import('@/features/automation/MotorCalculator'));
 const VfdRef = lazy(() => import('@/features/automation/VfdRef'));
-const ServoRef = lazy(() => import('@/features/automation/ServoRef'));
 const ResistorCalculator = lazy(() => import('@/features/automation/ResistorCalculator'));
-const SensorsRef = lazy(() => import('@/features/automation/SensorsRef'));
-const TimerConverter = lazy(() => import('@/features/automation/TimerConverter'));
 const ModbusRef = lazy(() => import('@/features/automation/ModbusRef'));
-const OpcuaRef = lazy(() => import('@/features/automation/OpcuaRef'));
 const FaultsRef = lazy(() => import('@/features/automation/FaultsRef'));
 const PlcSizing = lazy(() => import('@/features/automation/PlcSizing'));
 const ServoGear = lazy(() => import('@/features/automation/ServoGear'));
@@ -32,7 +33,7 @@ export const automationTools: ToolDef[] = [
     code: 'P1',
     domain: 'automation',
     kind: 'calculator',
-    priority: 'P0',
+    priority: 'P1',
     title: 'PLC 选型与 I/O 点数估算',
     subtitle: '点数 → 模块 → CPU 档位与 24V 电源容量',
     keywords: ['plc', '选型', 'io', '点数', '模块', 'cpu', 'sizing'],
@@ -46,7 +47,7 @@ export const automationTools: ToolDef[] = [
     code: 'P2',
     domain: 'automation',
     kind: 'calculator',
-    priority: 'P0',
+    priority: 'P1',
     title: '伺服电子齿轮比与脉冲当量',
     subtitle: 'ratio = E·Δ·i/P，给出齿轮比与定位精度',
     keywords: ['伺服', '电子齿轮比', '脉冲当量', 'servo', 'gear', '编码器'],
@@ -88,35 +89,48 @@ export const automationTools: ToolDef[] = [
     code: 'P5',
     domain: 'automation',
     kind: 'converter',
-    priority: 'P1',
+    priority: 'P0',
     title: '数据类型 / 进制换算（INT/DINT/REAL/WORD/BCD）',
-    subtitle: '位宽、有符号/无符号、BCD 与整型互转',
-    keywords: ['数据类型', 'int', 'dint', 'word', 'bcd', '位宽', 'datatype'],
+    subtitle: '进制 / 数据类型 / BCD / IEEE754 / 字序 / 定时器',
+    keywords: [
+      '数据类型',
+      'int',
+      'dint',
+      'word',
+      'bcd',
+      '位宽',
+      'datatype',
+      '进制',
+      'radix',
+      '二进制',
+      '十六进制',
+      'hex',
+      'ieee754',
+      '浮点',
+      'float',
+      'real',
+      '字序',
+      '字节序',
+      '大小端',
+      '定时器',
+      '计时器',
+      '时基',
+      'timer',
+      's5time',
+      '换算',
+      '计数',
+    ],
     tags: ['工控', '数据'],
     icon: '🧮',
     calcId: 'datatype',
-    Component: DatatypeConverter,
-  },
-  {
-    id: 'automation.ieee754',
-    code: 'P6',
-    domain: 'automation',
-    kind: 'converter',
-    priority: 'P1',
-    title: 'IEEE754 浮点转换',
-    subtitle: '十进制浮点 ↔ 4/8 字节 HEX（大小端）',
-    keywords: ['ieee754', '浮点', 'float', 'hex', '字节序', '大小端', 'real'],
-    tags: ['工控', '通信'],
-    icon: '🔣',
-    calcId: 'ieee754',
-    Component: Ieee754Converter,
+    Component: DataRepresentation,
   },
   {
     id: 'automation.unit',
     code: 'P7',
     domain: 'automation',
     kind: 'converter',
-    priority: 'P0',
+    priority: 'P1',
     title: '常用工程单位换算',
     subtitle: '压力 / 温度 / 流量 / 长度 / 力 等单位换算',
     keywords: ['单位换算', '压力', '温度', '流量', '长度', '力', 'unit', 'mpa', 'bar', 'psi'],
@@ -169,25 +183,11 @@ export const automationTools: ToolDef[] = [
     Component: VfdRef,
   },
   {
-    id: 'automation.servo',
-    code: 'P11',
-    domain: 'automation',
-    kind: 'quickref',
-    priority: 'P2',
-    title: '伺服功率档参考',
-    subtitle: '功率档、惯量匹配与编码器精度（参考表，非选型计算）',
-    keywords: ['伺服', 'servo', '功率档', '惯量', '编码器', '参考'],
-    tags: ['工控', '伺服'],
-    icon: '⚡',
-    quickRefId: 'automation.servo',
-    Component: ServoRef,
-  },
-  {
     id: 'automation.resistor',
     code: 'P12',
     domain: 'automation',
     kind: 'calculator',
-    priority: 'P0',
+    priority: 'P1',
     title: '电阻分压 / 限流电阻计算',
     subtitle: '分压电阻、限流电阻与功耗计算',
     keywords: ['电阻', '分压', '限流', 'led', 'resistor', '功耗'],
@@ -197,34 +197,6 @@ export const automationTools: ToolDef[] = [
     Component: ResistorCalculator,
   },
   {
-    id: 'automation.sensors',
-    code: 'P13',
-    domain: 'automation',
-    kind: 'quickref',
-    priority: 'P1',
-    title: '常用传感器输出信号速查',
-    subtitle: 'PT100/热电偶/称重/流量计信号与量程',
-    keywords: ['传感器', '信号', 'pt100', '热电偶', '4-20ma', '称重', 'sensor'],
-    tags: ['工控', '仪表'],
-    icon: '📟',
-    quickRefId: 'automation.sensors',
-    Component: SensorsRef,
-  },
-  {
-    id: 'automation.timer',
-    code: 'P14',
-    domain: 'automation',
-    kind: 'calculator',
-    priority: 'P0',
-    title: '定时器 / 计数器换算',
-    subtitle: '时基 × 设定值，ms/s/min/h 互转',
-    keywords: ['定时器', '计时器', '时基', 'timer', 's5time', '换算', '计数'],
-    tags: ['工控', 'PLC'],
-    icon: '⏲️',
-    calcId: 'timer',
-    Component: TimerConverter,
-  },
-  {
     id: 'automation.modbus',
     code: 'P15',
     domain: 'automation',
@@ -232,26 +204,27 @@ export const automationTools: ToolDef[] = [
     priority: 'P0',
     title: 'Modbus 通信速查',
     subtitle: '功能码、寄存器地址、数据格式与异常码',
-    keywords: ['modbus', '功能码', '寄存器', '异常码', 'rtu', 'tcp', '502', '01', '03'],
+    keywords: [
+      'modbus',
+      '功能码',
+      '寄存器',
+      '异常码',
+      'rtu',
+      'tcp',
+      '502',
+      '01',
+      '03',
+      '485',
+      'rs485',
+      'rs-485',
+      '串口',
+      'modbus rtu',
+    ],
     tags: ['工控', '通信'],
     icon: '🔀',
     quickRefId: 'automation.modbus',
     quickRefIds: ['automation.modbus', 'automation.modbusExceptions'],
     Component: ModbusRef,
-  },
-  {
-    id: 'automation.opcua',
-    code: 'P16',
-    domain: 'automation',
-    kind: 'quickref',
-    priority: 'P2',
-    title: 'OPC-UA 速查',
-    subtitle: '地址空间/节点/端口 4840 与服务说明',
-    keywords: ['opc', 'opc-ua', 'opcua', '4840', '上位机', 'nodeid'],
-    tags: ['工控', '通信'],
-    icon: '🔗',
-    quickRefId: 'automation.opcua',
-    Component: OpcuaRef,
   },
   {
     id: 'automation.faults',
@@ -300,7 +273,7 @@ export const automationTools: ToolDef[] = [
     code: 'P20',
     domain: 'automation',
     kind: 'quickref',
-    priority: 'P2',
+    priority: 'P1',
     title: 'SCADA / 上位机点表模板',
     subtitle: '点表必备列、ISA-5.1 位号构成与功能字母、模拟量/数字量点属性、报警分级、Modbus 地址规划与交付物清单',
     keywords: ['scada', '点表', '上位机', '位号', 'tag', 'isa-5.1', '功能字母', '报警分级', '寄存器', 'modbus', '组态', 'dcs'],

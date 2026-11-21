@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <img src="https://img.shields.io/badge/version-1.5.2-informational" alt="version 1.5.2">
+  <img src="https://img.shields.io/badge/version-1.7.0-informational" alt="version 1.7.0">
   <img src="https://img.shields.io/badge/PWA-offline--ready-success" alt="PWA offline ready">
   <img src="https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white" alt="React 18">
   <img src="https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white" alt="TypeScript 5">
@@ -14,13 +14,13 @@
 ## 只想快点用起来？
 
 - 直接打开 **<https://liuyimr.github.io/NE_TOOL/>** 就能用，不用装任何东西。
-- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 616.9 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
+- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 628.6 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
 
 想改代码、自己构建，继续看下面的开发说明。
 
 # 工程师工具箱 · Engineer Toolbox
 
-给网络与物联网、楼宇自控（BA/弱电）、暖通空调与给排水、工业自动化、电气与配电工程师用的工具箱。84 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
+给网络与物联网、楼宇自控（BA/弱电）、暖通空调与给排水、工业自动化、电气与配电工程师用的工具箱。70 个常用计算和速查放在一个页面应用里，打开就算，算完就走。
 
 机房、弱电间、地下室、工地经常没信号，所以它做成纯前端加 PWA：第一次打开之后断网也能用，手机上"添加到主屏"就跟装了个 App 一样。不注册、不登录、不上传数据，所有计算都在你自己的浏览器里跑完。
 
@@ -28,51 +28,48 @@
 
 ## 你可能在找
 
-子网计算器 / CIDR 网段划分 · IP 地址转换 · T568A T568B 线序 · RJ45 引脚定义 · 常用端口号（502、102、44818、4840）· 2.4G 5G 无线信道 · 监控摄像头存储容量 · 硬盘配置 · DDC 选型 · 中央空调时间型计费 · FCU 分摊 · 冷量计费 · 精密空调 · 冷热负荷估算 · 送风量 · 新风量 · 风管尺寸 · 冷冻水流量 · FCU/AHU 选型 · 4-20mA 转工程量 · 0-10V 换算 · PT100 温度换算 · 热电偶 mV · Modbus 功能码 · Modbus 异常码 · PLC 选型 · 伺服齿轮比 · 三相电机电流 · 电机扭矩 · 电缆电压降 · 导线载流量 · 分压电阻 · 限流电阻 · IEEE754 浮点转换 · BCD 转换 · 照度计算 · 灯具数量 · 桥架填充率 · UPS 容量 · 综合布线线缆长度 · 计算负荷（需要系数法）· 单相三相功率电流 · 断路器与导线配合 · 穿线管管径 · 应急照明电池 · 电线电缆型号 · 电气安装限值 · 给水秒流量 · 给水管径 · 水泵扬程与轴功率 · 排水坡度 · 热水加热功率 · 接地电阻 · 防雷保护范围 · PoE 供电预算 · MQTT QoS 与主题 · 物联网网关带宽 · BA 控制策略 · 传感器量程选型 · 阀门 Kv · BACnet 对象 · 风机轴功率 · 水力平衡 · 冷却塔水量 · S7 寻址 · 安全回路 · RCD 漏保级配 · 短路电流 · 无功补偿 · LoRa 链路预算与覆盖距离 · 门禁控制器与读卡器容量 · 门禁电源与后备电池 · VRV 多联机配比与管长校核 · SCADA 点表模板 · ISA-5.1 位号规则 · 低压电气元件型号含义 · 断路器脱扣曲线 B C D · 接地系统 TN-C TN-S TN-C-S TT IT
+子网计算器 / CIDR 网段划分 · IP 地址转换 · T568A T568B 线序 · RJ45 引脚定义 · 常用端口号（502、102、44818、4840）· 2.4G 5G 无线信道 · WiFi RSSI 信号强度换算 · 监控摄像头存储容量 · 硬盘配置 · DDC 选型 · 中央空调计费（时间型 / 能量型）· FCU 分摊 · 精密空调 · 冷热负荷估算 · 送风量 · 新风量 · 风管尺寸 · 冷冻水流量 · FCU/AHU 选型 · 4-20mA 转工程量 · 0-10V 换算 · PT100 温度换算 · 热电偶 mV · Modbus 功能码 · Modbus 异常码 · PLC 选型 · 伺服齿轮比 · 三相电机电流 · 电机扭矩 · 电缆电压降 · 导线载流量 · 分压电阻 · 限流电阻 · IEEE754 浮点 · 字序（ABCD / CDAB / BADC / DCBA）· BCD 转换 · 进制与位宽 · 照度计算 · 灯具数量 · 桥架填充率 · UPS 容量 · 综合布线线缆长度 · 计算负荷（需要系数法）· 单相三相功率电流 · 断路器与导线配合 · 穿线管管径 · 应急照明电池 · 电线电缆型号 · 电气安装限值 · 给水系统设计（秒流量 / 管径 / 扬程 / 水泵）· 排水坡度 · 热水加热功率 · 接地电阻 · 防雷保护范围 · PoE 供电预算 · MQTT QoS 与主题 · 物联网网关带宽 · BA 控制策略 · 传感器量程选型 · 阀门 Kv · BACnet 对象 · 风机轴功率 · 水力平衡 · 冷却塔水量 · S7 寻址 · 安全回路 · RCD 漏保级配 · 短路电流 · 无功补偿 · LoRa 链路预算与覆盖距离 · 门禁控制器与读卡器容量 · 门禁电源与后备电池 · VRV 多联机配比与管长校核 · SCADA 点表模板 · ISA-5.1 位号规则 · 低压电气元件型号含义 · 断路器脱扣曲线 B C D · 接地系统 TN-C TN-S TN-C-S TT IT · 监控镜头焦距与视场角 · DORI 识别距离 · 24V 直流压降与线径 · 门禁电锁末端电压
 
 ## 有哪些工具
 
-一共 84 个，按五个类目分开（网络/IoT 15、BA/弱电 13、暖通/水暖 19、工控 20、电气/配电 17）。编号 **N / BA / H / P / E** 分别对应这五个类目。为便于现场上手，每个类目里的 **P0 工具排在最前面**。
+一共 70 个，按五个类目分开（网络/IoT 12、BA/弱电 11、暖通/水暖 14、工控 15、电气/配电 18）。编号 **N / BA / H / P / E** 分别对应这五个类目。为便于现场上手，每个类目里的 **P0 工具排在最前面**。
 
-### A. 网络与物联网（N1~N15，15 个）
+> v1.6 起淘汰了 5 个低价值工具（N7 MAC 格式转换、BA8 弱电图例、H9 设备参数、P11 伺服功率档、P16 OPC-UA），并把 6 组同主题工具合并：第一批 N10 无线信号 → N9、P13 传感器信号 → BA10；第二批 N2 进制转换 / P6 IEEE754 / P14 定时器 → P5「数据类型 / 进制换算」（升级为三页签的容器页）、H7 冷量计费 → H6 中央空调计费、BA4 点位统计 / BA7 BA 点位模板 → BA1 DDC 选型；第三批 H11 管径选择 / H12 给水扬程 / H13 水泵轴功率 → H10「给水系统设计」（合并为秒流量 → 管径 → 扬程 → 水泵的四步串联容器页）。所以上表中的编号有留空。旧书签链接中，被合并的项会自动跳到宿主页；被淘汰的项会显示 404（例外：P11 伺服功率档跳到 P2 伺服齿轮比）。
+
+### A. 网络与物联网（N1~N15，现存 12 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
 | N1 | IP 子网计算器 | 输入 IP 与掩码或 CIDR，得网络/广播/可用主机、地址类别、公私网判断；页面下方含 IP 进制转换 |
-| N2 | 进制转换器 | 二、八、十、十六进制互转，支持指定位宽与大数 |
 | N3 | 带宽 / 流量单位换算 | bps 与 B/s 全系换算；页面下方含传输时间估算（可计入协议开销） |
 | N4 | 网线线序速查 T568A/T568B | 8 芯色标顺序，直通线与交叉线做法 |
 | N5 | RJ45 引脚定义速查 | 1 到 8 脚功能与 POE 供电脚位 |
 | N6 | 常用端口号速查 | 端口与服务对照表，可搜索 |
-| N7 | MAC 地址格式转换 | 格式转换与单播/组播判定（不含 OUI 厂商库） |
 | N8 | 光纤 / 双绞线规格与最大距离 | Cat5e、Cat6、Cat6a、多模、单模在各速率下的距离上限 |
-| N9 | 无线信道规划速查 | 2.4G 全信道中心频率、不重叠信道建议、5G 信道 |
-| N10 | WiFi 信号强度换算 | dBm 与 mW 互转，附强度等级参考 |
+| N9 | 无线信道规划速查 | 2.4G 全信道中心频率、不重叠信道建议、5G 信道；页面下方含 WiFi 信号强度换算（dBm ↔ mW，附强度等级参考，原 N10 并入） |
 | N11 | 网络故障排查命令速查 | ping、tracert、nslookup、ipconfig、netstat 常用写法 |
 | N12 | PoE 供电功率预算 | 按 802.3af/at/bt 统计 PD 功率需求，乘余量系数后与交换机 PoE 总预算比对，给出可用余量 |
 | N13 | MQTT 主题 / QoS / 保活速查 | 主题层级与通配符、QoS 0/1/2 握手、Keep Alive、遗言与 retained 消息、常用端口 1883/8883 |
 | N14 | 物联网网关点位容量与带宽估算 | 节点数 × 报文长度 / 上报周期估上行带宽，按单网关点位与带宽上限算网关台数 |
 | N15 | LoRa 链路预算与覆盖距离 | 由发射功率、天线增益、馈线损耗与接收灵敏度算链路余量，按对数距离模型估覆盖距离与 1 km 处余量 |
 
-### B. 楼宇自控与弱电（BA1~BA13，13 个）
+### B. 楼宇自控与弱电（BA1~BA14，现存 11 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
-| BA1 | DDC 选型与 I/O 模块配置 | 点数 → 模块数 → DDC 台数，自动留余量并按 8AI/4AO/12DI/8DO 配模块 |
+| BA1 | DDC 选型与 I/O 模块配置 | 点数 → 模块数 → DDC 台数，自动留余量并按 8AI/4AO/12DI/8DO 配模块；页内含弱电点位类型与 BA / DDC 点位模板两张速查表（原 BA4、BA7 并入） |
 | BA2 | 综合布线线缆长度估算 | 按点位、水平与垂直距离、余量系数算线缆用量和箱数 |
 | BA3 | 桥架 / 管路填充率计算 | 线缆截面积与桥架、管径比对，判断是否超容 |
-| BA4 | 弱电点位统计与工程量估算 | 分系统统计点位并估算辅材 |
 | BA5 | 视频监控存储容量计算 | 路数、码率、天数、编码方式算出容量与硬盘配置 |
 | BA6 | 机房 UPS 容量计算 | 由负载功率和后备时间算 UPS 容量与电池容量 |
-| BA7 | BA 点位表模板 / DDC 点位统计 | AI、AO、DI、DO 点数规则与 DDC 数量估算 |
-| BA8 | 弱电系统图例 / 符号速查 | 常见弱电符号与图例对照 |
 | BA9 | BA 控制策略速查（冷冻站 / 空调箱 / 新风机） | 冷冻站台数控制与启停联锁、AHU/FAU 顺序、防冻保护、报警分级与手自动无扰动切换 |
-| BA10 | 传感器量程与精度选型 | 温度、湿度、压力、流量、液位等楼控测点的推荐量程、精度、输出信号与安装要点 |
+| BA10 | 传感器量程与精度选型 | 楼控视角：温度、湿度、压力、流量、液位等测点的推荐量程、精度与安装要点；工控视角：PT100、热电偶、称重、流量计的信号类型与接线（原工控 P13 并入） |
 | BA11 | 控制阀门 Kv 值计算与选型 | Kv = Q/√Δp（含密度修正），由阀权度校核并就近选标准 Kvs 系列 |
 | BA12 | BACnet 对象与服务速查 | AI/AO/AV/BI/BO 对象属性、ReadProperty / COV 服务、BACnet/IP 47808 与 MS/TP 要点 |
 | BA13 | 门禁系统容量与选型 | 门数 → 控制器台数与读卡器数量，按电锁同时动作率算峰值功率、电源容量与后备电池容量 |
+| BA14 | 监控镜头与识别距离 | 由传感器靶面与焦距算水平/垂直视场角、覆盖宽度与像素密度，按 IEC 62676-4 的 DORI 判据（监视 25 / 观察 62.5 / 辨认 125 / 识别 250 px/m）给出各等级最远识别距离 |
 
-### C. 暖通空调与给排水（H1~H19，19 个）
+### C. 暖通空调与给排水（H1~H19，现存 14 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
@@ -81,14 +78,9 @@
 | H3 | 风管尺寸选择 | 风量 + 风速 → 圆形直径或矩形标准尺寸，回算实际风速 |
 | H4 | 冷冻水 / 热水流量计算 | G = 0.86·Q/Δt，并据流速给推荐管径 |
 | H5 | FCU / AHU 选型速查 | 按冷量档位粗选型号与台数（以厂家样本为准） |
-| H6 | 中央空调时间型计费计算 | 按 FCU 档位运行时长与权重算用量和费用 |
-| H7 | 冷量计费计算 | 由流量、供回水温差和时长累计冷量与费用 |
+| H6 | 中央空调计费（时间型 / 能量型） | 时间型页签：按 FCU 档位运行时长与权重算用量和费用；能量型页签：由流量、供回水温差与时长累计冷量与费用（原 H7 并入） |
 | H8 | 精密空调制冷量估算 | 按 IT 负载与房间面积估算制冷量 |
-| H9 | 暖通与水系设备参数速查 | 水泵、风机、冷却塔、阀件常用参数范围 |
-| H10 | 给水设计秒流量（当量法） | q_g = 0.2·α·√N_g，定给水干管管径 |
-| H11 | 管径选择（按流量与流速） | d = √(4Q/(π·v)) 反算管径并就近选 DN，回算实际流速 |
-| H12 | 给水所需压力 / 扬程计算 | H = H_几何 + Σh_f + Σh_j + H_自由，定水泵扬程 |
-| H13 | 水泵选型与轴功率计算 | P = Q·H/(367·η)，给出轴功率与配套电机功率建议 |
+| H10 | 给水系统设计（秒流量 → 管径 → 扬程 → 水泵） | 四步串联：当量法 q_g = 0.2·α·√N_g → 按流速反算并就近选 DN、回算实际流速 → H = H_几何 + Σh_f + Σh_j + H_自由 → P = Q·H/(367·η) 与配套电机功率建议（原 H11/H12/H13 并入，步骤条与 `?step=` 深链同步） |
 | H14 | 排水管径与坡度校核 | 对照 DN50~DN200 标准 / 最小坡度，判定是否可排 |
 | H15 | 热水耗热量与加热功率 | P = 1.163·V·ΔT/(t·1000·η)，定热水加热设备 |
 | H16 | 风机选型与轴功率 | P = Q·Δp/(3600·1000·η)，计入传动效率与电机储备系数，给标准电机功率档 |
@@ -96,7 +88,7 @@
 | H18 | 冷却塔选型与冷却水量 | 由制冷量与排热系数算冷却水量、漂水/排污/蒸发补水量，含逼近度与湿球温度校核 |
 | H19 | VRV 多联机配比与管长校核 | 校核室内外机容量配比、配管长度与高差是否超限，给出容量衰减与修正后外机能力 |
 
-### D. 工业自动化（P1~P20，20 个）
+### D. 工业自动化（P1~P20，现存 15 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
@@ -104,24 +96,19 @@
 | P2 | 伺服电子齿轮比与脉冲当量 | ratio = E·Δ·i/P，给齿轮比、最简整数比与定位精度 |
 | P3 | 模拟量换算（4-20mA / 0-10V ↔ 工程量） | 原始值线性定标，正反算与斜率截距 |
 | P4 | PT100 / 热电偶温度换算 | 电阻值或 mV 与温度互算，含负温 |
-| P5 | 数据类型 / 进制换算（INT/DINT/REAL/WORD/BCD） | 位宽、有无符号与 BCD 互转 |
-| P6 | IEEE754 浮点转换 | 浮点与十六进制双向转换，含字节序 |
+| P5 | 数据类型 / 进制换算（INT/DINT/REAL/WORD/BCD） | 三个页签：进制与位宽（二 / 八 / 十 / 十六进制互转，支持指定位宽与大数）、数据类型 / BCD（位宽、有无符号与 BCD 互转，内含定时器 / 计数器换算折叠块）、IEEE754 / 字序（十进制浮点 ↔ 4/8 字节 HEX，含 ABCD / CDAB / BADC / DCBA 四种字节排列对照）；原 N2、P6、P14 并入 |
 | P7 | 常用工程单位换算 | 压力、温度、长度、力、流量等 |
 | P8 | PID 参数速查与调试思路 | 常见工况的经验参数与整定步骤 |
 | P9 | 三相电机电流 / 功率 / 扭矩 / 转速计算 | 由功率、电压、功率因数、效率、转速互算 |
 | P10 | 变频器参数速查 | 常见参数号含义、加减速时间与载波频率 |
-| P11 | 伺服功率档参考 | 功率档、惯量匹配与编码器精度（参考表，非选型计算） |
 | P12 | 电阻分压 / 限流电阻计算 | 分压与限流电阻取值及功耗 |
-| P13 | 常用传感器输出信号速查 | PT100、热电偶、称重、流量计的输出形式 |
-| P14 | 定时器 / 计数器换算 | ms、s、min、h 互转与时基换算 |
 | P15 | Modbus 通信速查 | 功能码 01 到 16、异常码、寄存器地址与数据格式 |
-| P16 | OPC-UA 速查 | 地址空间、节点与默认端口 |
 | P17 | 常见报警码（部分） | 少量通用 PLC / 变频器报警码，覆盖有限、以厂家手册为准 |
 | P18 | S7 数据块 / 寻址速查 | I/Q/M/DB 区与位/字节/字/双字写法、ANY / POINTER 指针结构、优化 DB 与 S7-1500 差异 |
 | P19 | 安全回路与安全继电器速查 | 停止类别 0/1/2、双通道急停与安全门、PL/SIL 与 CCF、EDM、复位及常见接线错误 |
 | P20 | SCADA / 上位机点表模板 | 点表必备列、ISA-5.1 位号与功能字母、模拟量/数字量点属性、报警分级、Modbus 地址规划与交付物清单 |
 
-### E. 电气与配电（E1~E17，17 个）
+### E. 电气与配电（E1~E18，18 个）
 
 | 编号 | 工具 | 说明 |
 |---|---|---|
@@ -129,7 +116,7 @@
 | E2 | 电气安装尺寸与规范限值速查 | 插座/开关高度、潮湿场所要求、回路与漏保配置 |
 | E3 | 计算负荷（需要系数法） | 按设备清单与需要系数算 Pc / Qc / Sc / Ic，定配电箱与进线容量 |
 | E4 | 单相 / 三相 功率电流换算 | P = √3·U·I·cosφ（单相去掉 √3），功率与电流双向换算 |
-| E5 | 电缆选型与电压降计算 | 按电流精确式 + 按功率简化系数法，含照明 2.5% / 动力 5% 判定 |
+| E5 | 电缆选型与电压降计算 | 按电流精确式 + 按功率简化系数法，含照明 2.5% / 动力 5% 判定；页内附「载流量校核」卡，按敷设方式 / 环境温度 / 并列回路修正后校核 I_b ≤ I_z 并推荐最小截面 |
 | E6 | 断路器选型与导线配合 | 校验 I_b ≤ I_n ≤ I_z 且 I₂ ≤ 1.45·I_z，推荐 B/C/D 脱扣曲线 |
 | E7 | 穿线管管径选择 | 填充率 ≤40%/60% 且内径 ≥1.5×线束外径，给出推荐管径 |
 | E8 | 导线载流量速查 | 铜芯各截面在不同敷设方式下的载流量 |
@@ -142,6 +129,7 @@
 | E15 | 无功补偿容量计算 | Qc = P·(tanφ₁ − tanφ₂)，给补偿容量、电容器步数与补偿后视在功率/负载率 |
 | E16 | 低压电气元件型号含义速查 | MCB/MCCB/接触器/热继电器/附件/SPD/RCBO 型号拆解、B/C/D 脱扣曲线与适用负载 |
 | E17 | 接地系统形式 TN / TT / IT 速查 | 各形式的定义、PE/PEN 处理、故障电流路径、RCD 配置与适用场所 |
+| E18 | 24V DC 压降与线径 | 直流回路 ΔU = 2·ρ·L·I/S（去回两倍长度），给压降、末端电压、满足允许压降的最大长度与最小截面，并就标准截面档给出推荐值；用于门禁电锁、风阀执行器等长距离 24V 供电 |
 
 ## 怎么用
 
@@ -150,9 +138,18 @@
 两种方式任选其一：
 
 - **在线打开**：<https://liuyimr.github.io/NE_TOOL/>，第一次打开后浏览器会缓存全部资源，之后没网也能用，「添加到主屏」可以当 App 用。
-- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 616.9 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
+- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 628.6 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
 
 > `docs/index.html` 是构建产物（由命令生成），请不要手改。
+
+### 结果导出与分享
+
+每个计算类工具的结果区下方都有两个动作：
+
+- **导出 CSV**：把当前结果（项目 / 数值 / 单位）连同工具名与导出时间存成 `.csv`，文件名形如 `IP 子网计算器-20261122-1430.csv`。文件带 UTF-8 BOM，Excel / WPS 双击打开中文不乱码，方便贴进方案表或发给同事复核。
+- **分享链接**：把当前输入参数写进 URL 哈希（如 `#/tool/elec.cableDrop?length=120`），复制给同事就能看到同样的结果。
+
+两者都在本地完成，不上传任何数据。
 
 ### 自己构建并部署（PWA）
 
@@ -222,7 +219,7 @@ src/
 | 用途 | 选型 | 为什么 |
 |---|---|---|
 | 构建 | Vite 5 | 启动快，配置少，PWA 和单文件都有现成插件 |
-| 框架 | React 18 + TypeScript | 84 个工具的配置驱动需要类型兜底 |
+| 框架 | React 18 + TypeScript | 70 个工具的配置驱动需要类型兜底 |
 | 样式 | Tailwind CSS 3 | 颜色走 CSS 变量，切换主题只改一处 |
 | 路由 | React Router 6（HashRouter） | 离线深链和单文件本地打开都不会 404 |
 | 状态 | Zustand + persist | 收藏、最近使用、主题存 localStorage |
@@ -258,7 +255,7 @@ src/
 
 ## English
 
-An offline-first toolbox for network/IoT, building-automation (BA/ELV), HVAC and plumbing, industrial-automation and electrical engineers. 84 calculators and quick-reference tables: subnet/CIDR calculator, IP conversion, T568A/T568B wiring, RJ45 pinout, common port numbers, WiFi channel planning, CCTV storage sizing, DDC sizing, FCU time-based billing, cooling billing, HVAC load estimation, supply/fresh air volume, duct sizing, chilled-water flow, FCU selection, 4-20mA scaling, PT100 conversion, Modbus function codes, PLC sizing, servo gear ratio, three-phase motor and cable voltage-drop calculations, load estimation, breaker coordination, conduit sizing, illuminance, cable types, installation limits, water-demand flow, pump head and shaft power, drainage slope, water-heating power, grounding resistance and lightning protection, PoE power budget, MQTT topics/QoS/keep-alive, IoT gateway capacity and bandwidth, BA control strategies, sensor range and accuracy selection, control valve Kv sizing, BACnet objects and services, fan shaft power, hydraulic balance / index circuit, cooling tower water flow, S7 addressing, safety circuits and safety relays, RCD selection and discrimination, short-circuit current estimation, reactive power compensation, LoRa link budget and coverage range, access-control controller/reader sizing and standby battery, VRV capacity ratio and pipe-length/height check, SCADA/I-O point-list template, low-voltage device model codes (MCB/MCCB/contactor/SPD/RCBO), earthing systems TN/TT/IT, and more.
+An offline-first toolbox for network/IoT, building-automation (BA/ELV), HVAC and plumbing, industrial-automation and electrical engineers. 70 calculators and quick-reference tables: subnet/CIDR calculator, IP conversion, T568A/T568B wiring, RJ45 pinout, common port numbers, WiFi channel planning and RSSI conversion, CCTV storage sizing, DDC sizing (with point-type and DDC point-template tables), air-conditioning billing (FCU time-based and cooling-energy metering), HVAC load estimation, supply/fresh air volume, duct sizing, chilled-water flow, FCU selection, 4-20mA scaling, PT100 conversion, radix/bit-width conversion, INT/DINT/REAL/WORD/BCD data types, IEEE754 float and word-order (ABCD/CDAB/BADC/DCBA) conversion, timer/counter conversion, Modbus function codes, PLC sizing, servo gear ratio, three-phase motor and cable voltage-drop calculations, load estimation, breaker coordination, conduit sizing, illuminance, cable types, installation limits, water-system design (demand flow, pipe sizing, pump head and shaft power in one four-step flow), drainage slope, water-heating power, grounding resistance and lightning protection, PoE power budget, MQTT topics/QoS/keep-alive, IoT gateway capacity and bandwidth, BA control strategies, sensor range and accuracy selection, control valve Kv sizing, BACnet objects and services, fan shaft power, hydraulic balance / index circuit, cooling tower water flow, S7 addressing, safety circuits and safety relays, RCD selection and discrimination, short-circuit current estimation, reactive power compensation, LoRa link budget and coverage range, access-control controller/reader sizing and standby battery, VRV capacity ratio and pipe-length/height check, SCADA/I-O point-list template, low-voltage device model codes (MCB/MCCB/contactor/SPD/RCBO), earthing systems TN/TT/IT, CCTV lens focal length / field of view / DORI identification distance, 24V DC voltage drop and conductor sizing, and more.
 
 Vanilla front-end only. No backend, no login, no telemetry. Installable as a PWA and works fully offline after the first visit. A single-file HTML build is included for USB stick distribution.
 

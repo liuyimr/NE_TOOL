@@ -15,8 +15,6 @@ import illuminance from './building/illuminance.json';
 import fillRate from './building/fillRate.json';
 import pointTypes from './building/pointTypes.json';
 import ddcTemplate from './building/ddcTemplate.json';
-import deviceParams from './building/deviceParams.json';
-import symbols from './building/symbols.json';
 import controlStrategy from './building/controlStrategy.json';
 import sensorSelection from './building/sensorSelection.json';
 import bacnetRef from './building/bacnetRef.json';
@@ -29,8 +27,6 @@ import plcErrors from './automation/plcErrors.json';
 import pidParams from './automation/pidParams.json';
 import cableAmpacity from './automation/cableAmpacity.json';
 import unitFactors from './automation/unitFactors.json';
-import servo from './automation/servo.json';
-import opcua from './automation/opcua.json';
 import s7Addressing from './automation/s7Addressing.json';
 import safetyCircuit from './automation/safetyCircuit.json';
 import scadaPointList from './automation/scadaPointList.json';
@@ -66,8 +62,6 @@ const rawTables: QuickRefTable[] = [
   fillRate,
   pointTypes,
   ddcTemplate,
-  deviceParams,
-  symbols,
   controlStrategy,
   sensorSelection,
   bacnetRef,
@@ -79,8 +73,6 @@ const rawTables: QuickRefTable[] = [
   pidParams,
   cableAmpacity,
   unitFactors,
-  servo,
-  opcua,
   s7Addressing,
   safetyCircuit,
   scadaPointList,

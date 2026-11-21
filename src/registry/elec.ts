@@ -2,9 +2,10 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 电气与配电领域（E 组）工具注册项：E1~E17
+ * 电气与配电领域（E 组）工具注册项：E1~E18（18 项）
  * 说明：E1/E2/E4/E5/E8/E9/E10 由原「水电」强电 7 项迁入（原 D3 电压降已并入 E3）；
  *      E3/E6 由原「工控」迁入（C10/C11）；E7 由原「智能化」迁入（B10，原 B11 灯具数量并入本页）。
+ *      v1.7 第一批：新增 E18「24V DC 压降与线径」（门禁/风阀长距离直流供电）。
  */
 const LoadCalc = lazy(() => import('@/features/elec/LoadCalc'));
 const PowerCurrent = lazy(() => import('@/features/elec/PowerCurrent'));
@@ -23,6 +24,8 @@ const ShortCircuit = lazy(() => import('@/features/elec/ShortCircuit'));
 const ReactivePower = lazy(() => import('@/features/elec/ReactivePower'));
 const LowVoltageModels = lazy(() => import('@/features/elec/LowVoltageModels'));
 const EarthingSystems = lazy(() => import('@/features/elec/EarthingSystems'));
+/** E18 24V DC 压降与线径（v1.7 第一批新增） */
+const DcDrop = lazy(() => import('@/features/elec/DcDrop'));
 
 export const elecTools: ToolDef[] = [
   {
@@ -72,7 +75,7 @@ export const elecTools: ToolDef[] = [
     code: 'E4',
     domain: 'elec',
     kind: 'converter',
-    priority: 'P0',
+    priority: 'P1',
     title: '单相 / 三相 功率电流换算',
     subtitle: 'P = √3·U·I·cosφ（单相去掉 √3），双向换算',
     keywords: ['功率', '电流', '换算', '单相', '三相', 'cosφ', 'power', 'current'],
@@ -86,7 +89,7 @@ export const elecTools: ToolDef[] = [
     code: 'E5',
     domain: 'elec',
     kind: 'calculator',
-    priority: 'P1',
+    priority: 'P0',
     title: '电缆选型与电压降计算',
     subtitle: '按电流精确式 + 按功率简化系数法，含允许压降判定',
     keywords: ['电压降', '压降', '电缆', '选型', '截面', '系数法', 'cable drop', '配电'],
@@ -115,7 +118,7 @@ export const elecTools: ToolDef[] = [
     code: 'E7',
     domain: 'elec',
     kind: 'calculator',
-    priority: 'P0',
+    priority: 'P1',
     title: '穿线管管径选择',
     subtitle: '填充率 ≤40%/60% 且内径 ≥1.5×线束外径，给出推荐管径',
     keywords: ['穿线管', '管径', '填充率', '导线', 'pvc管', 'conduit', '穿管'],
@@ -202,7 +205,7 @@ export const elecTools: ToolDef[] = [
     code: 'E13',
     domain: 'elec',
     kind: 'calculator',
-    priority: 'P1',
+    priority: 'P0',
     title: '漏电保护 RCD 选型与级配',
     subtitle: '按回路场所选 IΔn 与型式，校验上下级动作电流与延时级配',
     keywords: ['漏电保护', 'rcd', '漏保', '剩余电流', 'iδn', '级配', '选择性', '30ma', 'a型', 'b型'],
@@ -245,7 +248,7 @@ export const elecTools: ToolDef[] = [
     code: 'E16',
     domain: 'elec',
     kind: 'quickref',
-    priority: 'P2',
+    priority: 'P1',
     title: '低压电气元件型号含义速查',
     subtitle: 'MCB / MCCB / 接触器 / 热继电器 / 附件 / SPD / RCBO 的型号拆解、脱扣曲线与适用负载',
     keywords: ['断路器', 'mcb', 'mccb', '脱扣曲线', 'dz47', 'nm1', '接触器', 'cjx2', '热继电器', 'spd', 'rcbo', '型号含义'],
@@ -259,7 +262,7 @@ export const elecTools: ToolDef[] = [
     code: 'E17',
     domain: 'elec',
     kind: 'quickref',
-    priority: 'P2',
+    priority: 'P1',
     title: '接地系统形式 TN / TT / IT 速查',
     subtitle: 'TN-C / TN-S / TN-C-S / TT / IT 的定义、PE 与 PEN 处理、故障电流路径、RCD 配置与适用场所',
     keywords: ['接地', 'tn-c', 'tn-s', 'tn-c-s', 'tt', 'it', 'pe', 'pen', 'rcd', '绝缘监测', 'imd', '等电位'],
@@ -267,5 +270,33 @@ export const elecTools: ToolDef[] = [
     icon: '🌍',
     quickRefId: 'elec.earthingSystems',
     Component: EarthingSystems,
+  },
+  {
+    id: 'elec.dcDrop',
+    code: 'E18',
+    domain: 'elec',
+    kind: 'calculator',
+    priority: 'P1',
+    title: '24V DC 压降与线径',
+    subtitle: '门禁/风阀长距离供电：压降、末端电压、最大长度与推荐截面',
+    keywords: [
+      '24v',
+      '直流',
+      'dc',
+      '压降',
+      '线径',
+      '门禁',
+      '电锁',
+      '风阀',
+      '供电',
+      '电压降',
+      '末端电压',
+      '截面',
+      'voltage drop',
+    ],
+    tags: ['弱电', '门禁', '配电'],
+    icon: '🔌',
+    calcId: 'dcDrop',
+    Component: DcDrop,
   },
 ];

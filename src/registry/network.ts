@@ -2,19 +2,19 @@ import { lazy } from 'react';
 import type { ToolDef } from '@/types/tool';
 
 /**
- * 网络与物联网领域（N 组）工具注册项：N1~N15
+ * 网络与物联网领域（N 组）工具注册项：N1~N15（现存 12 项）
  * 说明：原 A2「IP 地址转换」已并入 N1 子网计算器页内；原 A5「传输时间」已并入 N3 带宽换算页内。
+ *      v1.6：N7「MAC 地址格式转换」已淘汰；N10「WiFi 信号强度换算」已并入 N9（宿主保留 N9 的 id 与标题）。
+ *      v1.6 第二批：N2「进制转换器」并入工控 P5「数据类型 / 进制换算」容器页（旧 id 别名指向 automation.datatype）。
  */
 const SubnetCalculator = lazy(() => import('@/features/network/SubnetCalculator'));
-const RadixConverter = lazy(() => import('@/features/network/RadixConverter'));
 const BandwidthConverter = lazy(() => import('@/features/network/BandwidthConverter'));
 const CableColor = lazy(() => import('@/features/network/CableColor'));
 const Rj45Pinout = lazy(() => import('@/features/network/Rj45Pinout'));
 const PortLookup = lazy(() => import('@/features/network/PortLookup'));
-const MacTool = lazy(() => import('@/features/network/MacTool'));
 const CableSpec = lazy(() => import('@/features/network/CableSpec'));
-const WifiChannels = lazy(() => import('@/features/network/WifiChannels'));
-const WifiSignal = lazy(() => import('@/features/network/WifiSignal'));
+/** N9 宿主：信道与频率速查 + RSSI 换算（原 N10 并入） */
+const WifiCombined = lazy(() => import('@/features/network/WifiCombined'));
 const Troubleshoot = lazy(() => import('@/features/network/Troubleshoot'));
 const PoeBudget = lazy(() => import('@/features/network/PoeBudget'));
 const MqttRef = lazy(() => import('@/features/network/MqttRef'));
@@ -37,25 +37,11 @@ export const networkTools: ToolDef[] = [
     Component: SubnetCalculator,
   },
   {
-    id: 'network.radix',
-    code: 'N2',
-    domain: 'network',
-    kind: 'calculator',
-    priority: 'P0',
-    title: '进制转换器',
-    subtitle: '二 / 八 / 十 / 十六进制互转，支持位宽',
-    keywords: ['进制', 'radix', '二进制', '十六进制', 'hex', 'bin', '转换'],
-    tags: ['网络', '寄存器'],
-    icon: '🔟',
-    calcId: 'radix',
-    Component: RadixConverter,
-  },
-  {
     id: 'network.bandwidth',
     code: 'N3',
     domain: 'network',
     kind: 'converter',
-    priority: 'P0',
+    priority: 'P1',
     title: '带宽 / 流量单位换算',
     subtitle: 'Mbps / MB/s / GB 互算；含传输时间估算',
     keywords: ['带宽', '流量', 'bandwidth', 'mbps', 'mb/s', 'gbps', '换算', '传输时间'],
@@ -107,20 +93,6 @@ export const networkTools: ToolDef[] = [
     Component: PortLookup,
   },
   {
-    id: 'network.mac',
-    code: 'N7',
-    domain: 'network',
-    kind: 'calculator',
-    priority: 'P2',
-    title: 'MAC 地址格式转换',
-    subtitle: '格式转换与单播/组播判定（不含 OUI 厂商库，厂商需联网查询）',
-    keywords: ['mac', '物理地址', '格式转换', '单播', '组播', 'oui'],
-    tags: ['网络', 'MAC'],
-    icon: '🏷️',
-    calcId: 'mac',
-    Component: MacTool,
-  },
-  {
     id: 'network.cableSpec',
     code: 'N8',
     domain: 'network',
@@ -138,30 +110,30 @@ export const networkTools: ToolDef[] = [
     id: 'network.wifiChannels',
     code: 'N9',
     domain: 'network',
-    kind: 'quickref',
-    priority: 'P0',
-    title: '无线信道规划速查',
-    subtitle: '2.4G(1-13) / 5G 信道频率与不重叠信道',
-    keywords: ['信道', 'wifi', 'channel', '2.4g', '5g', '频率', '干扰'],
-    tags: ['网络', '无线'],
-    icon: '📡',
-    quickRefId: 'network.wifiChannels',
-    Component: WifiChannels,
-  },
-  {
-    id: 'network.wifiSignal',
-    code: 'N10',
-    domain: 'network',
     kind: 'calculator',
     priority: 'P1',
-    title: 'WiFi 信号强度换算',
-    subtitle: 'RSSI(dBm) ↔ mW 与信号等级判定',
-    keywords: ['信号强度', 'rssi', 'dbm', 'mw', 'wifi', '覆盖'],
+    title: '无线信道规划速查',
+    subtitle: '2.4G(1-13) / 5G 信道频率与不重叠信道，含 RSSI 换算',
+    keywords: [
+      '信道',
+      'wifi',
+      'channel',
+      '2.4g',
+      '5g',
+      '频率',
+      '干扰',
+      '信号强度',
+      'rssi',
+      'dbm',
+      'mw',
+      '覆盖',
+    ],
     tags: ['网络', '无线'],
-    icon: '📊',
+    icon: '📡',
     calcId: 'wifiSignal',
-    quickRefId: 'network.wifiSignal',
-    Component: WifiSignal,
+    quickRefId: 'network.wifiChannels',
+    quickRefIds: ['network.wifiSignal'],
+    Component: WifiCombined,
   },
   {
     id: 'network.troubleshoot',
@@ -182,7 +154,7 @@ export const networkTools: ToolDef[] = [
     code: 'N12',
     domain: 'network',
     kind: 'calculator',
-    priority: 'P1',
+    priority: 'P0',
     title: 'PoE 供电功率预算',
     subtitle: '按 802.3af/at/bt 统计 PD 功率需求，乘余量后校核交换机 PoE 总预算',
     keywords: ['poe', '供电', '功率预算', '802.3af', '802.3at', '802.3bt', '交换机', 'pd', 'poe budget'],

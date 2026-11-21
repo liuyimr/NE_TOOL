@@ -465,16 +465,16 @@ describe('servoGear（独立复算）', () => {
 });
 
 // ===========================================================================
-// 结构一致性：84 个工具 / 5 类目 15-13-19-20-17 / 速查 id 改名
+// 结构一致性：70 个工具（v1.7 第一批）/ 5 类目 12-11-14-15-18 / 速查 id 改名
 // ===========================================================================
 describe('注册表结构（第 1 步）', () => {
-  it('全量 84 个工具 = 15+13+19+20+17', () => {
-    expect(getAll()).toHaveLength(84);
-    expect(byDomain('network')).toHaveLength(15);
-    expect(byDomain('building')).toHaveLength(13);
-    expect(byDomain('hvac')).toHaveLength(19);
-    expect(byDomain('automation')).toHaveLength(20);
-    expect(byDomain('elec')).toHaveLength(17);
+  it('全量 70 个工具 = 12+11+14+15+18（v1.7 第一批新增 BA14 / E18）', () => {
+    expect(getAll()).toHaveLength(70);
+    expect(byDomain('network')).toHaveLength(12);
+    expect(byDomain('building')).toHaveLength(11);
+    expect(byDomain('hvac')).toHaveLength(14);
+    expect(byDomain('automation')).toHaveLength(15);
+    expect(byDomain('elec')).toHaveLength(18);
   });
 
   it('每类目首个工具为本次新增 P0（network 无新增，为首个 N1）', () => {
@@ -485,17 +485,23 @@ describe('注册表结构（第 1 步）', () => {
     expect(byDomain('network')[0].id).toBe('network.subnet');
   });
 
-  it('10 个新工具逐一可回取且为 P0', () => {
-    const ids = [
+  it('10 个新工具逐一可回取；其中 7 个仍为 P0，3 个在 v1.6 降为 P1', () => {
+    const stillP0 = [
       'building.ddcSizing', 'hvac.loadEstimate', 'hvac.airVolume', 'hvac.ductSize',
-      'hvac.waterFlow', 'hvac.fcuSelect', 'automation.plcSizing', 'automation.servoGear',
-      'elec.cableTypes', 'elec.installLimits',
+      'hvac.waterFlow', 'elec.cableTypes', 'elec.installLimits',
     ];
-    for (const id of ids) {
+    // v1.6 P0 重排：P1 PLC 选型、H5 FCU 选型、P2 伺服齿轮比降为 P1
+    const demotedToP1 = ['automation.plcSizing', 'hvac.fcuSelect', 'automation.servoGear'];
+    for (const id of [...stillP0, ...demotedToP1]) {
       const t = getById(id);
       expect(t, `${id} 缺失`).toBeTruthy();
-      expect(t?.priority).toBe('P0');
       expect(t?.Component).toBeTruthy();
+    }
+    for (const id of stillP0) {
+      expect(getById(id)?.priority, `${id} 应为 P0`).toBe('P0');
+    }
+    for (const id of demotedToP1) {
+      expect(getById(id)?.priority, `${id} 应为 P1`).toBe('P1');
     }
   });
 

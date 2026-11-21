@@ -1,3 +1,4 @@
+import QuickRefTable from '@/components/QuickRefTable';
 import CalculatorView from '@/features/shared/CalculatorView';
 import { num, res } from '@/features/shared/calcHelpers';
 import { ddcSizing, DDC_MODULE_SPEC, DEFAULT_MAX_POINTS_PER_DDC } from '@/lib/calc/ddcSizing';
@@ -41,7 +42,29 @@ function run(v: Record<string, string>): CalcResult[] {
   ];
 }
 
-/** BA8 DDC 选型与 I/O 模块配置 */
+/**
+ * BA1 DDC 选型与 I/O 模块配置（宿主）
+ * ------------------------------------------------------------------
+ * v1.6 第二批合并：原「BA4 弱电点位统计与工程量估算」与「BA7 BA 点位表模板 / DDC 点位统计」
+ * 已并入本页——本页的计算结果（含余量总点数、DDC 台数、每台平均点数、AI/AO/DI/DO
+ * 点数与模块数、模块总数、单台上限校核）已完整覆盖原 BA4 的输出口径；
+ * 两张速查表（building.pointTypes / building.ddcTemplate）保留并继续在本页展示。
+ */
 export default function DdcSizing({ tool }: { tool: ToolDef }): JSX.Element {
-  return <CalculatorView toolId={tool.id} fields={fields} run={run} />;
+  return (
+    <div className="flex flex-col gap-4">
+      <CalculatorView toolId={tool.id} fields={fields} run={run} />
+
+      <section className="flex flex-col gap-2">
+        <h2 className="px-1 text-sm font-semibold text-fg">点位类型与 DDC 容量速查</h2>
+        <p className="px-1 text-xs leading-relaxed text-muted">
+          各系统点位代号与统计单位、DDC 单机容量与点数余量规则（原「弱电点位统计与工程量估算」
+          与「BA 点位表模板 / DDC 点位统计」两张速查表已并入本页，数据保留）。
+        </p>
+      </section>
+
+      <QuickRefTable tableId="building.pointTypes" />
+      <QuickRefTable tableId="building.ddcTemplate" />
+    </div>
+  );
 }

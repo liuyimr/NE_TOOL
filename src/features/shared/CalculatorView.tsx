@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import { getById } from '@/registry';
+import { csvFilename, downloadCsv, formatTimestamp, toCsv, type CsvRow } from '@/lib/exportCsv';
 import { buildToolHash } from '@/lib/url';
 import type { CalcResult, FieldDef } from '@/types/calculator';
 import Button from '@/components/ui/Button';
@@ -76,6 +78,22 @@ export default function CalculatorView({
     setValues(initValues(fields, {}));
   }
 
+  /**
+   * 导出当前结果为 CSV
+   * 工具名取注册表 title（查不到时退化为 toolId），时间用本地 `YYYY-MM-DD HH:mm`；
+   * 仅读取结果、不改动任何计算与表单状态。
+   */
+  function handleExport(): void {
+    const toolTitle = getById(toolId)?.title ?? toolId;
+    const rows: CsvRow[] = results.map((item) => ({
+      label: item.label,
+      value: item.value,
+      unit: item.unit,
+    }));
+    const time = formatTimestamp();
+    downloadCsv(csvFilename(toolTitle), toCsv(rows, { tool: toolTitle, time }));
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <Card title="输入参数">
@@ -116,6 +134,12 @@ export default function CalculatorView({
       </Card>
 
       <ResultCard results={results} />
+
+      <div className="-mt-2 flex items-center gap-2 px-1">
+        <Button size="sm" variant="ghost" onClick={handleExport}>
+          导出 CSV
+        </Button>
+      </div>
 
       {/* 结果区统一免责入口：与关于页 #/about#disclaimer 保持同一口径 */}
       {showDisclaimer && (
