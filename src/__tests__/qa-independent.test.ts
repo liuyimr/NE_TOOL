@@ -121,7 +121,7 @@ describe('QA · A1 IP 子网（独立复算）', () => {
 // ──────────────────────────────────────────────────────────────── A3 进制
 describe('QA · A3 进制转换（BigInt / 边界）', () => {
   it('大数 > 2^53 不丢精度：2^60', () => {
-    const v = (2n ** 60n).toString(); // 1152921504606846976
+    const v = (BigInt(2) ** BigInt(60)).toString(); // 1152921504606846976
     const r = radixConvert(v, 10);
     expect(r.valid).toBe(true);
     expect(r.dec).toBe('1152921504606846976');

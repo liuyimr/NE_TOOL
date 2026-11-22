@@ -77,8 +77,10 @@ export function radixConvert(value: string, fromBase: Radix, bitWidth = 0): Radi
 
   if (negative && bitWidth > 0) {
     // 二进制补码：mask = 2^bitWidth
-    const mask = 1n << BigInt(bitWidth);
-    const twos = (mask - absValue) & (mask - 1n);
+    // 说明：不使用 `1n` 这类 BigInt 字面量，改用 BigInt(1)，以便构建目标降到 ES2018
+    // （BigInt 运行时能力 Chrome 67+ / Firefox 68+ / Safari 14+ 已有，缺的只是字面量语法）。
+    const mask = BigInt(1) << BigInt(bitWidth);
+    const twos = (mask - absValue) & (mask - BigInt(1));
     return {
       valid: true,
       dec: (-absValue).toString(),
@@ -113,7 +115,8 @@ function padBin(value: bigint, bitWidth: number): string {
  * @param base 进制
  */
 export function parseBigInt(body: string, base: number): bigint {
-  let result = 0n;
+  // 同上：`BigInt(0)` 而非 `0n`，避免 BigInt 字面量语法抬高构建目标
+  let result = BigInt(0);
   const b = BigInt(base);
   const lower = body.toLowerCase();
   for (const ch of lower) {

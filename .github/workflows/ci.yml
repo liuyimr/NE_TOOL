@@ -36,5 +36,8 @@ jobs:
       - name: 构建 PWA 产物（dist/）
         run: npm run build
 
+      - name: 语法级别校验（产物 JS 不得高于 ES2018）
+        run: npm run check:es
+
       - name: 构建单文件产物（docs/index.html）
         run: npm run build:standalone

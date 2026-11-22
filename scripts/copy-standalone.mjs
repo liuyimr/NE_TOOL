@@ -20,12 +20,15 @@
  *   1. <link> / <script> 的 href / src 以 `/`、`./`、`../`、`//`、`http`(含 https) 开头
  *      （data: URI 不算；无引号属性 `${"<script src=/x.js>"}` 也能命中）。
  *   2. CSS 资源：`@import` 出现即失败；`url(...)` 内容为非 data:（且非 `#` 内部引用）即失败。
- *   3. 含 `navigator.serviceWorker`。
- *   4. 版本号断言：产物 HTML 必须包含 package.json 的 version（__APP_VERSION__ 注入值）。
- *   5. 构建日期断言：产物 HTML 必须包含今天日期 YYYY-MM-DD（__BUILD_TIME__ 注入值），
+ *   3. 媒体 / 嵌入标签的外部引用：<img> <source> <video> <audio> <iframe> <object> <embed>
+ *      <use> <image> 的 src / srcset / poster / data / href / xlink:href；`srcset` 按逗号
+ *      拆分逐项判定（先去掉 `1x` / `640w` 这类描述符）。防止「单文件里混入外部图片」回归。
+ *   4. 含 `navigator.serviceWorker`。
+ *   5. 版本号断言：产物 HTML 必须包含 package.json 的 version（__APP_VERSION__ 注入值）。
+ *   6. 构建日期断言：产物 HTML 必须包含今天日期 YYYY-MM-DD（__BUILD_TIME__ 注入值），
  *      跨天未重建会失败，避免发布「新版号 + 旧产物」。
  *   注意：产物 JS 字符串含大量 `https://`（React 报错链接、W3C 命名空间等）属正常，
- *   因校验只针对 <link>/<script> 标签属性与 CSS url()/@import，故不会误报。
+ *   因校验只针对标签属性与 CSS url()/@import，故不会误报。
  */
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -75,6 +78,74 @@ function collectTagProblems(html) {
   return problems;
 }
 
+/**
+ * 媒体 / 嵌入标签 → 需要检查的资源属性
+ * 覆盖图片、音视频、内嵌框架与 SVG 引用；`use` / `image` 在 SVG 内用 href / xlink:href。
+ */
+const MEDIA_ATTR_MAP = {
+  img: ['src', 'srcset'],
+  source: ['src', 'srcset'],
+  video: ['src', 'poster'],
+  audio: ['src'],
+  iframe: ['src'],
+  object: ['data'],
+  embed: ['src'],
+  use: ['href', 'xlink:href'],
+  image: ['href', 'xlink:href'],
+};
+
+/**
+ * 拆分 srcset，取出每个候选 URL
+ * 规则：按逗号分项 → 去掉首尾空白 → 丢弃 `1x` / `2x` / `640w` 之类的描述符。
+ * @param {string} value srcset 原始属性值
+ * @returns {string[]} 候选 URL 列表
+ */
+function splitSrcset(value) {
+  return String(value ?? '')
+    .split(',')
+    .map((item) => (item.trim().split(/\s+/)[0] ?? '').trim())
+    .filter((url) => url !== '');
+}
+
+/**
+ * 校验媒体 / 嵌入标签的资源属性是否指向外部（防「单文件里混入外部图片」回归）
+ * @param {string} html 待校验的 HTML
+ * @returns {Array<{kind: string, value: string, context: string}>} 问题列表
+ */
+function collectMediaProblems(html) {
+  const problems = [];
+  const tagNames = Object.keys(MEDIA_ATTR_MAP).join('|');
+  const tagRe = new RegExp(`<(${tagNames})\\b[^>]*>`, 'gi');
+  let tag;
+  while ((tag = tagRe.exec(html)) !== null) {
+    const rawTag = tag[0];
+    const tagName = String(tag[1]).toLowerCase();
+    for (const attrName of MEDIA_ATTR_MAP[tagName]) {
+      // `xlink:href` 里的冒号需转义，否则正则语义会漂移
+      const attrRe = new RegExp(
+        `\\b${attrName.replace(/:/g, '\\:')}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`,
+        'gi',
+      );
+      let attr;
+      while ((attr = attrRe.exec(rawTag)) !== null) {
+        // `href` 的匹配也会命中 `xlink:href` 内部，跳过以免同一属性被重复报告
+        if (attrName === 'href' && rawTag.charAt(attr.index - 1) === ':') continue;
+        const value = attr[1] ?? attr[2] ?? attr[3] ?? '';
+        const candidates = attrName === 'srcset' ? splitSrcset(value) : [value.trim()];
+        for (const candidate of candidates) {
+          if (!isExternal(candidate)) continue;
+          problems.push({
+            kind: `<${tagName}> 的 ${attrName} 指向外部资源`,
+            value: `"${candidate}"`,
+            context: contextAround(html, tag.index),
+          });
+        }
+      }
+    }
+  }
+  return problems;
+}
+
 /** 提取所有 <style> 块的内容（CSS 只在这些块里；避免误伤 JS 中的 `new URL(...)` 等） */
 function extractStyleBlocks(html) {
   const blocks = [];
@@ -118,7 +189,11 @@ function collectCssProblems(html) {
 
 /** 综合自包含校验：返回问题列表（空 = 通过） */
 function validate(html) {
-  const problems = [...collectTagProblems(html), ...collectCssProblems(html)];
+  const problems = [
+    ...collectTagProblems(html),
+    ...collectMediaProblems(html),
+    ...collectCssProblems(html),
+  ];
   if (html.includes('navigator.serviceWorker')) {
     const index = html.indexOf('navigator.serviceWorker');
     problems.push({

@@ -39,11 +39,17 @@ export default function PwaReloadPrompt(): JSX.Element | null {
 
   if (!offlineReady && !needRefresh) return null;
 
+  /*
+   * 位置：bottom-28（112px）。
+   * 页脚版本行在 `pb-20`（80px）之上，即文字底边约在距底 80px 处；
+   * bottom-20 会让提示条底边正好压在文字底边上（重叠 16px），
+   * bottom-24 只是贴住页脚文字顶边，故取 bottom-28 留出 16px 间隙，且仍在 TabBar 之上。
+   */
   return (
     <div
       role="status"
       aria-live="polite"
-      className="fixed inset-x-0 bottom-16 z-50 mx-auto flex w-[min(92vw,28rem)] items-center justify-between gap-3 rounded-lg border border-border bg-surface-2 px-3 py-2 shadow-lg"
+      className="fixed inset-x-0 bottom-28 z-50 mx-auto flex w-[min(92vw,28rem)] items-center justify-between gap-3 rounded-lg border border-border bg-surface-2 px-3 py-2 shadow-lg"
     >
       <span className="text-sm text-fg">
         {needRefresh ? '发现新版本，刷新后即可使用。' : '已缓存，可离线使用。'}

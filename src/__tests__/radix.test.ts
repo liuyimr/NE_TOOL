@@ -38,7 +38,7 @@ describe('A3 进制转换', () => {
   });
 
   it('parseBigInt 兼容多进制', () => {
-    expect(parseBigInt('1010', 2)).toBe(10n);
-    expect(parseBigInt('777', 8)).toBe(511n);
+    expect(parseBigInt('1010', 2)).toBe(BigInt(10));
+    expect(parseBigInt('777', 8)).toBe(BigInt(511));
   });
 });

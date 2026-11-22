@@ -21,7 +21,7 @@ export default function AppShell(): JSX.Element {
   }, [theme]);
 
   return (
-    <div className="flex min-h-dvh flex-col bg-bg text-fg">
+    <div className="flex min-h-dvh-safe flex-col bg-bg text-fg">
       <Header />
       <main className="mx-auto w-full max-w-3xl flex-1 px-3 pb-24 pt-3 sm:px-4 lg:max-w-5xl lg:px-6 lg:pt-4">
         <Outlet />

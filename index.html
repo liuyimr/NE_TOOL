@@ -9,7 +9,7 @@
     <meta name="color-scheme" content="dark light" />
     <meta
       name="description"
-      content="网络与物联网、楼宇自控（BA/弱电）、暖通空调与给排水、工业自动化、电气与配电工程师的离线工具箱：子网计算、线序端口、监控存储、DDC 选型、冷热负荷、送风量、风管、水流量、FCU 选型、模拟量、PT100、Modbus、PLC 选型、伺服齿轮比、负荷计算、断路器配合、穿线管、照度、电缆型号、安装限值、接地与防雷、PoE 供电预算、MQTT 主题与 QoS、物联网网关带宽、LoRa 链路预算、BA 控制策略、传感器选型、阀门 Kv、BACnet 对象、门禁容量选型、风机轴功率、水力平衡、冷却塔水量、VRV 配比与管长、S7 寻址、安全回路、SCADA 点表、RCD 漏保级配、短路电流、无功补偿、低压元件型号含义、接地系统 TN/TT/IT 等 71 个常用工具，手机与电脑都能用，断网也能用。"
+      content="网络与物联网、楼宇自控（BA/弱电）、暖通空调与给排水、工业自动化、电气与配电工程师的离线工具箱，内置 70 个常用计算与速查（子网计算、线序端口、DDC 选型、冷热负荷、Modbus 与 PLC 选型、电缆压降、接地防雷等）。纯前端实现，首次打开后断网也能用，手机与电脑都能用，所有计算都在本地完成、不上传任何数据。"
     />
     <meta name="format-detection" content="telephone=no" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -19,6 +19,79 @@
     <title>工程师工具箱 · 网络/IoT · BA · 暖通 · 工控 · 电工 常用计算与速查</title>
   </head>
   <body>
+    <!--
+      旧浏览器守门（v1.8）：纯 ES5 写法（var / function，无箭头函数、无模板字符串、无 const），
+      IE11 也能安全解析。检测本项目实际依赖的运行时能力，任一缺失即渲染一张内联样式的提示卡片。
+      全部通过时**不写任何 DOM**，对现代浏览器零副作用；单文件构建同样保留这段内联脚本。
+    -->
+    <script>
+      (function () {
+        var missing = [];
+        try {
+          // 已有前置标记（例如上线前的外部检测脚本置位）→ 直接按「过低」处理，不再逐项探测
+          if (window.__NE_LEGACY_BLOCKED__ === true) {
+            missing.push('pre-blocked');
+          } else {
+            if (typeof window.Promise !== 'function') missing.push('Promise');
+            if (typeof Object.assign !== 'function') missing.push('Object.assign');
+            if (typeof Array.prototype.flat !== 'function') missing.push('Array.prototype.flat');
+            if (typeof Object.fromEntries !== 'function') missing.push('Object.fromEntries');
+            if (typeof window.Symbol !== 'function') missing.push('Symbol');
+            if (typeof window.fetch !== 'function') missing.push('fetch');
+            if (typeof window.CSS === 'undefined' || typeof window.CSS.supports !== 'function') {
+              missing.push('CSS.supports');
+            }
+          }
+        } catch (e) {
+          missing.push('feature-detect');
+        }
+
+        function showNotice() {
+          var root = document.getElementById('root');
+          if (!root) return;
+          var card = document.createElement('div');
+          card.setAttribute('role', 'alert');
+          card.style.cssText =
+            'max-width:34rem;margin:10vh auto;padding:24px 20px;border:1px solid #30363d;' +
+            'border-radius:8px;background:#161b22;color:#c9d1d9;text-align:center;' +
+            'font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;' +
+            'font-size:15px;line-height:1.65;';
+          card.innerHTML =
+            '<p style="margin:0 0 12px;font-size:18px;font-weight:600;color:#58a6ff;">浏览器版本过低</p>' +
+            '<p style="margin:0 0 12px;">本工具箱需要 Chrome / Edge 84+、Firefox 78+、Safari 14+。请升级浏览器后重新打开；所有计算都在本地完成，不上传任何数据。</p>' +
+            '<p style="margin:0;font-size:13px;color:#8b949e;">当前页面不会发起任何网络请求。</p>';
+          root.innerHTML = '';
+          root.appendChild(card);
+          document.body.style.background = '#0d1117';
+          document.body.style.margin = '0';
+          document.body.style.padding = '0 16px 16px';
+        }
+
+        // 全部能力齐备 → 直接返回，不触碰 DOM
+        if (missing.length === 0) return;
+
+        /*
+         * 关键一步：同步置哨兵标记（ES5 写法，window 属性）。
+         * <script type="module"> 是延迟脚本，在 DOMContentLoaded **之前**执行，
+         * 所以主包（src/main.tsx）读到的必然是这里刚写下的值；它据此直接跳过
+         * createRoot，不再挂载应用，卡片才不会被 React 18 的并发首渲染覆盖。
+         * （只写卡片而不置标记 = 卡片会被应用盖掉，旧浏览器兜底形同失效。）
+         */
+        window.__NE_LEGACY_BLOCKED__ = true;
+
+        if (document.readyState === 'loading') {
+          if (document.addEventListener) {
+            document.addEventListener('DOMContentLoaded', showNotice, false);
+            // 再兜一次：极端情况下若有脚本抢先动了 #root，load 时重新写回卡片
+            window.addEventListener('load', showNotice, false);
+          } else if (window.attachEvent) {
+            window.attachEvent('onload', showNotice);
+          }
+        } else {
+          showNotice();
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

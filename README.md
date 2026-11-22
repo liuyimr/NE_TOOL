@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
-  <img src="https://img.shields.io/badge/version-1.7.0-informational" alt="version 1.7.0">
+  <img src="https://img.shields.io/badge/version-1.8.0-informational" alt="version 1.8.0">
   <img src="https://img.shields.io/badge/PWA-offline--ready-success" alt="PWA offline ready">
   <img src="https://img.shields.io/badge/React-18-61dafb?logo=react&logoColor=white" alt="React 18">
   <img src="https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white" alt="TypeScript 5">
@@ -14,7 +14,7 @@
 ## 只想快点用起来？
 
 - 直接打开 **<https://liuyimr.github.io/NE_TOOL/>** 就能用，不用装任何东西。
-- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 628.6 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
+- 或者下载 **[`docs/index.html`](docs/index.html)** 这**一个文件**（约 634.4 KB，JS、CSS、图标全在里面，没有外部依赖），拷到 U 盘 / 微信 / 内网共享盘，双击就能打开，断网也能用。
 
 想改代码、自己构建，继续看下面的开发说明。
 
@@ -138,9 +138,11 @@
 两种方式任选其一：
 
 - **在线打开**：<https://liuyimr.github.io/NE_TOOL/>，第一次打开后浏览器会缓存全部资源，之后没网也能用，「添加到主屏」可以当 App 用。
-- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 628.6 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
+- **下载单文件**：下载 [`docs/index.html`](docs/index.html)（约 634.4 KB，JS、CSS、图标全在里面，无外部依赖），拷到 U 盘、发微信、放内网共享盘，双击就能打开，不需要服务器也不需要装东西。适合发给现场同事。
 
 > `docs/index.html` 是构建产物（由命令生成），请不要手改。
+
+单文件版是**真自包含**的：JS、CSS、NewE 标识、favicon、apple-touch-icon 全部内联在这一个 HTML 里，用浏览器打开后 F12 的 Network 面板应显示 **0 个请求**（连字体、图标都没有外链）。单文件版**不含 Service Worker / PWA**，这是设计如此——双击即用，不依赖任何服务器，也就不需要缓存层。
 
 ### 结果导出与分享
 
@@ -178,6 +180,7 @@ npm run test           # 跑单元测试
 npm run build          # 标准构建 → dist/（PWA，含 Service Worker 与 manifest）
 npm run build:single   # 单文件构建 → dist-single/index.html
 npm run build:standalone  # 生成单文件版到 docs/index.html（GitHub Pages 用）
+npm run check:es       # 校验构建产物 JS 的语法级别不高于 ES2018（需先 build）
 npm run preview        # 预览标准构建产物
 ```
 

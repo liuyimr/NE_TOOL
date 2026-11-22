@@ -138,3 +138,15 @@
     border-radius: 4px;
   }
 }
+
+@layer utilities {
+  /*
+   * 全屏最小高度：`100vh` 先兜底（Chrome 61+ 全部支持），再叠加 `100dvh`
+   * （动态视口，Chrome 108+ / Safari 15.4+ 才支持）。
+   * 旧浏览器解析不了 dvh 会丢弃第二行，仍保留 `100vh`，不会出现「高度为 0 / 塌陷」。
+   */
+  .min-h-dvh-safe {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}

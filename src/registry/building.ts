@@ -48,13 +48,22 @@ export const buildingTools: ToolDef[] = [
       '工程量',
       'point',
       '点位表',
+      '点位统计',
+      '点表',
       'ai',
       'ao',
       'di',
       'do',
       '模板',
     ],
-    tags: ['弱电', 'BA'],
+    /*
+     * tags 只进入搜索索引的 body 字段（见 src/lib/searchDocs.ts），不参与任何 UI 渲染。
+     * 「点位表」同时放进 tags 是必要的：Fuse 对长字段有 field-norm 惩罚，关键词串
+     * （12+ 个词）里命中 3 字查询的得分很弱，压不过 N14「物联网网关点位容量…」
+     * （标题含「点位」，title 权重 0.5）。让短字段 body 也命中后，实测可把本工具
+     * 在「点位表」查询下从第 5 位提到第 1 位（0.598 → 0.424，v1.8 实测）。
+     */
+    tags: ['弱电', 'BA', '点位表'],
     icon: '🧩',
     calcId: 'ddcSizing',
     quickRefIds: ['building.pointTypes', 'building.ddcTemplate'],

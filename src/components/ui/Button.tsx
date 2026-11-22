@@ -21,7 +21,12 @@ const VARIANT_CLASS: Record<ButtonVariant, string> = {
 };
 
 const SIZE_CLASS: Record<ButtonSize, string> = {
-  sm: 'h-9 px-3 text-sm',
+  /*
+   * sm：移动端触控高度 ≥44px（min-h-touch，来自 tailwind.config.ts），
+   *     ≥640px 视口回到紧凑的 36px，保持桌面密集布局不被撑开。
+   *     原先固定 h-9（36px）在手机上低于 44px 触控建议，故改为带断点的 min-height。
+   */
+  sm: 'min-h-touch px-3 text-sm sm:min-h-[36px]',
   md: 'min-h-touch px-4 text-base',
 };
 
